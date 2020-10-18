@@ -1,23 +1,47 @@
-import React from 'react';
-import './QuickSearch.css'
+import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
+import { data } from '../../TempData/data';
+import './QuickSearch.css';
 
-const QuickSearch = () => {
+const QuickSearch = (props) => {
+    const [area, setArea] = useState(null);
+    const [rooms, setRooms] = useState(null);
+    const [priceMin, setPriceMin] = useState(undefined);
+    const [priceMax, setPriceMax] = useState(undefined);
+
+    const filterApartments = (area, rooms, priceMin = 0, priceMax = 0) => {
+        console.log(area, rooms, priceMin, priceMax)
+
+        function filterByGivenRequirements(apartment) {
+            if (
+                apartment.area === area &&
+                apartment.rooms === Number(rooms) &&
+                apartment.price >= priceMin &&
+                apartment.price <= priceMax) {
+
+                return true;
+            }
+        }
+        const filteredApartments = data.filter(filterByGivenRequirements);
+
+        console.log(filteredApartments.length)
+        // props.history.push()
+        return filteredApartments
+
+    }
+
     return (
         <div className="quickSearch-container">
             <h3>Search</h3>
             <div className="search-options">
-                {/* <label className="area-label">Area</label> */}
-                <input className="area" placeholder="Area"></input>
-                {/* <label className="rooms-label">Rooms</label> */}
-                <input className="rooms" placeholder="Rooms"></input>
-                {/* <label className="price-min-label">Min.price</label> */}
-                <input className="price-min" placeholder="Min.price"></input>
-                {/* <label className="price-max-label">Max.price</label> */}
-                <input className="price-max" placeholder="Max.price"></input>
+                <input className="area" placeholder="Area" onChange={(e) => setArea(e.target.value)}></input>
+                <input className="rooms" placeholder="Rooms" onChange={(e) => setRooms(e.target.value)}></input>
+                <input className="price-min" placeholder="Min.price" onChange={(e) => setPriceMin(e.target.value)}></input>
+                <input className="price-max" placeholder="Max.price" onChange={(e) => setPriceMax(e.target.value)}></input>
             </div>
-            <button className="search-btn">Filter</button>
+            <button className="search-btn" onClick={() => filterApartments(area, rooms, priceMin, priceMax)}>Filter</button>
         </div>
     )
 }
 
-export default QuickSearch;
+export default withRouter(QuickSearch);

@@ -1,0 +1,29 @@
+.quickSearch-container {
+    height: 300px;
+    width: 600px;
+    background-color: antiquewhite;
+    position: absolute;
+    top: 42%;
+    left: 25%;
+    z-index: 2;
+}
+
+label {
+    display: inline;
+}
+
+input {
+    height: 35px;
+    width: 200px;
+    font-size: 20px;
+    margin: 0 auto;
+    /* border: 2px solid black; */
+
+}
+
+.search-options {
+    display: grid;
+    grid-template: 90px 90px / 300px 300px;
+    margin-top: 45px;
+    /* border: 2px solid black; */
+}

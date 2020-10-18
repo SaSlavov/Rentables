@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
-import Search from './components/Search/Search';
 import Header from './components/Header/Header';
-import Homepage from './components/Homepage/Homepage';
+import Homepage from './Pages/Homepage/Homepage';
+import Search from './Pages/Search/Search';
 
 function App() {
   return (

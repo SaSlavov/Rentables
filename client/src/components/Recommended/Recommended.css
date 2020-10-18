@@ -1,0 +1,18 @@
+.recommended-container {
+    margin-top: 180px;
+}
+
+.recommended-apt {
+    /* border: 2px solid black; */
+    height: 280px;
+    width: 250px;
+    display: inline-block;
+    margin: 25px;
+    background-color: rgb(233, 227, 227);
+    border-radius: 6px;
+}
+
+.recommended-apt-headImg {
+    height: 145px;
+    width: 250px;
+}

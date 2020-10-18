@@ -1,0 +1,11 @@
+.header-container {
+    position: fixed;
+    width: 100%;
+}
+
+.rents-btn {
+    float: right;
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+}

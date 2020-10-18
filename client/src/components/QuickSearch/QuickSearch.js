@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { withRouter } from 'react-router-dom';
+import SearchResultContext from '../../providers/SearchResultContext';
 import { data } from '../../TempData/data';
 import './QuickSearch.css';
 
@@ -8,9 +9,9 @@ const QuickSearch = (props) => {
     const [rooms, setRooms] = useState(null);
     const [priceMin, setPriceMin] = useState(undefined);
     const [priceMax, setPriceMax] = useState(undefined);
+    const { setDataState } = useContext(SearchResultContext)
 
     const filterApartments = (area, rooms, priceMin = 0, priceMax = 0) => {
-        console.log(area, rooms, priceMin, priceMax)
 
         function filterByGivenRequirements(apartment) {
             if (
@@ -23,10 +24,8 @@ const QuickSearch = (props) => {
             }
         }
         const filteredApartments = data.filter(filterByGivenRequirements);
-
-        console.log(filteredApartments.length)
-        // props.history.push()
-        return filteredApartments
+        setDataState({data: filteredApartments});
+        props.history.push('/apartments');
 
     }
 

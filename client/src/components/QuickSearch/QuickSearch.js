@@ -24,6 +24,7 @@ const QuickSearch = (props) => {
             }
         }
         const filteredApartments = data.filter(filterByGivenRequirements);
+        localStorage.setItem('searchResult', JSON.stringify(filteredApartments))
         setDataState({data: filteredApartments});
         props.history.push('/apartments');
 

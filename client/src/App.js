@@ -5,10 +5,12 @@ import Header from './components/Header/Header';
 import Homepage from './Pages/Homepage/Homepage';
 import Search from './Pages/Search/Search';
 import SearchResult from './Pages/SearchResult/SearchResult';
-import SearchResultContext from './providers/SearchResultContext';
+import SearchResultContext, { extractData } from './providers/SearchResultContext';
 
 function App() {
-  const [searchResult, setSearchResult] = useState(null)
+  const [searchResult, setSearchResult] = useState({
+    data: extractData()
+  })
 
   return (
     <div className="App">

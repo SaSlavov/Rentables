@@ -1,0 +1,20 @@
+.single-apartment {
+    position: relative;
+    z-index: 2;
+    background-color: rgba(0, 206, 209, 0.445);
+    width: 900px;
+    height: 900px;
+    margin: 0 auto;
+}
+
+.apartment-headImg {
+    height: 400px;
+    width: 600px;
+    display: block;
+    margin: 0 auto;
+}
+
+.apartment-secondaryImgs {
+    height: 100px;
+    width: 140px;
+}

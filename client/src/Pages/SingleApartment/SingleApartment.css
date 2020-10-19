@@ -1,10 +1,27 @@
 .single-apartment {
     position: relative;
     z-index: 2;
-    background-color: rgba(0, 206, 209, 0.445);
+    background-color: rgba(252, 240, 217, 0.897);
     width: 900px;
-    height: 900px;
+    height: 1050px;
     margin: 0 auto;
+    border-radius: 8px;
+}
+
+.title-and-price {
+    background-color: rgb(214, 178, 100);
+}
+
+.apartment-title {
+    font-size: 30px;
+    float: left;
+    max-width: 450px;
+}
+
+.apartment-price {
+    font-size: 30px;
+    float: right;
+    margin-right: 35px;
 }
 
 .apartment-headImg {
@@ -12,9 +29,40 @@
     width: 600px;
     display: block;
     margin: 0 auto;
+    border: 3px solid white;
+    padding: 6px;
+    margin-bottom: 8px;
 }
 
 .apartment-secondaryImgs {
     height: 100px;
     width: 140px;
+    border: 2px solid white;
+    padding: 4px;
+    margin: 4px;
+}
+
+.apartment-info-container {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.description-container {
+    width: 300px;
+    margin: 0 auto;
+}
+.description {
+    text-align: justify;
+}
+
+.details-container {
+    width: 350px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-rows: auto auto auto;
+}
+
+.details-info {
+    display: grid;
+    grid-template: auto auto auto / auto auto;
 }

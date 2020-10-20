@@ -12,6 +12,9 @@ const Header = () => {
             <NavLink className="home-btn" to="/homepage">
                 <div>Home</div>
             </NavLink>
+            <NavLink className="favorite-btn" to="/favorite">
+                <div>Favorites</div>
+            </NavLink>
             <NavLink className="login-btn" to="/search">
                 <div>Log in</div>
             </NavLink>

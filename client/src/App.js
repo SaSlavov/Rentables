@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header/Header';
+import FavoriteApartments from './Pages/FavoriteApartments/FavoriteApartments';
 import Homepage from './Pages/Homepage/Homepage';
 import Search from './Pages/Search/Search';
 import SearchResult from './Pages/SearchResult/SearchResult';
@@ -22,6 +23,7 @@ function App() {
             <Route path="/homepage" component={Homepage} />
             <Route path="/search" component={Search} />
             <Route path="/apartments" component={SearchResult} />
+            <Route path="/favorite" component={FavoriteApartments} />
           </Switch>
         </SearchResultContext.Provider>
       </BrowserRouter>

@@ -5,7 +5,7 @@
     /* background-color: rgba(233, 150, 122, 0.719); */
 }
 
-.rents-btn, .home-btn, .login-btn, .signup-btn {
+.rents-btn, .home-btn, .login-btn, .signup-btn, .favorite-btn {
     float: right;
     font-size: 24px;
     color: white;

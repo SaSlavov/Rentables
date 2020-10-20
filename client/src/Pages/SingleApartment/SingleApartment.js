@@ -7,7 +7,7 @@ const SingleApartment = ({ apartmentId }) => {
     const [headImg, setHeadImg] = useState(apartment.headImg)
 
     return (
-        <div className="single-apartment">
+        <div className="single-apartment-container">
             <div className="title-and-price">
                 <p className="apartment-title">{apartment.title}</p>
                 <p className="apartment-price">€ {apartment.price}</p>

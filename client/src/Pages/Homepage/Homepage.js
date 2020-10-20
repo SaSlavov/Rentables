@@ -12,6 +12,9 @@ const Homepage = () => {
             <div className="recommended">
                 <Recommended />
             </div>
+            {/* <div className="make-them-register">
+
+            </div> */}
         </div>
     ) 
 }

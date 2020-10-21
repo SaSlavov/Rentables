@@ -29,21 +29,68 @@
 }
 
 .apartment-container {
-    border: 2px solid black;
+    /* border: 2px solid black; */
     margin: 15px;
     display: grid;
-    grid-template-columns: auto auto auto;
-    background-color: rgba(245, 222, 179);
+    grid-template-columns: 300px 300px 250px;
+    /* background-color: rgba(245, 222, 179); */
+    /* background: rgb(217,173,93);
+    background: linear-gradient(0deg, rgba(217,173,93,1) 0%, rgba(245,222,179,1) 44%, rgba(255,255,255,1) 100%); */
+    background: rgb(217,173,93);
+    background: radial-gradient(circle, rgba(217,173,93,1) 0%, rgba(245,222,179,1) 44%, rgba(255,255,255,1) 100%);
     border-radius: 4px;
+    /* border-bottom: 2px solid  rgb(240, 194, 109); */
+    /* box-shadow: 2px 5px 20px 3px rgb(169, 216, 238); */
 }
 
 .apartment-info {
+    margin: 0 auto;
+    display: grid;
+    grid-template: auto auto / auto 80px;
+    grid-template-areas: 
+    "title title"
+    "image info";
+}
+
+.favorite-apartment-title {
+    grid-area: title;
+    width: 250px;
+    font-size: 20px;
+    margin-bottom: 0;
+}
+.favorite-apartment-info {
+    margin-top: 10px;
+}
+
+.favorite-apartment-info p {
+    margin: 0;
+}
+
+.favorite-apartment-price {
+    display: inline;
+}
+
+.comments-container {
+    border-left: 2px solid rgb(202, 168, 104);
+    border-right: 2px solid rgb(202, 168, 104);
+    margin: 0 auto;
+    margin-top: 15px;
+    height: 180px;
+    width: 280px;
+}
+
+.comments-container p {
+    margin-top: 0;
 }
 
 .comments {
     width: 200px;
     height: 120px;
     font-size: 17px;
+}
+
+.viewing-arrangement {
+    margin: 0 auto;
 }
 
 .viewing-arrangement input {

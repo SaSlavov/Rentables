@@ -14,9 +14,13 @@ const FavoriteApartments = () => {
                     {profile.favoriteApartments.map(apartment => {
                         return <div className="apartment-container" key={apartment.id}>
                             <div className="apartment-info">
-                                <p>{apartment.title}</p>
-                                <p>{apartment.price}</p>
+                                <p className="favorite-apartment-title">{apartment.title}</p>
                                 <img className="favorite-apt-headImg" src={apartment.headImg} alt="Favorite apartment"></img>
+                                <div className="favorite-apartment-info">
+                                    <p className="favorite-apartment-price">€ {apartment.price}</p>
+                                    <p className="favorite-apartment-area">{apartment.area}</p>
+                                    <p className="favorite-apartment-rooms">{apartment.rooms} rooms</p>
+                                </div>
                             </div>
                             <div className="comments-container">
                                 <p>Comments</p>

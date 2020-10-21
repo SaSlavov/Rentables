@@ -12,11 +12,23 @@ const Homepage = () => {
             <div className="recommended">
                 <Recommended />
             </div>
-            {/* <div className="make-them-register">
-
-            </div> */}
+            <div className="make-them-register">
+                <div className="reasons">
+                    <h1>Why you should consider making an account:</h1>
+                    <p> - You could add apartments to your favorites</p>
+                    <p> - There you could write comments about each one</p>
+                    <p> - Can add the the day and time of your arrangement to see the apartment</p>
+                </div>
+                <div className="register-container">
+                    <h2>Register</h2>
+                    <input className="username-input" type="text" placeholder="username"></input>
+                    <input className="username-input" type="password"placeholder="password"></input>
+                    <input className="username-confirm-input" type="password"placeholder="Confirm password"></input>
+                    <span className="register-btn">Register</span>
+                </div>
+            </div>
         </div>
-    ) 
+    )
 }
 
 export default Homepage;

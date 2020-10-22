@@ -1,0 +1,23 @@
+.new-ad-container {
+    position: absolute;
+    top: 20%;
+    left: 15%;
+    z-index: 3;
+    background-color: wheat;
+    min-height: 400px;
+    width: 800px;
+}
+
+.new-ad-container input {
+    display: block;
+}
+
+.description-input {
+    width: 200px;
+    height: 150px;
+}
+
+.uploaded-image {
+    width: 130px;
+    height: 110px
+}

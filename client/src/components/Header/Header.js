@@ -15,6 +15,9 @@ const Header = () => {
             <NavLink className="favorite-btn" to="/favorite">
                 <div>Favorites</div>
             </NavLink>
+            <NavLink className="new-ad-btn" to="/new_ad">
+                <div>New ad</div>
+            </NavLink>
             <NavLink className="login-btn" to="/search">
                 <div>Log in</div>
             </NavLink>

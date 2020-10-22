@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { BlacklistGuard } from 'src/auth/blacklist.guard';
 import { CreateApartmentDTO } from 'src/models/dtos/apartmentDTOs/create-apartment.dto';
 import { Apartment } from 'src/models/entities/apartment.entity';
@@ -11,7 +11,7 @@ export class ApartmentsController {
     ) { }
 
     @Post()
-    @UseGuards(BlacklistGuard)
+    // @UseGuards(BlacklistGuard)
     async createApartment(
         @Body() CreateApartmentDTO: CreateApartmentDTO,
         // @Req() request: any,
@@ -19,4 +19,12 @@ export class ApartmentsController {
 
         return await this.apartmentsService.createApartment(1, CreateApartmentDTO);
     };
+
+    @Get('filter')
+    async searchApartments(
+        @Query() query: any
+    ) { //: Promise<Apartment[]>
+        console.log(query)
+        // return await this.apartmentsService.search
+    }
 }

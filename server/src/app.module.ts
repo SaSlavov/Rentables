@@ -17,7 +17,7 @@ import { ServicesModule } from './services/services.module';
       entities: ["dist/**/*.entity{.ts,.js}"],
       synchronize: true,
     }),
-    ServicesModule,],
-  providers: [ApartmentsService],
+    ],
+
 })
 export class AppModule { }

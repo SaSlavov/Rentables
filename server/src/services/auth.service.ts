@@ -89,7 +89,6 @@ export class AuthService {
     const user = await this.userRepository.findOne({
       where: { id: userId }
     });
-    user.online = user.online ? false : true;
     return await this.userRepository.save(user);
   }
 }

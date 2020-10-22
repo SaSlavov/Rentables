@@ -1,11 +1,13 @@
 .quickSearch-container {
     height: 300px;
     width: 600px;
-    background-color: antiquewhite;
+    background-color: rgb(180, 228, 240);
     position: absolute;
     top: 42%;
     left: 25%;
     z-index: 2;
+    border-radius: 6px;
+    box-shadow: 3px 10px 20px 5px  rgb(122, 214, 236);
 }
 
 label {

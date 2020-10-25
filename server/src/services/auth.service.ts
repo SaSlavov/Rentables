@@ -1,6 +1,5 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { Token } from 'src/models/entities/token.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/models/entities/user.entity';
@@ -8,6 +7,7 @@ import * as bcrypt from 'bcrypt'
 import { UserLoginDTO } from 'src/models/dtos/userDTOs/user-login-dto';
 import { JWTPayload } from 'src/common/jwt-payload';
 import { UserRole } from 'src/models/enums/user-role';
+import { Token } from 'src/models/entities/token.entity';
 
 
 @Injectable()
@@ -41,6 +41,7 @@ export class AuthService {
 
   async login(loginUser: UserLoginDTO): Promise<{ token: string }> {
     const user = await this.validateUser(loginUser.username, loginUser.password);
+    console.log(loginUser)
 
     if (!user) {
       throw new BadRequestException('Wrong credentials!');

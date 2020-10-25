@@ -5,10 +5,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { jwtConstants } from 'src/constant/secret';
 import { ApartmentsService } from './apartments.service';
 import { Apartment } from '../models/entities/apartment.entity'
+import { Images } from 'src/models/entities/images.entity';
+import { UsersService } from './users.service';
+import { User } from 'src/models/entities/user.entity';
+import { AuthService } from './auth.service';
+import { Token } from 'src/models/entities/token.entity';
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([Apartment]),
+        TypeOrmModule.forFeature([Apartment, Images, User, Token]),
         PassportModule,
         JwtModule.register({
           secret: jwtConstants.secret,
@@ -17,8 +22,8 @@ import { Apartment } from '../models/entities/apartment.entity'
           }
         }),
       ],
-      providers: [ApartmentsService],
-      exports: [ApartmentsService]
+      providers: [ApartmentsService, UsersService, AuthService],
+      exports: [ApartmentsService, UsersService, AuthService]
     
 })
 export class ServicesModule {}

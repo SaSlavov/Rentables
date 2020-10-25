@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, OneToMany, OneToOne, JoinColumn } from "typeorm";
+import { Images } from "./images.entity";
 
 @Entity()
 export class Apartment {
@@ -16,6 +17,13 @@ export class Apartment {
 
     @Column()
     rooms: number;
+
+    // @Column({default: "https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482953.jpg"})
+    @OneToOne(
+        () => Images,
+    )
+    @JoinColumn()
+    images: Images
 }
 
 //     @ManyToOne(

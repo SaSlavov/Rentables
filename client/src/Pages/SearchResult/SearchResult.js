@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { BASE_URL } from '../../common/constants';
 import SearchResultContext from '../../providers/SearchResultContext';
 import SingleApartment from '../SingleApartment/SingleApartment';
 import './SearchResult.css'
@@ -13,7 +14,7 @@ const SearchResult = () => {
         setIsApartmentvisible(true)
         setClickedApartment(apartmentId)
     }
-
+    const images = JSON.parse(data)
     return (
         <div className="search-result-container">
 
@@ -25,7 +26,7 @@ const SearchResult = () => {
                             className="recommended-apt"
                             key={apartment.id}
                             onClick={() => clickOnApartment(apartment.id)}>
-                            <img className="recommended-apt-headImg" src={apartment.headImg} alt="apartment"></img>
+                            <img className="recommended-apt-headImg" src={`${BASE_URL}/images/${images[0].images.images.split(' ')[0]}`} alt="apartment"></img>
                             <p>{apartment.title}</p>
                             <p>{apartment.rooms} rooms</p>
                             <p>{apartment.price}</p>

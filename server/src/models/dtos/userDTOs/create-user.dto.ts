@@ -5,5 +5,5 @@ export class CreateUserDTO {
     username: string;
     @Length(5)
     password: string;
-    email: string;
+
 }

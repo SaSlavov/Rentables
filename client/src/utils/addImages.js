@@ -1,6 +1,7 @@
 export const addImages = (event, images, setImages) => {
 
     var files = event.target.files; 
+    console.log(event.target)
 
     for (let i = 0; i < files.length; i++) {
         let file = files[i];
@@ -10,8 +11,9 @@ export const addImages = (event, images, setImages) => {
         }
 
         let picReader = new FileReader();
-        picReader.onload = (event) => {
-            const picFile = event.target;
+        picReader.onload = (e) => {
+            const picFile = e.target;
+            console.log(e.target)
             setImages([...images, picFile])
 
         };

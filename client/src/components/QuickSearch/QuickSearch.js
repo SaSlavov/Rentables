@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { withRouter } from 'react-router-dom';
+import { BASE_URL } from '../../common/constants';
 import SearchResultContext from '../../providers/SearchResultContext';
-import { data } from '../../TempData/data';
 import './QuickSearch.css';
 
 const QuickSearch = (props) => {
@@ -13,20 +13,34 @@ const QuickSearch = (props) => {
 
     const filterApartments = (area, rooms, priceMin = 0, priceMax = 0) => {
 
-        function filterByGivenRequirements(apartment) {
-            if (
-                apartment.area === area &&
-                apartment.rooms === Number(rooms) &&
-                apartment.price >= priceMin &&
-                apartment.price <= priceMax) {
+        fetch(`${BASE_URL}/apartments/filter?area=${area}&rooms=${rooms}&priceMin=${priceMin}&priceMax=${priceMax}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
+            },
 
-                return true;
-            }
-        }
-        const filteredApartments = data.filter(filterByGivenRequirements);
-        localStorage.setItem('searchResult', JSON.stringify(filteredApartments))
-        setDataState({data: filteredApartments});
-        props.history.push('/apartments');
+        })
+            .then(r => r.json())
+            .then(res => {
+                localStorage.setItem('searchResult', JSON.stringify(res))
+                setDataState({ data: JSON.stringify(res) });
+                props.history.push('/apartments');
+            })
+
+
+        // function filterByGivenRequirements(apartment) {
+        //     if (
+        //         apartment.area === area &&
+        //         apartment.rooms === Number(rooms) &&
+        //         apartment.price >= priceMin &&
+        //         apartment.price <= priceMax) {
+
+        //         return true;
+        //     }
+        // }
+        // const filteredApartments = data.filter(filterByGivenRequirements);
+       
 
     }
 

@@ -1,6 +1,7 @@
 # compiled output
 /dist
-/node_modules/Apartment images
+/node_modules
+/Apartment_images
 
 # Logs
 logs

@@ -14,13 +14,11 @@ label {
     display: inline;
 }
 
-input {
+.search-options input {
     height: 35px;
     width: 200px;
     font-size: 20px;
     margin: 0 auto;
-    /* border: 2px solid black; */
-
 }
 
 .search-options {

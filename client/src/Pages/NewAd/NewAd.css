@@ -6,10 +6,60 @@
     background-color: wheat;
     min-height: 400px;
     width: 800px;
+    padding: 9px;
+    border-radius: 7px;
+    display: grid;
+    grid-template: auto auto auto / auto auto;
+    grid-template-areas: 
+    "title title"
+    "main additional"
+    "btn btn";
+    
+}
+
+.title {
+    margin-top: 0;
+    grid-area: title;
+    font-size: 27px;
+}
+
+.main-info-container {
+    width: 250px;
+    grid-area: main;
+}
+
+.main-info-container input {
+    border-radius: 3px;
+    border: 1px solid grey;
+    height: 20px;
+}
+
+.additional-info-container {
+    grid-area: additional;
+    display: grid;
+    grid-template: 180px auto / auto;
+
+}
+
+.additional-info {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    height: 160px;
+
+}
+
+.additional-info label {
+    text-align: left;
+}
+.create-btn {
+    grid-area: btn;
+    width: 60px;
+    margin: 0 auto;
+    height: 30px;
 }
 
 .new-ad-container input {
-    display: block;
+    margin-bottom: 9px;
 }
 
 .description-input {
@@ -17,7 +67,73 @@
     height: 150px;
 }
 
+.images-input {
+    margin: 0 auto;
+    width: 180px;
+}
+
+.images-title-count {
+    font-size: 25px;
+}
+
+.uploaded-images {
+    width: 500px;
+    grid-area: images;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    border: 2px solid black;
+}
+
 .uploaded-image {
     width: 130px;
-    height: 110px
+    height: 110px;
+    margin: 10px;
+}
+
+.is-furnished, .construction-type-container, .parking-type {
+    /* grid-area: checkboxes; */
+    width: 160px;
+    height: 120px;
+    display: grid;
+    grid-template:  auto auto auto auto auto / 20px auto auto;
+    grid-template-areas: 
+    "title title title"
+    "division division division"
+    "checkbox type vertical-div"
+    "checkbox type vertical-div"
+    "checkbox type vertical-div"
+}
+
+
+.is-furnished-title {
+    margin-bottom: 0;
+    grid-area: title;
+}
+
+.is-furnished label {
+    float: left;
+}
+
+.is-furnished input {
+    /* grid-area: checkbox; */
+    margin-left: 5px;
+    border: 2px solid black;
+
+}
+
+.checkbox-container {
+    padding-left: 10px;
+}
+
+.vertical-division {
+    grid-area: vertical-div;
+    height: 65px;
+    border-right: 1px solid black;
+}
+
+.division {
+    grid-area: division;
+    border-bottom: 1px solid black;
+    width: 60px;
+    margin: 4px auto;
 }

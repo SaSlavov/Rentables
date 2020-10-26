@@ -38,7 +38,6 @@ const Header = (props) => {
 
     }
 
-    console.log(isLoggedIn)
 
     return (
         <div className="header-container">

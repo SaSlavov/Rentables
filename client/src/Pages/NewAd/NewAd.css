@@ -81,7 +81,6 @@
     grid-area: images;
     display: grid;
     grid-template-columns: auto auto auto;
-    border: 2px solid black;
 }
 
 .uploaded-image {

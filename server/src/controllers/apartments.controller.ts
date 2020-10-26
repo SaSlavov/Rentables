@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query, Req, UploadedFile, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, Req, UploadedFile, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AnyFilesInterceptor, FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
@@ -18,7 +18,7 @@ export class ApartmentsController {
     @UseInterceptors(
         FilesInterceptor('images[]', 10, {
           storage: diskStorage({
-            destination: './Apartment images',
+            destination: './Apartment_images',
             filename: (req, file, cb) => {
               // Generating a 32 random chars long string
             //   console.log('filename cb', file);
@@ -42,12 +42,20 @@ export class ApartmentsController {
         // console.log(files)
         return await this.apartmentsService.createApartment(1, files, createApartmentDTO);
     };
+    
 
     @Get('filter')
     async searchApartments(
         @Query() query: any
-    ) { //: Promise<Apartment[]>
+    ) : Promise<Apartment[]> {
 
         return await this.apartmentsService.searchApartments(query)
+    }
+
+    @Get('filter/:id')
+    async getApartmentById(
+        @Param('id') apartmentId: string
+    ): Promise<Apartment[]> { 
+        return await this.apartmentsService.getApartmentById(+apartmentId)
     }
 }

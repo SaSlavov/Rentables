@@ -17,8 +17,17 @@ export class Apartment {
 
     @Column()
     rooms: number;
+    @Column()
+    floor: number;
+    @Column()
+    description: string;
+    @Column()
+    furnished: string;
+    @Column()
+    constructionType: string;
+    @Column()
+    parking: string;
 
-    // @Column({default: "https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482953.jpg"})
     @OneToOne(
         () => Images,
     )
@@ -26,15 +35,3 @@ export class Apartment {
     images: Images
 }
 
-//     @ManyToOne(
-//         () => User,
-//         user => user.id
-//     )
-//     author: User;
-
-//     @ManyToMany(
-//         () => User,
-//         user => user.id
-//     )
-//     sharedWith: User[];
-// };

@@ -5,7 +5,7 @@ import * as express from 'express'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.use('/images', express.static('Apartment images'))
+  app.use('/images', express.static('Apartment_images'))
 
 
   app.enableCors();

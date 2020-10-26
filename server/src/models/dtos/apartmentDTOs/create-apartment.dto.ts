@@ -4,4 +4,9 @@ export class CreateApartmentDTO {
     price: string;
     rooms: number;
     area: string;
+    floor: number;
+    description: string;
+    furnished: string;
+    constructionType: string;
+    parking: string;
 }

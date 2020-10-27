@@ -6,12 +6,12 @@ import './QuickSearch.css';
 
 const QuickSearch = (props) => {
     const [area, setArea] = useState(null);
-    const [rooms, setRooms] = useState(null);
+    const [rooms, setRooms] = useState(undefined);
     const [priceMin, setPriceMin] = useState(undefined);
     const [priceMax, setPriceMax] = useState(undefined);
     const { setDataState } = useContext(SearchResultContext)
 
-    const filterApartments = (area, rooms, priceMin = 0, priceMax = 0) => {
+    const filterApartments = (area, rooms = 0, priceMin = 0, priceMax = 0) => {
 
         fetch(`${BASE_URL}/apartments/filter?area=${area}&rooms=${rooms}&priceMin=${priceMin}&priceMax=${priceMax}`, {
             method: 'GET',
@@ -27,20 +27,6 @@ const QuickSearch = (props) => {
                 setDataState({ data: JSON.stringify(res) });
                 props.history.push('/apartments');
             })
-
-
-        // function filterByGivenRequirements(apartment) {
-        //     if (
-        //         apartment.area === area &&
-        //         apartment.rooms === Number(rooms) &&
-        //         apartment.price >= priceMin &&
-        //         apartment.price <= priceMax) {
-
-        //         return true;
-        //     }
-        // }
-        // const filteredApartments = data.filter(filterByGivenRequirements);
-       
 
     }
 

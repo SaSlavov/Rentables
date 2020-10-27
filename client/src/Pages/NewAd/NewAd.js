@@ -1,12 +1,14 @@
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useContext, useRef, useState } from 'react';
 import { addImages } from '../../utils/addImages';
 import { BASE_URL } from '../../common/constants'
 import './NewAd.css'
+import AuthContext from '../../providers/AuthContext';
 
 const NewAd = () => {
 
     const [images, setImages] = useState([])
     const [imagesForPreview, setImagesForPreview] = useState([])
+    const { user } = useContext(AuthContext)
     const [apartmentInfo, setApartmentInfo] = useState({
         title: '',
         price: 0,
@@ -17,6 +19,7 @@ const NewAd = () => {
         furnished: '',
         constructionType: '',
         parking: '',
+        authorId: user.id,
         images: [],
     })
     const isFurnished = useRef()
@@ -34,14 +37,14 @@ const NewAd = () => {
     }
     
 
-    const updateApartmentInfo = (prop, value, isChecked = true, id, ref) => {
+    const updateApartmentInfo = (prop, value, isChecked = true, id, ref = null) => {
         if (isChecked) {
             setApartmentInfo({ ...apartmentInfo, [prop]: value })
         } else {
             setApartmentInfo({ ...apartmentInfo, [prop]: '' })
         }
 
-        uncheckBox(id, ref)
+        ref && uncheckBox(id, ref)
 
     }
 

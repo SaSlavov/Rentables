@@ -4,6 +4,7 @@ import './App.css';
 import Header from './components/Header/Header';
 import FavoriteApartments from './Pages/FavoriteApartments/FavoriteApartments';
 import Homepage from './Pages/Homepage/Homepage';
+import MyAds from './Pages/MyAds/MyAds';
 import NewAd from './Pages/NewAd/NewAd';
 import Search from './Pages/Search/Search';
 import SearchResult from './Pages/SearchResult/SearchResult';
@@ -39,6 +40,7 @@ function App() {
             <Route path="/apartments" component={SearchResult} />
             <Route path="/favorite" component={FavoriteApartments} />
             <Route path="/new_ad" component={NewAd} />
+            <Route path="/my_ads" component={MyAds} />
           </Switch>
         </ActiveRegisterOrLogInContext.Provider>
         </SearchResultContext.Provider>

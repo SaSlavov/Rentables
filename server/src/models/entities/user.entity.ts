@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, ManyToOne, OneToMany } from "typeorm";
 import { UserRole } from "../enums/user-role";
+import { Apartment } from "./apartment.entity";
 
 
 @Entity()
@@ -24,12 +25,17 @@ export class User {
     @Column({ default: false })
     isDeleted: boolean;
     
-    // @ManyToMany(
-    //     () => ChatRoom,
-    //     room => room.participants
-    // )
-    // chatRooms: ChatRoom[];
+    @OneToMany(
+        () => Apartment,
+        apartment => apartment.author
+    )
+    apartments: Apartment[]
     
+    @ManyToMany(
+        () => Apartment,
+        apartment => apartment.favoriteOf
+    )
+    favoriteApartments: Apartment[];    
 
 //     @ManyToMany(
 //         () => Board,

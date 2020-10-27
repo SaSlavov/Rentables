@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, OneToMany, OneToOne, JoinColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, OneToMany, OneToOne, JoinColumn, JoinTable } from "typeorm";
 import { Images } from "./images.entity";
+import { User } from "./user.entity";
 
 @Entity()
 export class Apartment {
@@ -33,5 +34,17 @@ export class Apartment {
     )
     @JoinColumn()
     images: Images
+    @ManyToOne(
+        () => User,
+        user => user.apartments
+    )
+    author: User;
+    @ManyToMany(
+        () => User,
+        user => user.favoriteApartments
+    )
+    @JoinTable()
+    favoriteOf: User[];
+
 }
 

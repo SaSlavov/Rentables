@@ -13,12 +13,18 @@ export class ApartmentsService {
     constructor(
         @InjectRepository(Apartment) private readonly apartmentRepository: Repository<Apartment>,
         @InjectRepository(Images) private readonly imagesRepository: Repository<Images>,
+        @InjectRepository(User) private readonly usersRepository: Repository<User>,
     ) { }
-    async createApartment(userId, files, CreateApartmentDTO: any): Promise<Apartment> {
+    async createApartment(userId, files, CreateApartmentDTO: CreateApartmentDTO): Promise<Apartment> {
         console.log(files)
         const images = new Images()
         images.images = files.map(image => image.filename.toString()).join(' ')
         const createdImages = await this.imagesRepository.save(images)
+        const user = await this.usersRepository.findOne({
+            where: {
+                id: userId
+            }
+        })
 
         const apartment = new Apartment();
         apartment.title = CreateApartmentDTO.title;
@@ -31,6 +37,7 @@ export class ApartmentsService {
         apartment.constructionType = CreateApartmentDTO.constructionType;
         apartment.parking = CreateApartmentDTO.parking;
         apartment.images = createdImages;
+        apartment.author = user;
        
         const createdApartment = await this.apartmentRepository.save(apartment);
         return createdApartment
@@ -41,8 +48,8 @@ export class ApartmentsService {
         const foundApartment = await this.apartmentRepository.find({
             where: {
                 area: queryData.area,
-                rooms: queryData.rooms === 0 ? MoreThan(0) : queryData.rooms, // number?
-                price: Not(LessThan(queryData.priceMin)) && LessThan(queryData.priceMax)
+                rooms: +queryData.rooms === 0 ? MoreThan(0) : +queryData.rooms, // number?
+                price: (+queryData.priceMin === 0 && +queryData.priceMax === 0) ? MoreThan(0) : Not(LessThan(queryData.priceMin)) && LessThan(queryData.priceMax)
             },
             relations: ['images']
         })
@@ -50,13 +57,73 @@ export class ApartmentsService {
         return foundApartment;
         
     }
-    async getApartmentById(apartmentId: number): Promise<any> {
-        const foundApartment = await this.apartmentRepository.find({
+    async getApartmentById(apartmentId: number): Promise<Apartment> {
+        const foundApartment = await this.apartmentRepository.findOne({
             where: {
                 id: apartmentId
             },
             relations: ['images']
         })
+
+        return foundApartment;
+        
+    }
+    
+    async getApartmentsByUserId(userId: number): Promise<Apartment[]> {
+        const foundApartments = await this.apartmentRepository.find({
+            where: {
+                author: userId
+            },
+            relations: ['images']
+        })
+
+        return foundApartments;
+        
+    }
+    async getFavoriteApartmentsOfUser(userId: number): Promise<Apartment[]> {
+        const foundUser = await this.usersRepository.findOne({
+            where: {
+                id: userId
+            },
+            relations: ['favoriteApartments']
+        })
+
+        const favoriteApartments = [];
+
+         for ( let apartment of foundUser.favoriteApartments) {
+            const foundApartment = await this.apartmentRepository.findOne({
+                where: {
+                    id: apartment.id
+                },
+                relations: ['images']
+            })
+
+            favoriteApartments.push(foundApartment)
+        }
+
+        return favoriteApartments;
+        
+    }
+
+    async addToFavorites(body: any): Promise<any> {
+
+        const apartmentId = body.apartmentId;
+        const userId = body.userId;
+
+        const foundApartment = await this.apartmentRepository.findOne({
+            where: {
+                id: apartmentId
+            },
+            relations: ['images', 'favoriteOf']
+        })
+        const foundUser = await this.usersRepository.findOne({
+            where: {
+                id: userId
+            },
+        })
+
+        foundApartment.favoriteOf.push(foundUser)
+        await this.apartmentRepository.save(foundApartment)
 
         return foundApartment;
         

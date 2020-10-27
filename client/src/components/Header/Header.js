@@ -55,6 +55,9 @@ const Header = (props) => {
                     <NavLink className="new-ad-btn" to="/new_ad">
                         <div>New ad</div>
                     </NavLink>
+                    <NavLink className="my-ads-btn" to="/my_ads">
+                        <div>My ads</div>
+                    </NavLink>
                     <NavLink className="logout-btn" to="/homepage">
                         <div onClick={(e) => logout(e)}>Log out</div>
                     </NavLink>
@@ -65,12 +68,6 @@ const Header = (props) => {
                     </NavLink>
                     <NavLink className="home-btn" to="/homepage">
                         <div>Home</div>
-                    </NavLink>
-                    <NavLink className="favorite-btn" to="/favorite">
-                        <div>Favorites</div>
-                    </NavLink>
-                    <NavLink className="new-ad-btn" to="/new_ad">
-                        <div>New ad</div>
                     </NavLink>
                     <a className="login-btn" href="#credentials-container" onClick={() => setActiveState({ active: 'login' })}>Log in</a>
                     <a className="signup-btn" href="#credentials-container" onClick={() => setActiveState({ active: 'register' })}>Sign up</a>

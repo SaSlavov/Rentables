@@ -6,9 +6,6 @@ const SingleApartment = ({ apartmentId }) => {
     const [apartment, setApartment] = useState(null)
     const [images, setImages] = useState(null)
     const [headImage, setHeadImg] = useState(null)
-    
-    console.log(apartment)
-
 
     useEffect(() => {
         fetch(`${BASE_URL}/apartments/filter/${apartmentId}`, {
@@ -21,10 +18,10 @@ const SingleApartment = ({ apartmentId }) => {
         })
             .then(r => r.json())
             .then(res => {
-                console.log(res[0].title)
-                setApartment(res[0]);
-                setImages(res[0].images.images.split(' '))
-                setHeadImg(res[0].images.images.split(' ')[0])
+                console.log(res.title)
+                setApartment(res);
+                setImages(res.images.images.split(' '))
+                setHeadImg(res.images.images.split(' ')[0])
                 // setHeadImg(res.images)
             })
     }, [apartmentId])

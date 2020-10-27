@@ -1,15 +1,15 @@
-import React, { useContext, useEffect } from 'react';
-import { BASE_URL } from '../../common/constants';
-import AuthContext from '../../providers/AuthContext';
-import { profile } from '../../TempData/profile';
-import './FavoriteApartments.css'
+import React, { useContext, useEffect, useState } from 'react'
+import { BASE_URL } from '../../common/constants'
+import AuthContext from '../../providers/AuthContext'
+import './MyAds.css'
 
-const FavoriteApartments = () => {
+const MyAds = () => {
+
     const { user } = useContext(AuthContext)
-
+    const [apartments, setApartments] = useState(null)
 
     useEffect(() => {
-        fetch(`${BASE_URL}/apartments/favorite/${user.id}`, {
+        fetch(`${BASE_URL}/apartments/filter/user/${user.id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -20,26 +20,25 @@ const FavoriteApartments = () => {
             .then(r => r.json())
             .then(res => {
                 console.log(res)
-                // setApartment(res);
-                // setImages(res.images.images.split(' '))
-                // setHeadImg(res.images.images.split(' ')[0])
+                setApartments(res);
+                // setImages(res[0].images.images.split(' '))
+                // setHeadImg(res[0].images.images.split(' ')[0])
                 // setHeadImg(res.images)
             })
-    }, [user.id])
-
-
+    }, [])
 
 
     return (
         <>
             <div className="background" ></div>
-            <div className="favorite-apartments-container">
-                <div className="favorites-result">
-                    {profile.favoriteApartments.map(apartment => {
+            <div className="my-ads-container">
+            <div className="favorites-result">
+                <p>My ads</p>
+                    {apartments && apartments.map(apartment => {
                         return <div className="apartment-container" key={apartment.id}>
                             <div className="apartment-info">
                                 <p className="favorite-apartment-title">{apartment.title}</p>
-                                <img className="favorite-apt-headImg" src={apartment.headImg} alt="Favorite apartment"></img>
+                                <img className="favorite-apt-headImg" src={`${BASE_URL}/images/${apartment.images.images.split(' ')[0]}`} alt="my apartment"></img>
                                 <div className="favorite-apartment-info">
                                     <p className="favorite-apartment-price">€ {apartment.price}</p>
                                     <p className="favorite-apartment-area">{apartment.area}</p>
@@ -61,8 +60,7 @@ const FavoriteApartments = () => {
                 </div>
             </div>
         </>
-
     )
 }
 
-export default FavoriteApartments;
+export default MyAds;

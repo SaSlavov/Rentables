@@ -1,0 +1,11 @@
+.my-ads-container {
+    padding-top: 80px;
+    background-color: rgba(245, 222, 179, 0.829);
+    position: absolute;
+    width: 900px;
+    min-height: 300px;
+    top: 20%;
+    left: 15%;
+    z-index: 3;
+    border-radius: 6px;
+}

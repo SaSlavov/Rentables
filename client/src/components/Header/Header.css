@@ -6,7 +6,7 @@
     z-index: 3;
 }
 
-.rents-btn, .home-btn, .login-btn, .logout-btn, .signup-btn, .favorite-btn, .new-ad-btn {
+.rents-btn, .home-btn, .login-btn, .logout-btn, .my-ads-btn, .signup-btn, .favorite-btn, .new-ad-btn {
     float: right;
     font-size: 24px;
     color: white;

@@ -21,3 +21,21 @@
     z-index: 2;
     position: relative;
 }
+
+.apartment {
+     /* border: 2px solid black; */
+     height: 280px;
+     width: 250px;
+     display: inline-block;
+     margin: 25px;
+     background-color: rgb(233, 227, 227);
+     border-radius: 6px;
+     position: relative;
+}
+
+.heart-svg {
+    position: absolute;
+    top: 3%;
+    right: 5%;
+    fill: black;
+}

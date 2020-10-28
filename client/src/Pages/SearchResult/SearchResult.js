@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { BASE_URL } from '../../common/constants';
 import AuthContext from '../../providers/AuthContext';
 import SearchResultContext from '../../providers/SearchResultContext';
@@ -11,11 +11,30 @@ const SearchResult = () => {
     const [isApartmentVisible, setIsApartmentvisible] = useState(false);
     const [clickedApartment, setClickedApartment] = useState(null)
     const searchResult = typeof data === 'string' ? JSON.parse(data) : data;
+    const [favoriteApartments, setFavoriteApartments] = useState(null)
+    const [heartClicked, setHeartClicked] = useState(false)
+
 
     const clickOnApartment = (apartmentId) => {
         setIsApartmentvisible(true)
         setClickedApartment(apartmentId)
     }
+
+    useEffect(() => {
+        fetch(`${BASE_URL}/apartments/favorite/${user.id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
+            },
+
+        })
+            .then(r => r.json())
+            .then(res => {
+                console.log(res)
+                setFavoriteApartments(res.map(apartment => apartment.apartmentInfo.id));
+            })
+    }, [heartClicked])
 
     const likeApartment = (apartmentId) => {
         fetch(`${BASE_URL}/apartments/favorite`, {
@@ -24,12 +43,18 @@ const SearchResult = () => {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
             },
-            body: JSON.stringify({userId: user.id, apartmentId: apartmentId})
+            body: JSON.stringify({ userId: user.id, apartmentId: apartmentId })
         })
             .then(r => r.json())
             .then(res => {
                 console.log(res)
+                setHeartClicked(!heartClicked)
             })
+    }
+    console.log(favoriteApartments)
+    const checkIfFavorite = (apartmentId) => {
+        return favoriteApartments.includes(apartmentId)
+
     }
 
     const images = JSON.parse(data)
@@ -42,11 +67,12 @@ const SearchResult = () => {
                     {searchResult.map(apartment => {
                         return <div
                             className="apartment"
-                            key={apartment.id}
-                            onClick={() => clickOnApartment(apartment.id)}>
+                            key={apartment.id}>
+
                             <img className="recommended-apt-headImg" src={`${BASE_URL}/images/${images[0].images.images.split(' ')[0]}`} alt="apartment"></img>
-                            <a className="heart-svg" onClick={() => likeApartment(apartment.id)}><svg height="21" width="21" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M474.644 74.27C449.391 45.616 414.358 29.836 376 29.836c-53.948 0-88.103 32.22-107.255 59.25-4.969 7.014-9.196 14.047-12.745 20.665-3.549-6.618-7.775-13.651-12.745-20.665-19.152-27.03-53.307-59.25-107.255-59.25-38.358 0-73.391 15.781-98.645 44.435C13.267 101.605 0 138.213 0 177.351c0 42.603 16.633 82.228 52.345 124.7 31.917 37.96 77.834 77.088 131.005 122.397 19.813 16.884 40.302 34.344 62.115 53.429l.655.574c2.828 2.476 6.354 3.713 9.88 3.713s7.052-1.238 9.88-3.713l.655-.574c21.813-19.085 42.302-36.544 62.118-53.431 53.168-45.306 99.085-84.434 131.002-122.395C495.367 259.578 512 219.954 512 177.351c0-39.138-13.267-75.746-37.356-103.081zM309.193 401.614c-17.08 14.554-34.658 29.533-53.193 45.646-18.534-16.111-36.113-31.091-53.196-45.648C98.745 312.939 30 254.358 30 177.351c0-31.83 10.605-61.394 29.862-83.245C79.34 72.007 106.379 59.836 136 59.836c41.129 0 67.716 25.338 82.776 46.594 13.509 19.064 20.558 38.282 22.962 45.659a15 15 0 0028.524 0c2.404-7.377 9.453-26.595 22.962-45.66 15.06-21.255 41.647-46.593 82.776-46.593 29.621 0 56.66 12.171 76.137 34.27C471.395 115.957 482 145.521 482 177.351c0 77.007-68.745 135.588-172.807 224.263z"/></svg></a>
-                            <p>{apartment.title}</p>
+                            <a className="heart-svg" onClick={() => likeApartment(apartment.id)}><svg height="21" width="21" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 446.171 446.171"><path d="M399.151 81.241c42.841 40.751 42.841 106.057 0 146.808l-20.898 19.853L223.608 394.71 68.963 247.902l-20.898-19.853c-42.841-40.751-42.841-106.057 0-146.808s111.804-40.751 154.645 0l20.898 19.853 20.898-19.853c42.841-40.751 111.804-40.751 154.645 0z" fill={favoriteApartments && checkIfFavorite(apartment.id) ? 'red' : 'grey'} /><path d="M223.608 410.384c-3.657 0-7.837-1.567-10.971-4.18L37.094 239.543C13.584 216.555 0 186.775 0 154.906s13.061-62.171 37.094-84.637c48.588-45.976 127.478-45.976 176.065 0l9.927 9.404 9.927-9.404c48.588-45.976 127.478-45.976 176.065 0 24.033 22.465 37.094 52.767 37.094 84.637s-13.061 62.171-37.094 84.637L234.58 406.204c-3.135 2.612-7.315 4.18-10.972 4.18zm-98.22-343.772c-24.033 0-48.065 8.882-66.351 26.122-17.763 16.718-27.167 38.661-27.167 62.171s9.927 45.453 27.167 62.171L223.608 373.29 388.18 217.078c17.763-16.718 27.167-38.661 27.167-62.171s-9.927-45.453-27.167-62.171c-36.571-35.004-96.131-35.004-133.225 0l-20.898 19.853c-6.269 5.747-15.673 5.747-21.42 0l-20.898-19.853c-18.286-17.765-42.319-26.124-66.351-26.124z" fill="#3a2c51" /></svg></a>
+
+                            <p onClick={() => clickOnApartment(apartment.id)}>{apartment.title}</p>
                             <p>{apartment.rooms} rooms</p>
                             <p>{apartment.price}</p>
                         </div>

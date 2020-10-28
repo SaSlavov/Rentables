@@ -52,6 +52,14 @@ export class ApartmentsController {
     return await this.apartmentsService.addToFavorites(data);
   };
 
+  @Post('favorite/info')
+  async addInfoToFavoriteApartment(
+    @Body() data: any,
+    // @Req() request: any,
+  ) {
+    return await this.apartmentsService.addInfoToFavoriteApartment(data);
+  };
+
 
   @Get('favorite/:id')
   async getFavoriteApartmentsOfUser(

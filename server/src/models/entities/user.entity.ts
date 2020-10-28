@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, ManyToOne, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, ManyToOne, OneToMany, OneToOne, JoinColumn } from "typeorm";
 import { UserRole } from "../enums/user-role";
 import { Apartment } from "./apartment.entity";
+import { FavoriteApartmentInfo } from "./favoriteApartmentInfo.entity";
 
 
 @Entity()
@@ -35,7 +36,9 @@ export class User {
         () => Apartment,
         apartment => apartment.favoriteOf
     )
-    favoriteApartments: Apartment[];    
+    favoriteApartments: Apartment[];   
+    
+    
 
 //     @ManyToMany(
 //         () => Board,

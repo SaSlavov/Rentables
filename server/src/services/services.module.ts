@@ -10,10 +10,11 @@ import { UsersService } from './users.service';
 import { User } from 'src/models/entities/user.entity';
 import { AuthService } from './auth.service';
 import { Token } from 'src/models/entities/token.entity';
+import { FavoriteApartmentInfo } from 'src/models/entities/favoriteApartmentInfo.entity';
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([Apartment, Images, User, Token]),
+        TypeOrmModule.forFeature([Apartment, Images, User, Token, FavoriteApartmentInfo]),
         PassportModule,
         JwtModule.register({
           secret: jwtConstants.secret,

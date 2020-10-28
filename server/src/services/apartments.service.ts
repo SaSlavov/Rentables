@@ -6,6 +6,7 @@ import { CreateApartmentDTO } from '../models/dtos/apartmentDTOs/create-apartmen
 import { LessThan, MoreThan, Not, Repository } from 'typeorm';
 import { query } from 'express';
 import { Images } from 'src/models/entities/images.entity';
+import { FavoriteApartmentInfo } from 'src/models/entities/favoriteApartmentInfo.entity';
 
 @Injectable()
 export class ApartmentsService {
@@ -14,6 +15,7 @@ export class ApartmentsService {
         @InjectRepository(Apartment) private readonly apartmentRepository: Repository<Apartment>,
         @InjectRepository(Images) private readonly imagesRepository: Repository<Images>,
         @InjectRepository(User) private readonly usersRepository: Repository<User>,
+        @InjectRepository(FavoriteApartmentInfo) private readonly favoriteApartmentInfoRepository: Repository<FavoriteApartmentInfo>,
     ) { }
     async createApartment(userId, files, CreateApartmentDTO: CreateApartmentDTO): Promise<Apartment> {
         console.log(files)
@@ -97,8 +99,16 @@ export class ApartmentsService {
                 },
                 relations: ['images']
             })
+            const foundInfo = await this.favoriteApartmentInfoRepository.findOne({
+                where: {
+                    apartment: apartment.id,
+                    author: foundUser.id
+                },
+                 relations: ['author', 'apartment']
+            })
 
-            favoriteApartments.push(foundApartment)
+            // const info = foundInfo.filter(info => info.author.id === foundUser.id && info.apartment.id === apartment.id)
+            favoriteApartments.push({apartmentInfo: foundApartment, userInfo:  foundInfo ? foundInfo : {}})
         }
 
         return favoriteApartments;
@@ -121,11 +131,56 @@ export class ApartmentsService {
                 id: userId
             },
         })
-
-        foundApartment.favoriteOf.push(foundUser)
+        // console.log(foundApartment.favoriteOf, foundUser)
+        const favoriteOf = foundApartment.favoriteOf.map(user => user.id)
+        if(favoriteOf.includes(foundUser.id)) {
+            foundApartment.favoriteOf = foundApartment.favoriteOf.filter(user => user.id !== foundUser.id)
+        } else {
+            foundApartment.favoriteOf.push(foundUser)
+        }
         await this.apartmentRepository.save(foundApartment)
 
         return foundApartment;
+        
+    }
+    async addInfoToFavoriteApartment(body: any): Promise<any> {
+        // console.log(body)
+
+        const apartmentId = body.apartmentId;
+        const userId = body.userId;
+
+        const foundApartment = await this.apartmentRepository.findOne({
+            where: {
+                id: apartmentId
+            },
+            relations: ['images', 'favoriteOf']
+        })
+        const foundUser = await this.usersRepository.findOne({
+            where: {
+                id: userId
+            },
+        })
+        // console.log(foundApartment.favoriteOf, foundUser)
+
+
+        const newInfo = new FavoriteApartmentInfo;
+
+        newInfo.comment = body.comment;
+        newInfo.date = body.date;
+        newInfo.time = body.time;
+        newInfo.street = body.street;
+        newInfo.author = foundUser;
+        newInfo.apartment = foundApartment;
+        console.log(newInfo)
+
+        // const newInfo = this.favoriteApartmentInfoRepository.create(body)
+        // newInfo.
+
+        const createdInfo = await this.favoriteApartmentInfoRepository.save(newInfo);
+        // createdInfo.author = foundUser;
+        // createdInfo.apartment = foundApartment;
+        console.log('where')
+        return createdInfo
         
     }
 }

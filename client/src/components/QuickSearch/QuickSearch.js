@@ -33,13 +33,13 @@ const QuickSearch = (props) => {
     return (
         <div className="quickSearch-container">
             <h3>Search</h3>
-            <div className="search-options">
-                <input className="area" placeholder="Area" onChange={(e) => setArea(e.target.value)}></input>
-                <input className="rooms" placeholder="Rooms" onChange={(e) => setRooms(e.target.value)}></input>
-                <input className="price-min" placeholder="Min.price" onChange={(e) => setPriceMin(e.target.value)}></input>
-                <input className="price-max" placeholder="Max.price" onChange={(e) => setPriceMax(e.target.value)}></input>
+            <div className="quickSearch-options">
+                <input className="quickSearch-area" placeholder="Area" onChange={(e) => setArea(e.target.value)}></input>
+                <input className="quickSearch-rooms" placeholder="Rooms" onChange={(e) => setRooms(e.target.value)}></input>
+                <input className="quickSearch-price-min" placeholder="Min.price" onChange={(e) => setPriceMin(e.target.value)}></input>
+                <input className="quickSearch-price-max" placeholder="Max.price" onChange={(e) => setPriceMax(e.target.value)}></input>
             </div>
-            <button className="search-btn" onClick={() => filterApartments(area, rooms, priceMin, priceMax)}>Filter</button>
+            <button className="quickSearch-search-btn" onClick={() => filterApartments(area, rooms, priceMin, priceMax)}>Filter</button>
         </div>
     )
 }

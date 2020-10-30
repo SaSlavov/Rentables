@@ -15,21 +15,21 @@ const FavoriteApartments = () => {
         street: '',
         date: undefined,
         time: undefined,
+        id: undefined,
     })
 
     const comment = useRef(null)
 
     const updateApartmentInfo = (prop, value, apartmentId) => {
-        console.log(value)
-        console.log(apartmentId)
         setApartmentInfo({
             ...apartmentInfo,
             [prop]: value,
+            apartmentId,
         })
     }
 
     const editUserInfo = (userInfo) => {
-        if(userInfo) {
+        if (userInfo) {
             console.log('in user info')
             for (let key in userInfo) {
                 console.log(key)
@@ -37,14 +37,29 @@ const FavoriteApartments = () => {
         }
     }
 
-    const postApartmentInfo = (apartmentId) => {
+    const postApartmentInfo = async (apartmentId) => {
+        const apartment = apartments.filter(apartment => apartment.apartmentInfo.id === apartmentId)[0]
+        const props = Object.keys(apartmentInfo)
+        const info = {}
+
+        props.forEach(prop => {
+            if (!apartmentInfo[prop]) {
+                if (apartment.userInfo[prop]) {
+                    info.id = apartment.userInfo.id
+                }
+                info[prop] = apartment.userInfo[prop]
+            } else {
+                info[prop] = apartmentInfo[prop]
+            }
+        })
+
         fetch(`${BASE_URL}/apartments/favorite/info`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
             },
-            body: JSON.stringify({ ...apartmentInfo, apartmentId: apartmentId })
+            body: JSON.stringify({ ...info, apartmentId: apartmentId, })
         })
             .then(r => r.json())
             .then(res => {
@@ -68,9 +83,6 @@ const FavoriteApartments = () => {
             })
     }, [user.id])
 
-    console.log(apartments)
-    console.log(apartmentInfo)
-//apartmentInfo.apartmentId === apartment.apartmentInfo.id && apartmentInfo.comment ? apartmentInfo.comment : apartment.apartmentInfo.comment
     return (
         <>
             <div className="background" ></div>
@@ -89,16 +101,14 @@ const FavoriteApartments = () => {
                             </div>
                             <div className="comments-container">
                                 <p>Comments</p>
-                                <textarea className="comments" value={apartment.userInfo.comment} onChange={(e) => {updateApartmentInfo('comment', e.target.value, apartment.apartmentInfo.id) }}></textarea>
+                                <textarea className="comments" value={apartmentInfo.apartmentId === apartment.apartmentInfo.id && apartmentInfo.comment ? apartmentInfo.comment : apartment.userInfo.comment} onChange={(e) => { updateApartmentInfo('comment', e.target.value, apartment.apartmentInfo.id) }}></textarea>
                             </div>
                             <div className="viewing-arrangement">
                                 <p>Arrangement for viewing</p>
-                                <input type="date" value={apartment.userInfo.date} onChange={(e) => updateApartmentInfo('date', e.target.value)}></input>
-                                <input type="time" value={apartment.userInfo.time} onChange={(e) => updateApartmentInfo('time', e.target.value)}></input>
-                                <input type="text" value={apartment.userInfo.street} placeholder="Street" onChange={(e) => updateApartmentInfo('street', e.target.value)}></input>
-                            </div>
-                            <button onClick={() => postApartmentInfo(apartment.apartmentInfo.id)}>Update</button>
-                            {/* <button onClick={() => editUserInfo(apartment.id)}>Edit</button> */}
+                                <input type="date" value={apartmentInfo.apartmentId === apartment.apartmentInfo.id && apartmentInfo.date ? apartmentInfo.date : apartment.userInfo.date} onChange={(e) => updateApartmentInfo('date', e.target.value, apartment.apartmentInfo.id)}></input>
+                                <input type="time" value={apartmentInfo.apartmentId === apartment.apartmentInfo.id && apartmentInfo.time ? apartmentInfo.time : apartment.userInfo.time} onChange={(e) => updateApartmentInfo('time', e.target.value, apartment.apartmentInfo.id)}></input>
+                                <input type="text" value={apartmentInfo.apartmentId === apartment.apartmentInfo.id && apartmentInfo.street ? apartmentInfo.street : apartment.userInfo.street} placeholder="Street" onChange={(e) => updateApartmentInfo('street', e.target.value, apartment.apartmentInfo.id)}></input>
+                                <span className="update-btn" onClick={() => postApartmentInfo(apartment.apartmentInfo.id)}>Update</span>                        </div>
                         </div>
                     })}
                 </div>

@@ -14,14 +14,14 @@ label {
     display: inline;
 }
 
-.search-options input {
+.quickSearch-options input {
     height: 35px;
     width: 200px;
     font-size: 20px;
     margin: 0 auto;
 }
 
-.search-options {
+.quickSearch-options {
     display: grid;
     grid-template: 90px 90px / 300px 300px;
     margin-top: 45px;

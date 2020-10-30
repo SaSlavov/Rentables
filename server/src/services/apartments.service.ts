@@ -144,10 +144,9 @@ export class ApartmentsService {
         
     }
     async addInfoToFavoriteApartment(body: any): Promise<any> {
-        // console.log(body)
-
         const apartmentId = body.apartmentId;
         const userId = body.userId;
+        const infoId = body.id
 
         const foundApartment = await this.apartmentRepository.findOne({
             where: {
@@ -160,8 +159,17 @@ export class ApartmentsService {
                 id: userId
             },
         })
-        // console.log(foundApartment.favoriteOf, foundUser)
 
+        if(infoId) {       
+           const updated = await this.favoriteApartmentInfoRepository.update(infoId, {
+                comment: body.comment,
+                date: body.date,
+                time: body.time,
+                street: body.street,
+            })
+
+            return updated //  return something else
+        }
 
         const newInfo = new FavoriteApartmentInfo;
 
@@ -171,15 +179,9 @@ export class ApartmentsService {
         newInfo.street = body.street;
         newInfo.author = foundUser;
         newInfo.apartment = foundApartment;
-        console.log(newInfo)
-
-        // const newInfo = this.favoriteApartmentInfoRepository.create(body)
-        // newInfo.
 
         const createdInfo = await this.favoriteApartmentInfoRepository.save(newInfo);
-        // createdInfo.author = foundUser;
-        // createdInfo.apartment = foundApartment;
-        console.log('where')
+        
         return createdInfo
         
     }

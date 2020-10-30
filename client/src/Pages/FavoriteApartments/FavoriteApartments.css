@@ -101,3 +101,21 @@
     height: 100px;
     width: 140px;
 }
+
+.update-btn {
+    /* color: grey; */
+    font-size: 20px;
+    border: 2px solid blue;
+    width: 75px;
+    height: 33px;
+    margin: 0 auto;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    margin-top: 30px;
+}
+
+.update-btn:hover {
+    background-color: rgba(245, 225, 189, 0.795);
+}
+

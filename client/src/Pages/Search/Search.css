@@ -11,7 +11,7 @@
     padding: 20px;
 }
 
-.search-options input{
+.search-options input, .rooms{
     display: block;
     margin-top: 15px;
     width: 120px;
@@ -51,7 +51,8 @@
     background-color: rgb(177, 247, 247);
 }
 
-.selected-areas {
+.selected-areas, .selected-rooms {
+    display: inline-block;
     width: 200px;
     min-height: 70px;
     background-color: rgb(222, 248, 248);

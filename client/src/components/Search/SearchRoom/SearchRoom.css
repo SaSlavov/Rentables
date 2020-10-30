@@ -1,0 +1,95 @@
+.room-container {
+    position: relative;
+}
+
+.room-search-result {
+    width: 160px;
+    min-height: 20px;
+    background-color: rgb(222, 248, 248);
+    position: absolute;
+    top: 50%;
+    left: 14%;
+    border-bottom-left-radius: 11px;
+    border-bottom-right-radius: 11px;
+    border-top-right-radius: 11px;
+    /* border-top: solid 1px grey;
+    border-left: solid 1px grey; */
+    cursor: pointer;
+}
+
+.suggested-room {
+    margin: 0 auto;
+    width: 135px;
+    border-bottom: solid 1px grey;
+    padding-bottom: 4px;
+    border-radius: 5px;
+}
+
+.suggested-room:hover {
+    background-color: rgb(177, 247, 247);
+}
+
+.selected-rooms {
+    display: inline-block;
+    width: 200px;
+    min-height: 70px;
+    background-color: rgb(222, 248, 248);
+    border-radius: 4px;
+    text-align: left;
+    padding: 5px;
+    position: absolute;
+    padding-bottom: 0;
+}
+
+.selected-room-container {
+    display:inline;
+    margin: 2px;
+    position: relative;
+}
+
+.selected-room {
+    margin: 0;
+    display: inline;
+    border-radius: 4px;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.selected-room:hover {
+    background-color: rgb(177, 247, 247);
+}
+
+.selected-room-delete-btn {
+    background-color: rgb(177, 247, 247);
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    bottom: 90%; 
+    cursor: default;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.selected-room-delete-btn:hover {
+    background-color: rgb(125, 206, 206);
+}
+
+.show-more-selected-rooms {
+    position: absolute;
+    bottom: 0;
+    right: 3%;
+    /* border: 1px solid black; */
+    cursor: pointer
+}
+
+.show-more-selected-rooms:hover {
+    fill: rgb(0, 102, 255)
+}
+
+.show-more-p {
+    margin:0;
+    margin-left: 70px;
+    color:  rgb(0, 102, 255);
+}

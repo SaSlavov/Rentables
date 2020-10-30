@@ -2,116 +2,108 @@
     padding-top: 80px;
     background-color: rgba(245, 222, 179, 0.829);
     position: absolute;
-    width: 900px;
+    width: 500px;
     height: 400px;
     top: 20%;
-    left: 15%;
+    left: 30%;
     z-index: 3;
     border-radius: 6px;
     padding: 20px;
 }
 
-.search-options input, .rooms{
+.search-options {
+    display: grid;
+    grid-template: 100px auto auto / 500px ;
+    grid-template-areas: 
+    "result "
+    " mainInfo "
+    " .  ";
+    margin: 0 auto
+}
+
+#additional-info-container {
+    grid-area: addInfo
+}
+.furnished, .construction, .parking {
     display: block;
-    margin-top: 15px;
+    /* margin-top: 15px; */
     width: 120px;
     height: 25px;
     border-radius: 5px;
     border-style: hidden;
 }
 
-.area-container {
-    position: relative;
+.areas-rooms-result-container {
+    grid-area: result;
+    /* margin-left: 0; */
+    /* display:grid;
+    grid-template-columns: 300px 300px ;
+    grid-template-areas: 
+    "areas rooms"; */
+    margin: 0 auto
+}
+.selected-areas {
+    grid-area: areas;
+    left: 10%;
 }
 
-.area-search-result {
-    width: 160px;
-    min-height: 20px;
-    background-color: rgb(222, 248, 248);
-    position: absolute;
-    top: 50%;
-    left: 14%;
-    border-bottom-left-radius: 11px;
-    border-bottom-right-radius: 11px;
-    border-top-right-radius: 11px;
-    /* border-top: solid 1px grey;
-    border-left: solid 1px grey; */
-    cursor: pointer;
+.selected-rooms {
+    grid-area: rooms;
+    right: 10%;
 }
 
-.suggested-area {
+.main-info-input {
+    grid-area: mainInfo;
+    display: grid;
+    grid-template: 35px 35px 35px 35px / 140px 140px;
+    grid-template-areas: 
+    "area area"
+    "min max"
+    "construction rooms"
+    "parking furnished";
     margin: 0 auto;
-    width: 135px;
-    border-bottom: solid 1px grey;
-    padding-bottom: 4px;
+}
+.area {
+    grid-area: area;
+    margin: 0 auto;
+
+}
+
+.price-min {
+    grid-area: min;
+    margin: 0 auto;
+}
+
+.price-max {
+    grid-area: max;
+    margin: 0 auto;
+}
+
+.rooms {
+    grid-area: rooms;
+    margin: 0 auto;
+}
+
+.furnished {
+    grid-area: furnished;
+    margin: 0 auto;
+}
+.construction {
+    grid-area: construction;
+    margin: 0 auto;
+}
+.parking {
+    grid-area: parking;
+    margin: 0 auto;
+}
+
+.search-options input, .rooms{
+    display: block;
+    /* margin-top: 15px; */
+    width: 120px;
+    height: 25px;
     border-radius: 5px;
+    border-style: hidden;
 }
 
-.suggested-area:hover {
-    background-color: rgb(177, 247, 247);
-}
 
-.selected-areas, .selected-rooms {
-    display: inline-block;
-    width: 200px;
-    min-height: 70px;
-    background-color: rgb(222, 248, 248);
-    border-radius: 4px;
-    text-align: left;
-    padding: 5px;
-    position: relative; /* make it absolute some day */
-    padding-bottom: 0;
-}
-
-.selected-area-container {
-    display:inline;
-    margin: 2px;
-    position: relative;
-}
-
-.selected-area {
-    margin: 0;
-    display: inline;
-    border-radius: 4px;
-    padding-left: 2px;
-    padding-right: 2px;
-}
-
-.selected-area:hover {
-    background-color: rgb(177, 247, 247);
-}
-
-.selected-area-delete-btn {
-    background-color: rgb(177, 247, 247);
-    width: 18px;
-    height: 18px;
-    text-align: center;
-    position: absolute;
-    left: 0;
-    bottom: 90%; 
-    cursor: default;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-}
-
-.selected-area-delete-btn:hover {
-    background-color: rgb(125, 206, 206);
-}
-
-.show-more-selected-areas {
-    position: absolute;
-    bottom: 0;
-    right: 3%;
-    /* border: 1px solid black; */
-    cursor: pointer
-}
-
-.show-more-selected-areas:hover {
-    fill: rgb(0, 102, 255)
-}
-
-.show-more-p {
-    margin:0;
-    margin-left: 70px;
-    color:  rgb(0, 102, 255);
-}

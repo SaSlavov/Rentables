@@ -1,13 +1,16 @@
-import React, { useCallback, useContext, useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { addImages } from '../../utils/addImages';
 import { BASE_URL } from '../../common/constants'
 import './NewAd.css'
 import AuthContext from '../../providers/AuthContext';
+import { suggestArea } from '../../utils/suggestArea';
 
 const NewAd = () => {
 
     const [images, setImages] = useState([])
     const [imagesForPreview, setImagesForPreview] = useState([])
+    const [suggestedArea, setSuggestedArea] = useState(null)
+    const [selectedArea, setSelectedArea] = useState([])
     const { user } = useContext(AuthContext)
     const [apartmentInfo, setApartmentInfo] = useState({
         title: '',
@@ -25,17 +28,18 @@ const NewAd = () => {
     const isFurnished = useRef()
     const constructionType = useRef()
     const parking = useRef()
+    const areaInput = useRef()
 
     const uncheckBox = (id, ref) => {
         Array.from(ref.current.children).forEach(child => {
-            if(child.localName === 'input') {
-                if(child.id !== id && child.checked === true) {
+            if (child.localName === 'input') {
+                if (child.id !== id && child.checked === true) {
                     child.checked = false
                 }
             }
         })
     }
-    
+
 
     const updateApartmentInfo = (prop, value, isChecked = true, id, ref = null) => {
         if (isChecked) {
@@ -84,11 +88,29 @@ const NewAd = () => {
                 <div className="main-info-container">
                     <input className="title-input" type="text" placeholder="Title" onChange={(e) => updateApartmentInfo('title', e.target.value)}></input>
                     <input className="price-input" type="text" placeholder="Price" onChange={(e) => updateApartmentInfo('price', e.target.value)}></input>
-                    <input className="area-input" type="text" placeholder="Area" onChange={(e) => updateApartmentInfo('area', e.target.value)}></input>
-                    <input className="rooms-input" type="text" placeholder="Rooms" onChange={(e) => updateApartmentInfo('rooms', e.target.value)}></input>
+                    <input ref={areaInput} className="area-input" type="text" value={selectedArea ? selectedArea : areaInput.current.value} placeholder="Area" onChange={(e) => e.target.value === '' ? setSuggestedArea(null) : setSuggestedArea(suggestArea(e.target.value))}></input>
+                    <select className="rooms-input" placeholder="Rooms" onChange={(e) => updateApartmentInfo('rooms', e.target.value)}>
+                            <option value="Studio" selected >Rooms</option>
+                            <option value="Studio">Studio</option>
+                            <option value="One-room">One-room</option>
+                            <option value="Two-room">Two-room</option>
+                            <option value="Three-room">Three-room</option>
+                            <option value="Multi-bedroom">Multi-bedroom</option>
+                            <option value="Maisonette">Maisonette</option>
+                            <option value="House">House</option>
+                            <option value="Storey of a house">Storey of a house</option>
+                        </select>
+
                     <input className="floor-input" type="text" placeholder="Floor" onChange={(e) => updateApartmentInfo('floor', e.target.value)}></input>
                     <textarea className="description-input" type="text" placeholder="Description" onChange={(e) => updateApartmentInfo('description', e.target.value)}></textarea>
-                    <input className="images-input" type="file" multiple onChange={(e) => {addImages(e, imagesForPreview, setImagesForPreview); (setImages([...images, ...e.target.files]))}}></input>
+                    <input className="images-input" type="file" multiple onChange={(e) => { addImages(e, imagesForPreview, setImagesForPreview); (setImages([...images, ...e.target.files])) }}></input>
+                    {suggestedArea &&
+                        <div tabIndex="0" className="area-search-result" onBlur={(e) => !(e.relatedTarget && e.relatedTarget.className === "area-search-result") && setSuggestedArea(null)}>
+                            {suggestedArea.map(area => {
+                                return <p className="suggested-area" onClick={() => selectedArea !== area && (setSelectedArea(area),  updateApartmentInfo('area', area))}>{area}</p>
+                            })}
+                        </div>
+                    }
 
                 </div>
                 <div className="additional-info-container">

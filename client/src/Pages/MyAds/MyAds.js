@@ -25,7 +25,7 @@ const MyAds = () => {
                 // setHeadImg(res[0].images.images.split(' ')[0])
                 // setHeadImg(res.images)
             })
-    }, [])
+    })
 
 
     return (

@@ -13,20 +13,20 @@ export class Apartment {
     @Column()
     price: string;
 
-    @Column()
+    @Column({default: 'Not specified'})
     area: string;
 
     @Column()
-    rooms: number;
+    rooms: string;
     @Column()
     floor: number;
     @Column()
     description: string;
-    @Column()
+    @Column({default: 'Not specified'})
     furnished: string;
-    @Column()
+    @Column({default: 'Not specified'})
     constructionType: string;
-    @Column()
+    @Column({default: 'Not specified'})
     parking: string;
 
     @OneToOne(

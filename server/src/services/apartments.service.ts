@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { All, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Apartment } from 'src/models/entities/apartment.entity';
 import { User } from 'src/models/entities/user.entity';
 import { CreateApartmentDTO } from '../models/dtos/apartmentDTOs/create-apartment.dto'
-import { LessThan, MoreThan, Not, Repository } from 'typeorm';
+import { Any, Equal, In, LessThan, MoreThan, Not, Repository } from 'typeorm';
 import { query } from 'express';
 import { Images } from 'src/models/entities/images.entity';
 import { FavoriteApartmentInfo } from 'src/models/entities/favoriteApartmentInfo.entity';
@@ -47,15 +47,22 @@ export class ApartmentsService {
     };
 
     async searchApartments(queryData: any): Promise<any> {
+        const area = queryData.area.split('_')
+        const rooms = queryData.rooms.split('_')
         const foundApartment = await this.apartmentRepository.find({
             where: {
-                area: queryData.area,
-                rooms: +queryData.rooms === 0 ? MoreThan(0) : +queryData.rooms, // number?
-                price: (+queryData.priceMin === 0 && +queryData.priceMax === 0) ? MoreThan(0) : Not(LessThan(queryData.priceMin)) && LessThan(queryData.priceMax)
+                area: queryData.area ? In(area): Not(Equal("Not specified")),
+                rooms: queryData.rooms ? In(rooms): Not(Equal("Not specified")),
+                price: (+queryData.priceMin === 0 && +queryData.priceMax === 0) ? MoreThan(0) : Not(LessThan(queryData.priceMin)) && LessThan(queryData.priceMax),
+                furnished: queryData.furnishing ? queryData.furnishing : In(["furnished", "partially furnished", "not furnished", "Not specified"]), 
+                constructionType: queryData.construction ? queryData.construction : In(["brick", "panel", "EPK", "Not specified"]),
+                parking: queryData.parking ? queryData.parking : In(["no parking", "dedicated spot", "garage", "Not specified"]),
             },
             relations: ['images']
         })
 
+        console.log(queryData)
+        console.log(foundApartment)
         return foundApartment;
         
     }

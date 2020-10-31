@@ -1,8 +1,7 @@
 import React from 'react';
-import { suggestArea } from '../../../utils/suggestArea';
 import './SearchArea.css'
 
-const SearchArea = ({ suggestedArea, setSuggestedArea, selectedAreas, setSelectedAreas, showAllAreas, setShowAllAreas, isDeleteButtonForAreasVisible, setIsDeleteButtonForAreasVisible }) => {
+const SearchArea = ({ suggestedArea, setSuggestedArea, selectedAreas, setSelectedAreas, showAllAreas, setShowAllAreas, isDeleteButtonForAreasVisible, setIsDeleteButtonForAreasVisible, queryInfo, updateQueryInfo }) => {
     return (<>
 
         <div className="selected-areas">
@@ -15,7 +14,7 @@ const SearchArea = ({ suggestedArea, setSuggestedArea, selectedAreas, setSelecte
                 }
                 return <div className="selected-area-container" onMouseEnter={() => setIsDeleteButtonForAreasVisible(index)} onMouseLeave={() => setIsDeleteButtonForAreasVisible(false)}>
                     <p className="selected-area" >{area}, </p>
-                    {isDeleteButtonForAreasVisible === index && <a className="selected-area-delete-btn" onClick={() => { setSelectedAreas(selectedAreas.filter(currentArea => currentArea !== area)); setIsDeleteButtonForAreasVisible(false) }}>X</a>}
+                    {isDeleteButtonForAreasVisible === index && <span className="selected-area-delete-btn" onClick={() => { setSelectedAreas(selectedAreas.filter(currentArea => currentArea !== area)); setIsDeleteButtonForAreasVisible(false) }}>X</span>}
                 </div>
 
             })}
@@ -31,7 +30,7 @@ const SearchArea = ({ suggestedArea, setSuggestedArea, selectedAreas, setSelecte
         {suggestedArea &&
             <div tabIndex="0" className="area-search-result" onBlur={(e) => !(e.relatedTarget && e.relatedTarget.className === "area-search-result") && setSuggestedArea(null)}>
                 {suggestedArea.map(area => {
-                    return <p className="suggested-area" onClick={() => !selectedAreas.includes(area) && setSelectedAreas([...selectedAreas, area])}>{area}</p>
+                    return <p className="suggested-area" onClick={() => !selectedAreas.includes(area) && setSelectedAreas([...selectedAreas, area]) }>{area}</p>
                 })}
             </div>
         }

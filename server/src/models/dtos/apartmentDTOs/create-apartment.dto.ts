@@ -2,7 +2,7 @@
 export class CreateApartmentDTO {
     title: string;
     price: string;
-    rooms: number;
+    rooms: string;
     area: string;
     floor: number;
     description: string;

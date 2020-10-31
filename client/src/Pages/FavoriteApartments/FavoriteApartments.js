@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { BASE_URL } from '../../common/constants';
 import AuthContext from '../../providers/AuthContext';
-import { profile } from '../../TempData/profile';
 import './FavoriteApartments.css'
 
 const FavoriteApartments = () => {
@@ -18,8 +17,6 @@ const FavoriteApartments = () => {
         id: undefined,
     })
 
-    const comment = useRef(null)
-
     const updateApartmentInfo = (prop, value, apartmentId) => {
         setApartmentInfo({
             ...apartmentInfo,
@@ -28,14 +25,7 @@ const FavoriteApartments = () => {
         })
     }
 
-    const editUserInfo = (userInfo) => {
-        if (userInfo) {
-            console.log('in user info')
-            for (let key in userInfo) {
-                console.log(key)
-            }
-        }
-    }
+    
 
     const postApartmentInfo = async (apartmentId) => {
         const apartment = apartments.filter(apartment => apartment.apartmentInfo.id === apartmentId)[0]

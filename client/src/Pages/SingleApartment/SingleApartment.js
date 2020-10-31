@@ -52,7 +52,7 @@ const SingleApartment = ({ apartmentId }) => {
                         <p className="floor"><b>Floor:</b> {apartment.floor}</p>
                         <p className="total-size"><b>Total size:</b> {apartment.size}</p>
                         <p className="heating"><b>Heating:</b> {apartment.heating}</p>
-                        <p className="parking"><b>Parking:</b> {apartment.parking}</p>
+                        <p className="parking-info"><b>Parking:</b> {apartment.parking}</p>
                     </div>
                     <div>
                         <p>Id number</p>

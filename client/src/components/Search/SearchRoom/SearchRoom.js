@@ -14,7 +14,7 @@ const SearchRoom = ({ selectedRooms, setSelectedRooms, showAllRooms, setShowAllR
                     }
                     return <div  className="selected-room-container" onMouseEnter={() => setIsDeleteButtonForRoomsVisible(index)} onMouseLeave={() => setIsDeleteButtonForRoomsVisible(false)}>
                         <p className="selected-room" >{room}, </p>
-                        {isDeleteButtonForRoomsVisible === index && <a className="selected-room-delete-btn" onClick={() => { setSelectedRooms(selectedRooms.filter(currentRoom => currentRoom !== room)); setIsDeleteButtonForRoomsVisible(false) }}>X</a>}
+                        {isDeleteButtonForRoomsVisible === index && <span className="selected-room-delete-btn" onClick={() => { setSelectedRooms(selectedRooms.filter(currentRoom => currentRoom !== room)); setIsDeleteButtonForRoomsVisible(false) }}>X</span>}
                     </div>
 
                 })}

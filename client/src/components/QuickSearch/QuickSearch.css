@@ -1,5 +1,5 @@
 .quickSearch-container {
-    height: 300px;
+    height: 330px;
     width: 600px;
     background-color: rgb(180, 228, 240);
     position: absolute;
@@ -26,4 +26,28 @@ label {
     grid-template: 90px 90px / 300px 300px;
     margin-top: 45px;
     /* border: 2px solid black; */
+}
+
+.quickSearch-search-btn {
+    width: 80px;
+    height: 30px;
+    padding-top: 4px;
+    border-radius: 4px;
+    background-color: rgb(222, 248, 248);
+    box-shadow: 1.5px 1.5px 2px 2px rgb(89, 172, 172);
+    cursor: default;
+    margin: 0 auto;
+    margin-top: 25px;
+    position: absolute;
+    left: 43%;
+    bottom: 15%;
+}
+
+.quickSearch-search-btn:active {
+    background-color: rgb(178, 240, 240);
+    box-shadow: -0.5px -0.6px 2px 2px rgb(89, 172, 172);
+}
+
+.quickSearch-search-btn:hover {
+    background-color: rgb(206, 247, 247);
 }

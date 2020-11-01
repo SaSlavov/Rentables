@@ -80,7 +80,7 @@ const Search = (props) => {
                         <input className="price-max" placeholder="Max.price" onChange={(e) => { }}></input>
                         <AdditionalInfo queryInfo={queryInfo} updateQueryInfo={updateQueryInfo}/>
                     </div>
-                    <span onClick={(e) => filterApartments()}>Search</span>
+                    <span className="full-search-btn" onClick={() => filterApartments()}>Search</span>
                 </div>
             </div>
         </>

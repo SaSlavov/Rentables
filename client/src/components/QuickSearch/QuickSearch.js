@@ -39,7 +39,7 @@ const QuickSearch = (props) => {
                 <input className="quickSearch-price-min" placeholder="Min.price" onChange={(e) => setPriceMin(e.target.value)}></input>
                 <input className="quickSearch-price-max" placeholder="Max.price" onChange={(e) => setPriceMax(e.target.value)}></input>
             </div>
-            <button className="quickSearch-search-btn" onClick={() => filterApartments(area, rooms, priceMin, priceMax)}>Filter</button>
+            <span className="quickSearch-search-btn" onClick={() => filterApartments(area, rooms, priceMin, priceMax)}>Filter</span>
         </div>
     )
 }

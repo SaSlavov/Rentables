@@ -1,12 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { BASE_URL } from '../../common/constants'
 import AuthContext from '../../providers/AuthContext'
+import SingleApartmentContext from '../../providers/SingleApartmentContext'
 import './MyAds.css'
 
-const MyAds = () => {
+const MyAds = (props) => {
 
     const { user } = useContext(AuthContext)
+    const { setApartmentId } = useContext(SingleApartmentContext)
     const [apartments, setApartments] = useState(null)
+    const history = props.history
+
+    const clickApartment = (apartmentId) => {
+        setApartmentId({apartmentId});
+        localStorage.setItem('apartmentId', apartmentId)
+        history.push('/apartment');
+    }
 
     useEffect(() => {
         fetch(`${BASE_URL}/apartments/filter/user/${user.id}`, {
@@ -25,40 +34,27 @@ const MyAds = () => {
                 // setHeadImg(res[0].images.images.split(' ')[0])
                 // setHeadImg(res.images)
             })
-    })
+    }, [])
 
-
+console.log(apartments)
     return (
         <>
             <div className="background" ></div>
             <div className="my-ads-container">
-            <div className="favorites-result">
-                <p>My ads</p>
-                    {apartments && apartments.map(apartment => {
-                        return <div className="apartment-container" key={apartment.id}>
-                            <div className="apartment-info">
-                                <p className="favorite-apartment-title">{apartment.title}</p>
-                                <img className="favorite-apt-headImg" src={`${BASE_URL}/images/${apartment.images.images.split(' ')[0]}`} alt="my apartment"></img>
-                                <div className="favorite-apartment-info">
-                                    <p className="favorite-apartment-price">€ {apartment.price}</p>
-                                    <p className="favorite-apartment-area">{apartment.area}</p>
-                                    <p className="favorite-apartment-rooms">{apartment.rooms} rooms</p>
-                                </div>
-                            </div>
-                            <div className="comments-container">
-                                <p>Comments</p>
-                                <textarea className="comments"></textarea>
-                            </div>
-                            <div className="viewing-arrangement">
-                                <p>Arrangement for viewing</p>
-                                <input type="date" value="1995-11-20"></input>
-                                <input type="time"></input>
-                                <input type="text" placeholder="Street"></input>
-                            </div>
+            {apartments && apartments.map(apartment => {
+                        return <div
+                            className="apartment"
+                            key={apartment.id}>
+
+                            <img className="recommended-apt-headImg" src={`${BASE_URL}/images/${apartment.images.images.split(' ')[0]}`} alt="apartment"></img>
+
+                            <p onClick={() => clickApartment(apartment.id)}>{apartment.title}</p>
+                            <p>{apartment.rooms} rooms</p>
+                            <p>{apartment.price}</p>
                         </div>
                     })}
-                </div>
             </div>
+            
         </>
     )
 }

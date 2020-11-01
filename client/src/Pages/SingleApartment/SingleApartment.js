@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { BASE_URL } from '../../common/constants';
+import SingleApartmentContext from '../../providers/SingleApartmentContext';
 import './SingleApartment.css'
 
-const SingleApartment = ({ apartmentId }) => {
+const SingleApartment = () => {
     const [apartment, setApartment] = useState(null)
     const [images, setImages] = useState(null)
     const [headImage, setHeadImg] = useState(null)
+    const { apartmentId } = useContext(SingleApartmentContext)
 
     useEffect(() => {
         fetch(`${BASE_URL}/apartments/filter/${apartmentId}`, {
@@ -18,7 +20,7 @@ const SingleApartment = ({ apartmentId }) => {
         })
             .then(r => r.json())
             .then(res => {
-                console.log(res.title)
+                console.log(res)
                 setApartment(res);
                 setImages(res.images.images.split(' '))
                 setHeadImg(res.images.images.split(' ')[0])

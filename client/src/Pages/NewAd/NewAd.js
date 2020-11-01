@@ -11,6 +11,7 @@ const NewAd = () => {
     const [imagesForPreview, setImagesForPreview] = useState([])
     const [suggestedArea, setSuggestedArea] = useState(null)
     const [selectedArea, setSelectedArea] = useState([])
+    const [isDeleteButtonForAreasVisible, setIsDeleteButtonForAreasVisible] = useState(null)
     const { user } = useContext(AuthContext)
     const [apartmentInfo, setApartmentInfo] = useState({
         title: '',
@@ -88,26 +89,40 @@ const NewAd = () => {
                 <div className="main-info-container">
                     <input className="title-input" type="text" placeholder="Title" onChange={(e) => updateApartmentInfo('title', e.target.value)}></input>
                     <input className="price-input" type="text" placeholder="Price" onChange={(e) => updateApartmentInfo('price', e.target.value)}></input>
-                    <input ref={areaInput} className="area-input" type="text" value={selectedArea ? selectedArea : areaInput.current.value} placeholder="Area" onChange={(e) => e.target.value === '' ? setSuggestedArea(null) : setSuggestedArea(suggestArea(e.target.value))}></input>
+                    <div className="area-input-container"
+                        onMouseEnter={() => (selectedArea && selectedArea.length > 0) && setIsDeleteButtonForAreasVisible(true)}
+                        onMouseLeave={() => setIsDeleteButtonForAreasVisible(false)}>
+
+                        <input ref={areaInput}
+                            className="area-input"
+                            type="text"
+                            value={selectedArea ? selectedArea : areaInput.current.value}
+                            placeholder="Area"
+                            onBlur={(e) => !(e.relatedTarget && e.relatedTarget.className === "area-suggest-result") && setSuggestedArea(null)}
+                            onChange={(e) => e.target.value === '' ? setSuggestedArea(null) : setSuggestedArea(suggestArea(e.target.value))}>
+
+                        </input>
+                        {isDeleteButtonForAreasVisible && <span className="area-input-delete-btn" onClick={() => { setSelectedArea(null); areaInput.current.value = ''; setIsDeleteButtonForAreasVisible(false) }}>X</span>}
+                    </div>
                     <select className="rooms-input" placeholder="Rooms" onChange={(e) => updateApartmentInfo('rooms', e.target.value)}>
-                            <option value="Studio" selected >Rooms</option>
-                            <option value="Studio">Studio</option>
-                            <option value="One-room">One-room</option>
-                            <option value="Two-room">Two-room</option>
-                            <option value="Three-room">Three-room</option>
-                            <option value="Multi-bedroom">Multi-bedroom</option>
-                            <option value="Maisonette">Maisonette</option>
-                            <option value="House">House</option>
-                            <option value="Storey of a house">Storey of a house</option>
-                        </select>
+                        <option value="not selected" defaultValue >Rooms</option>
+                        <option value="Studio">Studio</option>
+                        <option value="One-room">One-room</option>
+                        <option value="Two-room">Two-room</option>
+                        <option value="Three-room">Three-room</option>
+                        <option value="Multi-bedroom">Multi-bedroom</option>
+                        <option value="Maisonette">Maisonette</option>
+                        <option value="House">House</option>
+                        <option value="Storey of a house">Storey of a house</option>
+                    </select>
 
                     <input className="floor-input" type="text" placeholder="Floor" onChange={(e) => updateApartmentInfo('floor', e.target.value)}></input>
                     <textarea className="description-input" type="text" placeholder="Description" onChange={(e) => updateApartmentInfo('description', e.target.value)}></textarea>
                     <input className="images-input" type="file" multiple onChange={(e) => { addImages(e, imagesForPreview, setImagesForPreview); (setImages([...images, ...e.target.files])) }}></input>
                     {suggestedArea &&
-                        <div tabIndex="0" className="area-search-result" onBlur={(e) => !(e.relatedTarget && e.relatedTarget.className === "area-search-result") && setSuggestedArea(null)}>
+                        <div tabIndex="1" className="area-suggest-result" onBlur={(e) => !(e.relatedTarget && e.relatedTarget.className === "area-suggest-result") && setSuggestedArea(null)}>
                             {suggestedArea.map(area => {
-                                return <p className="suggested-area" onClick={() => selectedArea !== area && (setSelectedArea(area),  updateApartmentInfo('area', area))}>{area}</p>
+                                return <p className="suggested-area" onClick={() => selectedArea !== area && (setSelectedArea(area), updateApartmentInfo('area', area))}>{area}</p>
                             })}
                         </div>
                     }
@@ -155,7 +170,7 @@ const NewAd = () => {
                     </div>
                 </div>
 
-                <button className="create-btn" onClick={() => createNewAd()}>Create</button>
+                <span className="create-btn" onClick={() => createNewAd()}>Create</span>
             </div>
         </>
     )

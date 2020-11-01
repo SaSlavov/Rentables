@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { BASE_URL } from '../../common/constants';
 import AuthContext from '../../providers/AuthContext';
+import SingleApartmentContext from '../../providers/SingleApartmentContext';
 import './FavoriteApartments.css'
 
 const FavoriteApartments = () => {
     const { user } = useContext(AuthContext)
     const [apartments, setApartments] = useState(null)
+    const { apartmentId } = useContext(SingleApartmentContext)
 
     const [apartmentInfo, setApartmentInfo] = useState({
         userId: user.id,

@@ -1,10 +1,12 @@
 .single-apartment-container {
-    position: relative;
+    position: absolute;
     z-index: 2;
     background-color: rgba(252, 240, 217, 0.897);
     width: 900px;
     height: 1050px;
     margin: 0 auto;
+    top: 20%;
+    left: 14%;
     border-radius: 8px;
 }
 
@@ -16,6 +18,9 @@
     font-size: 30px;
     float: left;
     max-width: 450px;
+    margin-left: 40px;
+    /* border: 2px solid black; */
+
 }
 
 .apartment-price {
@@ -32,6 +37,7 @@
     border: 3px solid white;
     padding: 6px;
     margin-bottom: 8px;
+    margin-top: 80px;
 }
 
 .apartment-secondaryImgs {
@@ -64,5 +70,6 @@
 
 .details-info {
     display: grid;
-    grid-template: auto auto auto / auto auto;
+    grid-template: auto auto auto / 130px 130px;
+    margin: 0 auto;
 }

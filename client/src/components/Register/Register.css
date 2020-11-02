@@ -15,7 +15,9 @@
     display: block;
     border-radius: 8px;
     border-style: hidden;
+    margin: 0 auto;
     margin-bottom: 5px;
+    height: 30px;
 }
 
 .register-btn {

@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import { BASE_URL } from '../../common/constants';
 import AdditionalInfo from '../../components/Search/AdditionalInfo/AdditionalInfo';
 import SearchArea from '../../components/Search/SearchArea/SearchArea';
@@ -87,4 +88,4 @@ const Search = (props) => {
     )
 }
 
-export default Search;
+export default withRouter(Search);

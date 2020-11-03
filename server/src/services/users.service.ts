@@ -12,7 +12,22 @@ export class UsersService {
     constructor(
         @InjectRepository(User) private readonly usersRepository: Repository<User>,
     ) { }
+    async getUser(userId: number): Promise<any> {
 
+        const foundUser = await this.usersRepository.findOne({
+            where: {
+                id: userId,
+            },
+        });
+
+        return {
+            userId: foundUser.id,
+            username: foundUser.username,
+            firstName: foundUser.firstName,
+            lastName: foundUser.lastName,
+            // phone: updated.firstName,
+        }
+    }
 
     async create(userDto: CreateUserDTO): Promise<ReturnUserDTO> {
         const checkForUserAlreadyExist = await this.usersRepository.findOne({
@@ -33,6 +48,34 @@ export class UsersService {
             }
         } else {
             throw new BadRequestException(`User with name ${userDto.username} already exist!`);
+        }
+    }
+    async update(updateInfo: any): Promise<any> {
+        console.log( updateInfo)
+        const foundUser = await this.usersRepository.findOne({
+            where: {
+                id: updateInfo.userId,
+            },
+        });
+        console.log(foundUser)
+        if (foundUser) {
+            foundUser.username = updateInfo.username ? updateInfo.username : foundUser.username
+            foundUser.firstName = updateInfo.firstName ? updateInfo.firstName : foundUser.firstName
+            foundUser.lastName = updateInfo.lastName ? updateInfo.lastName : foundUser.lastName
+            // foundUser.username = updateInfo.username ? updateInfo.username : foundUser.username
+
+            const updated = await this.usersRepository.save(foundUser);
+
+            // return this.transformService.toReturnUserDTO(created);
+            return {
+                userId: updated.id,
+                username: updated.username,
+                firstName: updated.firstName,
+                lastName: updated.lastName,
+                // phone: updated.firstName,
+            }
+        } else {
+            throw new BadRequestException(`User with name ${updateInfo.username} doesn't exist exist!`);
         }
     }
 }

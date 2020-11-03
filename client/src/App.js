@@ -6,6 +6,7 @@ import FavoriteApartments from './Pages/FavoriteApartments/FavoriteApartments';
 import Homepage from './Pages/Homepage/Homepage';
 import MyAds from './Pages/MyAds/MyAds';
 import NewAd from './Pages/NewAd/NewAd';
+import Profile from './Pages/Profile/Profile';
 import Search from './Pages/Search/Search';
 import SearchResult from './Pages/SearchResult/SearchResult';
 import SingleApartment from './Pages/SingleApartment/SingleApartment';
@@ -44,6 +45,7 @@ function App() {
                   <Redirect exact from="/" to="homepage" />
                   <Route path="/homepage" component={Homepage} />
                   <Route path="/search" component={Search} />
+                  <Route path="/profile" component={Profile} />
                   <Route path="/apartment" component={SingleApartment} />
                   <Route path="/apartments" component={SearchResult} />
                   <Route path="/favorite" component={FavoriteApartments} />

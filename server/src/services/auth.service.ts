@@ -50,9 +50,12 @@ export class AuthService {
     const payload: JWTPayload = {
       id: user.id,
       username: user.username,
+      firstName: user.firstName,
+      lastName: user.lastName,
       role: UserRole[user.role],
       avatarUrl: user.avatarUrl,
       banEndDate: user.banEndDate,
+      
     }
     this.toggleOnline(payload.id)
     const token = await this.jwtService.signAsync(payload);

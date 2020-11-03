@@ -43,6 +43,9 @@ const Header = (props) => {
         <div className="header-container">
             { isLoggedIn
                 ? <>
+                    <NavLink className="profile-btn" to="/profile">
+                        <div>Profile</div>
+                    </NavLink>
                     <NavLink className="rents-btn" to="/search">
                         <div>Search</div>
                     </NavLink>

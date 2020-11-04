@@ -1,0 +1,15 @@
+.scheduled-apartment-info-container, #grid-schedule-titles {
+    display: grid;
+    grid-template-columns: auto auto auto ;
+    border: 1px solid black;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.scheduled-apartment-title, .scheduled-apartment-date, .scheduled-apartment-time {
+    display: inline;
+    margin: 0;
+    width: 150px;
+    margin: 0 auto;
+}

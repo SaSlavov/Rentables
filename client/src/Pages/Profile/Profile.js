@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { BASE_URL } from '../../common/constants';
 import MyAdsStatistics from '../../components/MyAdsStatistics/MyAdsStatistics';
+import MySchedule from '../../components/MySchedule/MyScehdule';
 import AuthContext from '../../providers/AuthContext';
 import './Profile.css'
 
@@ -10,6 +11,7 @@ const Profile = () => {
     const [activeButtons, setActiveButtons] = useState({
         info: true,
         myAdsButton: false,
+        schedule: false,
         favorites: false,
         newAd: false,
     })
@@ -34,7 +36,6 @@ const Profile = () => {
                 if (result.error) {
                     console.log(result.message)
                 }
-                console.log(result)
                 setAccountInfo(result)
             })
             .catch(alert);
@@ -63,7 +64,7 @@ const Profile = () => {
         setActiveButtons(temporaryState);
 
     }
-    console.log(accountInfo)
+    // console.log(accountInfo)
 
     const updateClassNames = (className) => {
         const buttons = Object.keys(activeButtons)
@@ -104,6 +105,8 @@ const Profile = () => {
                     <span className={updateClassNames("info")} onClick={() => updateActiveButtons("info")}>Info</span>
                     {activeButtons.myAdsButton && <div className="shadow"></div>}
                     <span className={updateClassNames("myAdsButton")} onClick={() => updateActiveButtons("myAdsButton")}>My ads</span>
+                    {activeButtons.schedule && <div className="shadow"></div>}
+                    <span className={updateClassNames("schedule")} onClick={() => updateActiveButtons("schedule")}>My schedule</span>
                     {activeButtons.favorites && <div className="shadow"></div>}
                     <span className={updateClassNames("favorites")} onClick={() => updateActiveButtons("favorites")}>Favorites</span>
                     {activeButtons.newAd && <div className="shadow"></div>}
@@ -130,6 +133,7 @@ const Profile = () => {
                     <span className="edit-btn" onClick={() => {setIsEditActive(!isEditActive); isEditActive && updateBase()}}>{isEditActive ? 'Update' : 'Edit'}</span>
                 </div>}
                 { activeButtons.myAdsButton && <MyAdsStatistics />}
+                { activeButtons.schedule && <MySchedule />}
             </div>
         </>
     )

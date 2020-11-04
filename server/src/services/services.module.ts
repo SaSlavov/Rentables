@@ -11,6 +11,7 @@ import { User } from 'src/models/entities/user.entity';
 import { AuthService } from './auth.service';
 import { Token } from 'src/models/entities/token.entity';
 import { FavoriteApartmentInfo } from 'src/models/entities/favoriteApartmentInfo.entity';
+import { FavoriteInfoService } from './favorite-info.service';
 
 @Module({
     imports: [
@@ -23,8 +24,8 @@ import { FavoriteApartmentInfo } from 'src/models/entities/favoriteApartmentInfo
           }
         }),
       ],
-      providers: [ApartmentsService, UsersService, AuthService],
-      exports: [ApartmentsService, UsersService, AuthService]
+      providers: [ApartmentsService, UsersService, AuthService, FavoriteInfoService],
+      exports: [ApartmentsService, UsersService, AuthService, FavoriteInfoService]
     
 })
 export class ServicesModule {}

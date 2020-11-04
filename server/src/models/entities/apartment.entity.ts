@@ -28,6 +28,8 @@ export class Apartment {
     constructionType: string;
     @Column({default: 'Not specified'})
     parking: string;
+    @Column()
+    views: number;
 
     @OneToOne(
         () => Images,

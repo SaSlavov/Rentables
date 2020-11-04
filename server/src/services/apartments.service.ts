@@ -83,10 +83,24 @@ export class ApartmentsService {
             where: {
                 author: userId
             },
-            relations: ['images']
+            relations: ['images', 'favoriteOf']
         })
 
         return foundApartments;
+        
+    }
+
+    async updateApartmentViews(apartmentId: number): Promise<Apartment> {
+        const foundApartment = await this.apartmentRepository.findOne({
+            where: {
+                id: apartmentId
+            },
+        })
+
+        foundApartment.views = foundApartment.views + 1
+        await this.apartmentRepository.save(foundApartment)
+
+        return foundApartment;
         
     }
     async getFavoriteApartmentsOfUser(userId: number): Promise<Apartment[]> {

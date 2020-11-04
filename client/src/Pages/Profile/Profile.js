@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { BASE_URL } from '../../common/constants';
+import MyAdsStatistics from '../../components/MyAdsStatistics/MyAdsStatistics';
 import AuthContext from '../../providers/AuthContext';
 import './Profile.css'
 
@@ -109,7 +110,7 @@ const Profile = () => {
                     <span className={updateClassNames("newAd")} onClick={() => updateActiveButtons("newAd")}>New ad</span>
                 </div>
 
-                <div className="info-container">
+                {activeButtons.info && <div className="info-container">
                     <label className="username-label">Username:</label>
                     {isEditActive 
                     ? <input className="profile-username-input" onChange={(e) => updateAccountInfo('username', e.target.value)}></input>
@@ -127,7 +128,8 @@ const Profile = () => {
                     ? <input className="profile-phone-input" onChange={(e) => updateAccountInfo('phone', e.target.value)}></input>
                     : <p className="profile-phone">{accountInfo.phone}</p>}
                     <span className="edit-btn" onClick={() => {setIsEditActive(!isEditActive); isEditActive && updateBase()}}>{isEditActive ? 'Update' : 'Edit'}</span>
-                </div>
+                </div>}
+                { activeButtons.myAdsButton && <MyAdsStatistics />}
             </div>
         </>
     )

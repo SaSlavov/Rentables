@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Query, Req, UploadedFile, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query, Req, UploadedFile, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AnyFilesInterceptor, FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
@@ -58,6 +58,14 @@ export class ApartmentsController {
     // @Req() request: any,
   ) {
     return await this.apartmentsService.addInfoToFavoriteApartment(data);
+  };
+
+  @Put(':id')
+  async updateApartmentViews(
+    @Param('id') apartmentId: string
+
+  ) {
+    return await this.apartmentsService.updateApartmentViews(+apartmentId);
   };
 
 

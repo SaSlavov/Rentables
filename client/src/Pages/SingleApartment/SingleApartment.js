@@ -28,6 +28,21 @@ const SingleApartment = () => {
             })
     }, [apartmentId])
 
+    useEffect(() => {
+        fetch(`${BASE_URL}/apartments/${apartmentId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
+            },
+
+        })
+            .then(r => r.json())
+            .then(res => {
+                console.log(res)
+            })
+    }, [apartmentId])
+
 
 
 

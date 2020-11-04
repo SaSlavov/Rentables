@@ -1,0 +1,18 @@
+.my-apartments-stats-container, #titles {
+    display: grid;
+    grid-template-columns: auto auto auto 80px 80px;
+    border: 1px solid black;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.my-apartments-stats-container:hover {
+    background-color: rgba(248, 230, 196, 0.986);
+
+}
+
+#apartment-title, #apartment-price, #apartment-area, #apartment-views, #apartment-favorites {
+    display: inline;
+    margin: 0;
+    width: 100px;
+}

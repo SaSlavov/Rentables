@@ -8,6 +8,7 @@ const SingleApartment = () => {
     const [images, setImages] = useState(null)
     const [headImage, setHeadImg] = useState(null)
     const { apartmentId } = useContext(SingleApartmentContext)
+    console.log(apartment)
 
     useEffect(() => {
         fetch(`${BASE_URL}/apartments/filter/${apartmentId}`, {
@@ -66,16 +67,19 @@ const SingleApartment = () => {
                     <div className="details-container">
                         <p>Details</p>
                         <div className="details-info">
+                            <p className="Area"><b>Area:</b> {apartment.area}</p>
                             <p className="construction-type"><b>Construction:</b> {apartment.constructionType}</p>
                             <p className="furnished-bool"><b>Furnished:</b> {apartment.furnished}</p>
                             <p className="floor"><b>Floor:</b> {apartment.floor}</p>
                             <p className="total-size"><b>Total size:</b> {apartment.size}</p>
-                            <p className="heating"><b>Heating:</b> {apartment.heating}</p>
                             <p className="parking-info"><b>Parking:</b> {apartment.parking}</p>
                         </div>
                         <div>
-                            <p>Id number</p>
-                            <b>{apartment.id}</b>
+                            <p id="apartment-id"><b>Id number: </b>{apartment.id}</p>
+                        </div>
+                        <div>
+                            <p className="owner-info"><b>Owner: </b>{apartment.author.firstName} {apartment.author.lastName}</p>
+                            <p className="owner-phone"><b>Phone: </b> {apartment.author.phone}</p>
                         </div>
                     </div>
                 </div>

@@ -25,7 +25,7 @@ export class UsersService {
             username: foundUser.username,
             firstName: foundUser.firstName,
             lastName: foundUser.lastName,
-            // phone: updated.firstName,
+            phone: foundUser.phone,
         }
     }
 
@@ -51,18 +51,18 @@ export class UsersService {
         }
     }
     async update(updateInfo: any): Promise<any> {
-        console.log( updateInfo)
+        // console.log( updateInfo)
         const foundUser = await this.usersRepository.findOne({
             where: {
                 id: updateInfo.userId,
             },
         });
-        console.log(foundUser)
+        // console.log(foundUser)
         if (foundUser) {
             foundUser.username = updateInfo.username ? updateInfo.username : foundUser.username
             foundUser.firstName = updateInfo.firstName ? updateInfo.firstName : foundUser.firstName
             foundUser.lastName = updateInfo.lastName ? updateInfo.lastName : foundUser.lastName
-            // foundUser.username = updateInfo.username ? updateInfo.username : foundUser.username
+            foundUser.phone = updateInfo.phone ? updateInfo.phone.toString() : foundUser.phone
 
             const updated = await this.usersRepository.save(foundUser);
 
@@ -72,7 +72,7 @@ export class UsersService {
                 username: updated.username,
                 firstName: updated.firstName,
                 lastName: updated.lastName,
-                // phone: updated.firstName,
+                phone: updated.phone,
             }
         } else {
             throw new BadRequestException(`User with name ${updateInfo.username} doesn't exist exist!`);

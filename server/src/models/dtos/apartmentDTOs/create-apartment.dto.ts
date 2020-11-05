@@ -9,4 +9,5 @@ export class CreateApartmentDTO {
     furnished: string;
     constructionType: string;
     parking: string;
+    size: number;
 }

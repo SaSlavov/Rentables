@@ -30,6 +30,12 @@ export class Apartment {
     parking: string;
     @Column()
     views: number;
+    @Column({default: false})
+    isRecommended: boolean;
+
+    @Column({default: 0})
+    size: number;
+    
 
     @OneToOne(
         () => Images,

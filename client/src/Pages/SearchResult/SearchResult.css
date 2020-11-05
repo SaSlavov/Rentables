@@ -39,3 +39,7 @@
     right: 5%;
     /* fill: red; */
 }
+
+.single-apartment-info-container {
+    cursor: pointer;
+}

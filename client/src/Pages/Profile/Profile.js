@@ -108,9 +108,9 @@ const Profile = () => {
                     {activeButtons.schedule && <div className="shadow"></div>}
                     <span className={updateClassNames("schedule")} onClick={() => updateActiveButtons("schedule")}>My schedule</span>
                     {activeButtons.favorites && <div className="shadow"></div>}
-                    <span className={updateClassNames("favorites")} onClick={() => updateActiveButtons("favorites")}>Favorites</span>
+                    {/* <span className={updateClassNames("favorites")} onClick={() => updateActiveButtons("favorites")}>Favorites</span>
                     {activeButtons.newAd && <div className="shadow"></div>}
-                    <span className={updateClassNames("newAd")} onClick={() => updateActiveButtons("newAd")}>New ad</span>
+                    <span className={updateClassNames("newAd")} onClick={() => updateActiveButtons("newAd")}>New ad</span> */}
                 </div>
 
                 {activeButtons.info && <div className="info-container">

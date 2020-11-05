@@ -18,7 +18,7 @@ export class ApartmentsService {
         @InjectRepository(FavoriteApartmentInfo) private readonly favoriteApartmentInfoRepository: Repository<FavoriteApartmentInfo>,
     ) { }
     async createApartment(userId, files, CreateApartmentDTO: CreateApartmentDTO): Promise<Apartment> {
-        console.log(files)
+        // console.log(files)
         const images = new Images()
         images.images = files.map(image => image.filename.toString()).join(' ')
         const createdImages = await this.imagesRepository.save(images)
@@ -38,6 +38,7 @@ export class ApartmentsService {
         apartment.furnished = CreateApartmentDTO.furnished;
         apartment.constructionType = CreateApartmentDTO.constructionType;
         apartment.parking = CreateApartmentDTO.parking;
+        apartment.size = CreateApartmentDTO.size;
         apartment.images = createdImages;
         apartment.author = user;
        
@@ -61,8 +62,8 @@ export class ApartmentsService {
             relations: ['images']
         })
 
-        console.log(queryData)
-        console.log(foundApartment)
+        // console.log(queryData)
+        // console.log(foundApartment)
         return foundApartment;
         
     }
@@ -71,7 +72,7 @@ export class ApartmentsService {
             where: {
                 id: apartmentId
             },
-            relations: ['images']
+            relations: ['images', 'author']
         })
 
         return foundApartment;

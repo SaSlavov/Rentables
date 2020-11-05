@@ -19,6 +19,7 @@ const NewAd = () => {
         rooms: 0,
         area: '',
         floor: 0,
+        size: 0,
         description: '',
         furnished: '',
         constructionType: '',
@@ -116,6 +117,7 @@ const NewAd = () => {
                         <option value="Storey of a house">Storey of a house</option>
                     </select>
 
+                    <input className="size-input" type="text" placeholder="Size" onChange={(e) => updateApartmentInfo('size', e.target.value)}></input>
                     <input className="floor-input" type="text" placeholder="Floor" onChange={(e) => updateApartmentInfo('floor', e.target.value)}></input>
                     <textarea className="description-input" type="text" placeholder="Description" onChange={(e) => updateApartmentInfo('description', e.target.value)}></textarea>
                     <input className="images-input" type="file" multiple onChange={(e) => { addImages(e, imagesForPreview, setImagesForPreview); (setImages([...images, ...e.target.files])) }}></input>

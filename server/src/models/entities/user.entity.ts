@@ -25,6 +25,8 @@ export class User {
     avatarUrl: string;
     @Column({ default: false })
     isDeleted: boolean;
+    @Column({default: 'Not Specified'})
+    phone: string;
     
     @OneToMany(
         () => Apartment,

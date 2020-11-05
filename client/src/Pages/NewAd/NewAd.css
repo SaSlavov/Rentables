@@ -43,7 +43,7 @@
     cursor: pointer;
 }
 
-.title-input, .price-input, .area-input, .floor-input {
+.title-input, .price-input, .area-input, .floor-input, .size-input {
     height: 25px;
     width: 140px;
     margin-bottom: 10px;

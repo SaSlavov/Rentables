@@ -5,12 +5,15 @@ import Recommended from '../../components/Recommended/Recommended';
 import Register from '../../components/Register/Register';
 import ActiveRegisterOrLogInContext from '../../providers/ActiveRegisterOrLogInContext';
 import AuthContext from '../../providers/AuthContext';
+import { useViewport } from '../../providers/ViewPortContext';
 import Search from '../Search/Search';
 import './Homepage.css'
 
 const Homepage = () => {
     const { active } = useContext(ActiveRegisterOrLogInContext)
     const { isLoggedIn, } = useContext(AuthContext);
+    const { width, height } = useViewport();
+    console.log(width, height)
 
 
     return (

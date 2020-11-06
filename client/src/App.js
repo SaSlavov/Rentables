@@ -14,6 +14,7 @@ import ActiveRegisterOrLogInContext from './providers/ActiveRegisterOrLogInConte
 import AuthContext, { extractUser, getToken } from './providers/AuthContext';
 import SearchResultContext, { extractData } from './providers/SearchResultContext';
 import SingleApartmentContext, { extractApartmentID } from './providers/SingleApartmentContext';
+import { ViewportProvider } from './providers/ViewPortContext';
 
 function App() {
   const [searchResult, setSearchResult] = useState({
@@ -36,26 +37,28 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <AuthContext.Provider value={{ ...authValue, setLoginState: setAuthValue }}>
-          <SearchResultContext.Provider value={{ ...searchResult, setDataState: setSearchResult }}>
-            <ActiveRegisterOrLogInContext.Provider value={{ ...activeCredentialsField, setActiveState: setActiveCredentialsField }}>
-              <SingleApartmentContext.Provider value={{ ...singleApartmentId, setApartmentId: setSingleApartmentId }}>
-                <Header />
-                <Switch>
-                  <Redirect exact from="/" to="homepage" />
-                  <Route path="/homepage" component={Homepage} />
-                  <Route path="/search" component={Search} />
-                  <Route path="/profile" component={Profile} />
-                  <Route path="/apartment" component={SingleApartment} />
-                  <Route path="/apartments" component={SearchResult} />
-                  <Route path="/favorite" component={FavoriteApartments} />
-                  <Route path="/new_ad" component={NewAd} />
-                  <Route path="/my_ads" component={MyAds} />
-                </Switch>
-              </SingleApartmentContext.Provider>
-            </ActiveRegisterOrLogInContext.Provider>
-          </SearchResultContext.Provider>
-        </AuthContext.Provider>
+        <ViewportProvider>
+          <AuthContext.Provider value={{ ...authValue, setLoginState: setAuthValue }}>
+            <SearchResultContext.Provider value={{ ...searchResult, setDataState: setSearchResult }}>
+              <ActiveRegisterOrLogInContext.Provider value={{ ...activeCredentialsField, setActiveState: setActiveCredentialsField }}>
+                <SingleApartmentContext.Provider value={{ ...singleApartmentId, setApartmentId: setSingleApartmentId }}>
+                  <Header />
+                  <Switch>
+                    <Redirect exact from="/" to="homepage" />
+                    <Route path="/homepage" component={Homepage} />
+                    <Route path="/search" component={Search} />
+                    <Route path="/profile" component={Profile} />
+                    <Route path="/apartment" component={SingleApartment} />
+                    <Route path="/apartments" component={SearchResult} />
+                    <Route path="/favorite" component={FavoriteApartments} />
+                    <Route path="/new_ad" component={NewAd} />
+                    <Route path="/my_ads" component={MyAds} />
+                  </Switch>
+                </SingleApartmentContext.Provider>
+              </ActiveRegisterOrLogInContext.Provider>
+            </SearchResultContext.Provider>
+          </AuthContext.Provider>
+        </ViewportProvider>
       </BrowserRouter>
     </div>
   );

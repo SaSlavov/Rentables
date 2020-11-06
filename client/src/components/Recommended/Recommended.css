@@ -1,5 +1,12 @@
+.recommended-container-mobile {
+    padding-top: 700px;
+    z-index: 3;
+}
+
 .recommended-container {
-    margin-top: 180px;
+    margin-top: 50%; 
+    position: relative; 
+    /* top: 50%; */
 }
 
 .apartment {

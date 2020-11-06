@@ -18,6 +18,7 @@
 .header-container-mobile {
     /* position: relative; */
     /* border: 2px solid black; */
+    
 }
 
 .burger-menu-btn {
@@ -35,14 +36,15 @@
     background-color: cornflowerblue;
     border-radius: 6px;
     width:70%;
-    height:auto;
+    /* height:300px; */
     position: absolute;
     right: 0;
-    z-index: 4;
+    z-index: 1;
 }
 
 .rents-btn-mobile, .home-btn-mobile, .login-btn-mobile, .logout-btn-mobile, .my-ads-btn-mobile, .signup-btn-mobile, .favorite-btn-mobile, .new-ad-btn-mobile, .profile-btn-mobile {
     /* float: right; */
+    display:block;
     font-size: 24px;
     color: white;
     text-decoration: none;

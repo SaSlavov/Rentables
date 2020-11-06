@@ -64,7 +64,7 @@ const Search = (props) => {
 
     return (
         <>
-            <div className="background" ></div>
+            {/* <div className="background" ></div> */}
             <div className={updateClassNames('browse-container')}>
                 <div className={updateClassNames("search-options")}>
                     <div className={updateClassNames("areas-rooms-result-container")}>

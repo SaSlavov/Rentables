@@ -14,9 +14,13 @@ import ActiveRegisterOrLogInContext from './providers/ActiveRegisterOrLogInConte
 import AuthContext, { extractUser, getToken } from './providers/AuthContext';
 import SearchResultContext, { extractData } from './providers/SearchResultContext';
 import SingleApartmentContext, { extractApartmentID } from './providers/SingleApartmentContext';
-import { ViewportProvider } from './providers/ViewPortContext';
+import { useViewport, ViewportProvider } from './providers/ViewPortContext';
 
 function App() {
+  // const { width, height } = useViewport();
+  const isMobile = window.innerWidth <= 700 ? true : false
+  // console.log('is mobile')
+
   const [searchResult, setSearchResult] = useState({
     data: extractData()
   })
@@ -34,8 +38,12 @@ function App() {
     user: extractUser(getToken())
   });
 
+  const updateClassNames = (className) => {
+    return isMobile ? className += '-mobile' : className
+  }
+
   return (
-    <div className="App">
+    <div className={updateClassNames("App")}>
       <BrowserRouter>
         <ViewportProvider>
           <AuthContext.Provider value={{ ...authValue, setLoginState: setAuthValue }}>

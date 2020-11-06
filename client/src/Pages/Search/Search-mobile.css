@@ -2,11 +2,12 @@
     padding-top: 80px;
     background-color: rgba(245, 222, 179, 0.829);
     position: absolute;
-    width: 100%;
+    width: auto;
     height: auto;
-    top: 30%;
+    left: 3%;
+    top: 0;
     /* left: 30%; */
-    z-index: 3;
+    z-index: 2;
     border-radius: 6px;
     padding: 20px;
 }

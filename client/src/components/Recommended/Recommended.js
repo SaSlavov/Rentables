@@ -1,10 +1,18 @@
 import React from 'react';
+import { useViewport } from '../../providers/ViewPortContext';
 import { data } from '../../TempData/data';
 import './Recommended.css'
 
 const Recommended = () => {
+    const { width, height } = useViewport();
+    const isMobile = width <= 700 ? true : false
+
+    const updateClassNames = (className) => {
+        return isMobile? className += '-mobile' : className
+    }
+
     return (
-        <div className="recommended-container">
+        <div className={updateClassNames("recommended-container")}>
             {data.filter(apartment => apartment.recommended).map(apartment => {
                 return <div
                 className="apartment"

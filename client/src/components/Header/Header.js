@@ -84,14 +84,14 @@ const Header = (props) => {
                                 </NavLink>
                             </>
                             : <>
-                                <NavLink className="rents-btn" to="/search">
+                                <NavLink className="rents-btn-mobile" to="/search">
                                     <div>Search</div>
                                 </NavLink>
-                                <NavLink className="home-btn" to="/homepage">
+                                <NavLink className="home-btn-mobile" to="/homepage">
                                     <div>Home</div>
                                 </NavLink>
-                                <a className="login-btn" href="#credentials-container" onClick={() => setActiveState({ active: 'login' })}>Log in</a>
-                                <a className="signup-btn" href="#credentials-container" onClick={() => setActiveState({ active: 'register' })}>Sign up</a>
+                                <a className="login-btn-mobile" href="#credentials-container" onClick={() => setActiveState({ active: 'login' })}>Log in</a>
+                                <a className="signup-btn-mobile" href="#credentials-container" onClick={() => setActiveState({ active: 'register' })}>Sign up</a>
 
                             </>}
                     </div>}

@@ -2,8 +2,10 @@ import React, { useContext, useRef, useState } from 'react';
 import { addImages } from '../../utils/addImages';
 import { BASE_URL } from '../../common/constants'
 import './NewAd.css'
+import './NewAd-mobile.css'
 import AuthContext from '../../providers/AuthContext';
 import { suggestArea } from '../../utils/suggestArea';
+import { useViewport } from '../../providers/ViewPortContext';
 
 const NewAd = () => {
 
@@ -12,6 +14,8 @@ const NewAd = () => {
     const [suggestedArea, setSuggestedArea] = useState(null)
     const [selectedArea, setSelectedArea] = useState([])
     const [isDeleteButtonForAreasVisible, setIsDeleteButtonForAreasVisible] = useState(null)
+    const { width, height } = useViewport();
+    const isMobile = width <= 700 ? true : false
     const { user } = useContext(AuthContext)
     const [apartmentInfo, setApartmentInfo] = useState({
         title: '',
@@ -31,6 +35,10 @@ const NewAd = () => {
     const constructionType = useRef()
     const parking = useRef()
     const areaInput = useRef()
+
+    const updateClassNames = (className) => {
+        return isMobile? className += '-mobile' : className
+    }
 
     const uncheckBox = (id, ref) => {
         Array.from(ref.current.children).forEach(child => {
@@ -74,7 +82,7 @@ const NewAd = () => {
     }
 
     const previewImages = () => {
-        return <div className="uploaded-images">
+        return <div className={updateClassNames("uploaded-images")}>
             {imagesForPreview.map((image, index) => {
                 return <img className="uploaded-image" key={index} src={image.result} alt="apartment"></img>
             })}
@@ -85,17 +93,17 @@ const NewAd = () => {
     return (
         <>
             <div className="background" ></div>
-            <div className="new-ad-container">
+            <div className={updateClassNames("new-ad-container")}>
                 <p className="title">Create a new ad</p>
-                <div className="main-info-container">
-                    <input className="title-input" type="text" placeholder="Title" onChange={(e) => updateApartmentInfo('title', e.target.value)}></input>
-                    <input className="price-input" type="text" placeholder="Price" onChange={(e) => updateApartmentInfo('price', e.target.value)}></input>
+                <div className={updateClassNames("main-info-container")}>
+                    <input className={updateClassNames("title-input")} type="text" placeholder="Title" onChange={(e) => updateApartmentInfo('title', e.target.value)}></input>
+                    <input className={updateClassNames("price-input")} type="text" placeholder="Price" onChange={(e) => updateApartmentInfo('price', e.target.value)}></input>
                     <div className="area-input-container"
                         onMouseEnter={() => (selectedArea && selectedArea.length > 0) && setIsDeleteButtonForAreasVisible(true)}
                         onMouseLeave={() => setIsDeleteButtonForAreasVisible(false)}>
 
                         <input ref={areaInput}
-                            className="area-input"
+                            className={updateClassNames("area-input")}
                             type="text"
                             value={selectedArea ? selectedArea : areaInput.current.value}
                             placeholder="Area"
@@ -105,7 +113,7 @@ const NewAd = () => {
                         </input>
                         {isDeleteButtonForAreasVisible && <span className="area-input-delete-btn" onClick={() => { setSelectedArea(null); areaInput.current.value = ''; setIsDeleteButtonForAreasVisible(false) }}>X</span>}
                     </div>
-                    <select className="rooms-input" placeholder="Rooms" onChange={(e) => updateApartmentInfo('rooms', e.target.value)}>
+                    <select className={updateClassNames("rooms-input")} placeholder="Rooms" onChange={(e) => updateApartmentInfo('rooms', e.target.value)}>
                         <option value="not selected" defaultValue >Rooms</option>
                         <option value="Studio">Studio</option>
                         <option value="One-room">One-room</option>
@@ -117,10 +125,10 @@ const NewAd = () => {
                         <option value="Storey of a house">Storey of a house</option>
                     </select>
 
-                    <input className="size-input" type="text" placeholder="Size" onChange={(e) => updateApartmentInfo('size', e.target.value)}></input>
-                    <input className="floor-input" type="text" placeholder="Floor" onChange={(e) => updateApartmentInfo('floor', e.target.value)}></input>
-                    <textarea className="description-input" type="text" placeholder="Description" onChange={(e) => updateApartmentInfo('description', e.target.value)}></textarea>
-                    <input className="images-input" type="file" multiple onChange={(e) => { addImages(e, imagesForPreview, setImagesForPreview); (setImages([...images, ...e.target.files])) }}></input>
+                    <input className={updateClassNames("size-input")} type="text" placeholder="Size" onChange={(e) => updateApartmentInfo('size', e.target.value)}></input>
+                    <input className={updateClassNames("floor-input")} type="text" placeholder="Floor" onChange={(e) => updateApartmentInfo('floor', e.target.value)}></input>
+                    <textarea className={updateClassNames("description-input")} type="text" placeholder="Description" onChange={(e) => updateApartmentInfo('description', e.target.value)}></textarea>
+                    <input className={updateClassNames("images-input")} type="file" multiple onChange={(e) => { addImages(e, imagesForPreview, setImagesForPreview); (setImages([...images, ...e.target.files])) }}></input>
                     {suggestedArea &&
                         <div tabIndex="1" className="area-suggest-result" onBlur={(e) => !(e.relatedTarget && e.relatedTarget.className === "area-suggest-result") && setSuggestedArea(null)}>
                             {suggestedArea.map(area => {
@@ -130,9 +138,9 @@ const NewAd = () => {
                     }
 
                 </div>
-                <div className="additional-info-container">
-                    <div className="additional-info">
-                        <div ref={isFurnished} className="is-furnished">
+                <div className={updateClassNames("additional-info-container")}>
+                    <div className={updateClassNames("additional-info")}>
+                        <div ref={isFurnished} className={updateClassNames("is-furnished")}>
                             <p className="is-furnished-title"> Furnished:</p>
                             <div className="division"></div>
                             <input id="furnished" type="checkbox" value="furnished" onChange={(e) => updateApartmentInfo('furnished', e.target.value, e.target.checked, e.target.id, isFurnished)}></input>
@@ -143,7 +151,7 @@ const NewAd = () => {
                             <label htmlFor="not-furnished">Not furnished</label>
                             <div className="vertical-division"></div>
                         </div>
-                        <div ref={constructionType} className="construction-type-container">
+                        <div ref={constructionType} className={updateClassNames("construction-type-container")}>
                             <p className="is-furnished-title"> Construction:</p>
                             <div className="division"></div>
                             <input id="brick" type="checkbox" value="brick" onChange={(e) => updateApartmentInfo('constructionType', e.target.value, e.target.checked, e.target.id, constructionType)}></input>
@@ -154,7 +162,7 @@ const NewAd = () => {
                             <label htmlFor="epk">EPK</label>
                             <div className="vertical-division"></div>
                         </div>
-                        <div ref={parking} className="parking-type">
+                        <div ref={parking} className={updateClassNames("parking-type")}>
                             <p className="is-furnished-title"> Parking:</p>
                             <div className="division"></div>
                             <input id="no-parking" type="checkbox" value="no parking" onChange={(e) => updateApartmentInfo('parking', e.target.value, e.target.checked, e.target.id, parking)}></input>
@@ -166,7 +174,7 @@ const NewAd = () => {
                             <div className="vertical-division"></div>
                         </div>
                     </div>
-                    <div className="images-output">
+                    <div className={updateClassNames("images-output")}>
                         <p className="images-title-count">Images({imagesForPreview.length === 0 ? '0' : imagesForPreview.length})</p>
                         {imagesForPreview.length > 0 && previewImages()}
                     </div>

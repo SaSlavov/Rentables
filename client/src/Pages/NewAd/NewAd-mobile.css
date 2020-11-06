@@ -1,0 +1,215 @@
+.new-ad-container-mobile {
+    position: absolute;
+    top: 20%;
+    /* left: 18%; */
+    z-index: 3;
+    background-color: wheat;
+    /* min-height: 400px; */
+    /* height: auto; */
+    width: auto;
+    padding: 9px;
+    padding-bottom: 15px;
+    border-radius: 7px;
+    display: grid;
+    grid-template: auto auto auto auto / auto;
+    grid-template-areas: 
+    "title "
+    "main"
+    "additional"
+    "btn";
+    
+}
+
+.title {
+    margin-top: 0;
+    grid-area: title;
+    font-size: 27px;
+}
+
+.main-info-container-mobile {
+    width: auto;
+    grid-area: main;
+}
+
+.area-suggest-result {
+    width: 160px;
+    min-height: 20px;
+    background-color: rgb(222, 248, 248);
+    position: absolute;
+    top: 34%;
+    left: 6.5%;
+    border-bottom-left-radius: 11px;
+    border-bottom-right-radius: 11px;
+    border-top-right-radius: 11px;
+    border-top-left-radius: 11px;
+    cursor: pointer;
+}
+
+.title-input-mobile, .price-input-mobile, .area-input-mobile, .floor-input-mobile, .size-input-mobile, .rooms-input-mobile {
+    font-size: 24px;
+    display: block;
+    height: 55px;
+    width: 240px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border-style: hidden;
+}
+
+.description-input-mobile {
+    font-size: 20px;
+    width: 270px;
+    height: 150px;
+    border-radius: 4px;
+}
+
+.area-input-container {
+    position: relative;
+}
+
+.additional-info-container-mobile {
+    grid-area: additional;
+    display: grid;
+    grid-template: auto auto / auto;
+
+}
+
+.additional-info-mobile {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    height: auto;
+
+}
+
+.additional-info label {
+    text-align: left;
+}
+
+
+.create-btn {
+    grid-area: btn;
+    width: 80px;
+    height: 30px;
+    padding-top: 4px;
+    border-radius: 4px;
+    background-color: rgb(222, 248, 248);
+    box-shadow: 1.5px 1.5px 2px 2px rgb(89, 172, 172);
+    cursor: default;
+    margin: 0 auto;
+    margin-top: 25px;
+    /* position: absolute;
+    left: 43%;
+    bottom: 15%; */
+}
+
+.create-btn:active {
+    background-color: rgb(178, 240, 240);
+    box-shadow: -0.5px -0.6px 2px 2px rgb(89, 172, 172);
+}
+
+.create-btn:hover {
+    background-color: rgb(206, 247, 247);
+}
+
+.area-input-delete-btn {
+    background-color: rgb(177, 247, 247);
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    position: absolute;
+    right: 22%;
+    top: 13%; 
+    cursor: default;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.area-input-delete-btn:hover {
+    background-color: rgb(125, 206, 206);
+}
+
+
+.images-input-mobile {
+    margin: 0 auto;
+    width: 180px;
+    font-size: 28px;
+    /* height: 20px; */
+}
+
+/* .images-output-mobile {
+    display: grid;
+    grid-column: auto auto;
+} */
+
+.images-title-count {
+    font-size: 25px;
+}
+
+.uploaded-images-mobile {
+    width: 300px;
+    grid-area: images;
+    display: grid;
+    margin: 0 auto;
+    grid-template-columns: auto auto ;
+}
+
+.uploaded-image {
+    width: 130px;
+    height: 110px;
+    margin: 10px;
+}
+
+.is-furnished-mobile, .construction-type-container-mobile, .parking-type-mobile {
+    /* grid-area: checkboxes; */
+    margin: 0 auto;
+    font-size: 18px;
+    width: 220px;
+    height: 180px;
+    display: grid;
+    grid-template:  auto auto auto auto auto / 20px auto 20px;
+    grid-template-areas: 
+    "title title title"
+    "division division division"
+    "checkbox type vertical-div"
+    "checkbox type vertical-div"
+    "checkbox type vertical-div"
+}
+
+.is-furnished-mobile input, .construction-type-container-mobile input, .parking-type-mobile input{
+    width: 27px;
+    height: 27px;
+}
+
+
+.is-furnished-title {
+    margin-bottom: 0;
+    grid-area: title;
+}
+
+.is-furnished label {
+    float: left;
+}
+
+.is-furnished input {
+    /* grid-area: checkbox; */
+    margin-left: 5px;
+    border: 2px solid black;
+
+}
+
+.checkbox-container {
+    padding-left: 10px;
+}
+
+.vertical-division {
+    grid-area: vertical-div;
+    height: 85px;
+    border-right: 1px solid black;
+}
+
+.division {
+    grid-area: division;
+    border-bottom: 1px solid black;
+    width: 60px;
+    margin: 4px auto;
+}

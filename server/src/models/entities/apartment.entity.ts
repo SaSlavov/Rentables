@@ -28,7 +28,7 @@ export class Apartment {
     constructionType: string;
     @Column({default: 'Not specified'})
     parking: string;
-    @Column()
+    @Column({default: 0})
     views: number;
     @Column({default: false})
     isRecommended: boolean;

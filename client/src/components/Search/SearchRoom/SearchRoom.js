@@ -1,10 +1,14 @@
 import React from 'react';
 import './SearchRoom.css'
+import './SearchRoom-mobile.css'
 
-const SearchRoom = ({ selectedRooms, setSelectedRooms, showAllRooms, setShowAllRooms, isDeleteButtonForRoomsVisible, setIsDeleteButtonForRoomsVisible }) => {
+const SearchRoom = ({ isMobile, selectedRooms, setSelectedRooms, showAllRooms, setShowAllRooms, isDeleteButtonForRoomsVisible, setIsDeleteButtonForRoomsVisible }) => {
+    const updateClassNames = (className) => {
+        return isMobile? className += '-mobile' : className
+    }
     return (
         <>
-            <div className="selected-rooms">
+            <div className={updateClassNames("selected-rooms")}>
 
                 {selectedRooms.length <= 0 && <p style={{ marginTop: 0 }}>Selected Rooms:</p>}
 

@@ -1,0 +1,163 @@
+.browse-container-mobile {
+    padding-top: 80px;
+    background-color: rgba(245, 222, 179, 0.829);
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: 30%;
+    /* left: 30%; */
+    z-index: 3;
+    border-radius: 6px;
+    padding: 20px;
+}
+
+.search-options-mobile {
+    display: grid;
+    grid-template: auto auto auto / auto ;
+    grid-template-areas: 
+    "result "
+    " mainInfo "
+    " .  ";
+    margin: 0 auto
+}
+
+#additional-info-container {
+    grid-area: addInfo
+}
+.furnished, .construction, .parking {
+    display: block;
+    /* margin-top: 15px; */
+    width: 120px;
+    height: 25px;
+    border-radius: 5px;
+    border-style: hidden;
+}
+
+.areas-rooms-result-container-mobile {
+    grid-area: result;
+    display: grid;
+    grid-template-rows: auto auto;
+}
+.selected-areas {
+    grid-area: areas;
+    left: 10%;
+}
+
+.selected-rooms {
+    grid-area: rooms;
+    right: 10%;
+}
+
+.main-info-input-mobile {
+    grid-area: mainInfo;
+    display: grid;
+    grid-template: 70px 70px 70px 70px / auto auto;
+    grid-template-areas: 
+    "area area"
+    "min max"
+    "construction rooms"
+    "parking furnished";
+    margin: 0 auto;
+    margin-top: 10px;
+}
+.area-mobile {
+    grid-area: area;
+    margin: 0 auto;
+    width: 150px;
+    height: 50px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-style: hidden;
+}
+
+.price-min-mobile {
+    grid-area: min;
+    margin: 0 auto;
+    width: 150px;
+    height: 50px;
+    margin-bottom: 10px;
+    margin-right: 2px;
+    border-radius: 5px;
+    border-style: hidden;
+}
+
+.price-max-mobile {
+    grid-area: max;
+    margin: 0 auto;
+    width: 150px;
+    height: 50px;
+    margin-bottom: 10px;
+    margin-left: 2px;
+    border-radius: 5px;
+    border-style: hidden;
+}
+
+.rooms-mobile {
+    grid-area: rooms;
+    margin: 0 auto;
+    width: 150px;
+    height: 50px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-style: hidden;
+}
+
+.furnished-mobile {
+    grid-area: furnished;
+    margin: 0 auto;
+    width: 150px;
+    height: 50px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-style: hidden;
+}
+.construction-mobile {
+    grid-area: construction;
+    margin: 0 auto;
+    width: 150px;
+    height: 50px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-style: hidden;
+}
+.parking-mobile {
+    grid-area: parking;
+    margin: 0 auto;
+    width: 150px;
+    height: 50px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-style: hidden;
+}
+
+.search-options input, .rooms{
+    display: block;
+    /* margin-top: 15px; */
+    width: 120px;
+    height: 25px;
+    border-radius: 5px;
+    border-style: hidden;
+}
+
+.full-search-btn {
+    width: 80px;
+    height: 30px;
+    padding-top: 4px;
+    border-radius: 4px;
+    background-color: rgb(222, 248, 248);
+    box-shadow: 1.5px 1.5px 2px 2px rgb(89, 172, 172);
+    cursor: default;
+    margin: 0 auto;
+    margin-top: 25px;
+}
+
+.full-search-btn:hover {
+    background-color: rgb(206, 247, 247);
+
+}
+
+.full-search-btn:active {
+    background-color: rgb(178, 240, 240);
+    box-shadow: -0.5px -0.6px 2px 2px rgb(89, 172, 172);
+
+}

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { NavLink, withRouter, } from 'react-router-dom';
 import { BASE_URL } from '../../common/constants';
 import ActiveRegisterOrLogInContext from '../../providers/ActiveRegisterOrLogInContext';
@@ -11,10 +11,19 @@ const Header = (props) => {
     const { setActiveState } = useContext(ActiveRegisterOrLogInContext);
     const { user, isLoggedIn, setLoginState } = useContext(AuthContext);
     const { width, height } = useViewport();
-    const [isBurgerBtnClicked, setIsBurgerBtnClicked] = useState(false)
     const isMobile = width <= 700 ? true : false
-
+    const [isBurgerBtnClicked, setIsBurgerBtnClicked] = useState(false)
+    const [location, setLocation] = useState(null)
+    
     const history = props.history;
+
+    useEffect(() => {
+        if (location !== props.location.pathname) {
+            console.log('diff')
+            setLocation(props.location.pathname);
+            setIsBurgerBtnClicked(false);
+        }
+    }, [props.location.pathname])
 
     const logout = (e) => {
         e.preventDefault();

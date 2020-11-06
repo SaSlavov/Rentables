@@ -1,10 +1,15 @@
 import React from 'react';
 import './SearchArea.css'
+import './SearchArea-mobile.css'
 
-const SearchArea = ({ suggestedArea, setSuggestedArea, selectedAreas, setSelectedAreas, showAllAreas, setShowAllAreas, isDeleteButtonForAreasVisible, setIsDeleteButtonForAreasVisible, queryInfo, updateQueryInfo }) => {
+const SearchArea = ({ isMobile, suggestedArea, setSuggestedArea, selectedAreas, setSelectedAreas, showAllAreas, setShowAllAreas, isDeleteButtonForAreasVisible, setIsDeleteButtonForAreasVisible, queryInfo, updateQueryInfo }) => {
+    const updateClassNames = (className) => {
+        return isMobile? className += '-mobile' : className
+    }
+
     return (<>
 
-        <div className="selected-areas">
+        <div className={updateClassNames("selected-areas")}>
 
             {selectedAreas.length <= 0 && <p style={{ marginTop: 0 }}>Selected Areas:</p>}
 

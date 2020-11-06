@@ -1,0 +1,118 @@
+.background {
+    background-color: rgb(240, 240, 240);
+    height: 800px;
+    box-shadow: 0px -20px 80px 80px white;
+    position: absolute;
+    top: 61.5%;
+    width: 100%;
+    z-index: 1;
+    background: rgb(1,51,79);
+    background: linear-gradient(0deg, rgba(1,51,79,1) 29%, rgba(255,255,255,1) 100%);
+    border-bottom-left-radius: 100px;
+    border-bottom-right-radius: 100px;
+}
+
+.favorite-apartments-container-mobile {
+    padding-top: 80px;
+    background-color: rgba(245, 222, 179, 0.829);
+    position: absolute;
+    width: auto;
+    top: 20%;
+    /* left: 0%; */
+    z-index: 3;
+    border-radius: 6px;
+}
+
+.favorites-result-mobile {
+    z-index: 2;
+    position: relative;
+}
+
+.apartment-container-mobile {
+    /* border: 2px solid black; */
+    margin: 15px;
+    display: grid;
+    grid-template-rows: 300px 300px 250px;
+    background: rgb(217,173,93);
+    background: radial-gradient(circle, rgba(217,173,93,1) 0%, rgba(245,222,179,1) 44%, rgba(255,255,255,1) 100%);
+    border-radius: 4px;
+    /* border-bottom: 2px solid  rgb(240, 194, 109); */
+    /* box-shadow: 2px 5px 20px 3px rgb(169, 216, 238); */
+}
+
+.apartment-info-mobile {
+    margin: 0 auto;
+    display: grid;
+    grid-template: auto auto / auto 80px;
+    grid-template-areas: 
+    "title title"
+    "image info";
+}
+
+.favorite-apartment-title {
+    grid-area: title;
+    width: 250px;
+    font-size: 20px;
+    margin-bottom: 0;
+}
+.favorite-apartment-info {
+    margin-top: 10px;
+}
+
+.favorite-apartment-info p {
+    margin: 0;
+}
+
+.favorite-apartment-price {
+    display: inline;
+}
+
+.comments-container {
+    border-left: 2px solid rgb(202, 168, 104);
+    border-right: 2px solid rgb(202, 168, 104);
+    margin: 0 auto;
+    margin-top: 15px;
+    height: 180px;
+    width: 280px;
+}
+
+.comments-container p {
+    margin-top: 0;
+}
+
+.comments {
+    width: 200px;
+    height: 120px;
+    font-size: 17px;
+}
+
+.viewing-arrangement {
+    margin: 0 auto;
+}
+
+.viewing-arrangement input {
+    margin-bottom: 5px;
+}
+
+.favorite-apt-headImg {
+    height: 100px;
+    width: 140px;
+}
+
+.update-btn {
+    /* color: grey; */
+    font-size: 20px;
+    border: 2px solid blue;
+    width: 75px;
+    height: 33px;
+    margin: 0 auto;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    margin-top: 30px;
+}
+
+.update-btn:hover {
+    background-color: rgba(245, 225, 189, 0.795);
+}
+

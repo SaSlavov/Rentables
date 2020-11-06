@@ -2,12 +2,16 @@ import React, { useContext, useEffect, useState } from 'react';
 import { BASE_URL } from '../../common/constants';
 import AuthContext from '../../providers/AuthContext';
 import SingleApartmentContext from '../../providers/SingleApartmentContext';
+import { useViewport } from '../../providers/ViewPortContext';
 import './FavoriteApartments.css'
+import './FavoriteApartments-mobile.css'
 
 const FavoriteApartments = () => {
     const { user } = useContext(AuthContext)
     const [apartments, setApartments] = useState(null)
     const { apartmentId } = useContext(SingleApartmentContext)
+    const { width, height } = useViewport();
+    const isMobile = width <= 700 ? true : false
 
     const [apartmentInfo, setApartmentInfo] = useState({
         userId: user.id,
@@ -18,6 +22,10 @@ const FavoriteApartments = () => {
         time: undefined,
         id: undefined,
     })
+
+    const updateClassNames = (className) => {
+        return isMobile? className += '-mobile' : className
+    }
 
     const updateApartmentInfo = (prop, value, apartmentId) => {
         setApartmentInfo({
@@ -78,11 +86,11 @@ const FavoriteApartments = () => {
     return (
         <>
             <div className="background" ></div>
-            <div className="favorite-apartments-container">
-                <div className="favorites-result">
+            <div className={updateClassNames("favorite-apartments-container")}>
+                <div className={updateClassNames("favorites-result")}>
                     {apartments && apartments.map(apartment => {
-                        return <div className="apartment-container" key={apartment.apartmentInfo.id}>
-                            <div className="apartment-info">
+                        return <div className={updateClassNames("apartment-container")} key={apartment.apartmentInfo.id}>
+                            <div className={updateClassNames("apartment-info")}>
                                 <p className="favorite-apartment-title">{apartment.apartmentInfo.title}</p>
                                 <img className="favorite-apt-headImg" src={`${BASE_URL}/images/${apartment.apartmentInfo.images.images.split(' ')[0]}`} alt="Favorite apartment"></img>
                                 <div className="favorite-apartment-info">

@@ -1,0 +1,21 @@
+.scheduled-apartment-info-container-mobile, #grid-schedule-titles-mobile {
+    width: 400px;
+    display: grid;
+    grid-template-columns: auto 100px 100px ;
+    border: 1px solid black;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.schedule-container-mobile {
+    width: 340px;
+    overflow: auto;
+}
+
+.scheduled-apartment-title-mobile, .scheduled-apartment-date-mobile, .scheduled-apartment-time-mobile {
+    /* display: block; */
+    margin: 0;
+    /* width: 150px; */
+    margin: 0 auto;
+}

@@ -3,11 +3,15 @@ import { BASE_URL } from '../../common/constants';
 import MyAdsStatistics from '../../components/MyAdsStatistics/MyAdsStatistics';
 import MySchedule from '../../components/MySchedule/MyScehdule';
 import AuthContext from '../../providers/AuthContext';
+import { useViewport } from '../../providers/ViewPortContext';
 import './Profile.css'
+import './Profile-mobile.css'
 
 const Profile = () => {
     const { user } = useContext(AuthContext)
     const [isEditActive, setIsEditActive] = useState(false)
+    const { width, height } = useViewport();
+    const isMobile = width <= 700 ? true : false;
     const [activeButtons, setActiveButtons] = useState({
         info: true,
         myAdsButton: false,
@@ -23,6 +27,10 @@ const Profile = () => {
         lastName: '',
         phone: '',
     })
+
+    const updateClassNamesMobile = (className) => {
+        return isMobile? className += '-mobile' : className
+    }
 
     useEffect(() => {
         fetch(`${BASE_URL}/users/${user.id} `, {
@@ -100,20 +108,20 @@ const Profile = () => {
     return (
         <>
             <div className="background" ></div>
-            <div className="profile-container">
-                <div className="menu-select-container">
+            <div className={updateClassNamesMobile("profile-container")}>
+                <div className={updateClassNamesMobile("menu-select-container")}>
                     <span className={updateClassNames("info")} onClick={() => updateActiveButtons("info")}>Info</span>
-                    {activeButtons.myAdsButton && <div className="shadow"></div>}
+                    {activeButtons.myAdsButton && <div className={updateClassNamesMobile("shadow")}></div>}
                     <span className={updateClassNames("myAdsButton")} onClick={() => updateActiveButtons("myAdsButton")}>My ads</span>
-                    {activeButtons.schedule && <div className="shadow"></div>}
+                    {activeButtons.schedule && <div className={updateClassNamesMobile("shadow")}></div>}
                     <span className={updateClassNames("schedule")} onClick={() => updateActiveButtons("schedule")}>My schedule</span>
-                    {activeButtons.favorites && <div className="shadow"></div>}
+                    {activeButtons.favorites && <div className={updateClassNamesMobile("shadow")}></div>}
                     {/* <span className={updateClassNames("favorites")} onClick={() => updateActiveButtons("favorites")}>Favorites</span>
                     {activeButtons.newAd && <div className="shadow"></div>}
                     <span className={updateClassNames("newAd")} onClick={() => updateActiveButtons("newAd")}>New ad</span> */}
                 </div>
 
-                {activeButtons.info && <div className="info-container">
+                {activeButtons.info && <div className={updateClassNamesMobile("info-container")}>
                     <label className="username-label">Username:</label>
                     {isEditActive 
                     ? <input className="profile-username-input" onChange={(e) => updateAccountInfo('username', e.target.value)}></input>
@@ -132,8 +140,8 @@ const Profile = () => {
                     : <p className="profile-phone">{accountInfo.phone}</p>}
                     <span className="edit-btn" onClick={() => {setIsEditActive(!isEditActive); isEditActive && updateBase()}}>{isEditActive ? 'Update' : 'Edit'}</span>
                 </div>}
-                { activeButtons.myAdsButton && <MyAdsStatistics />}
-                { activeButtons.schedule && <MySchedule />}
+                { activeButtons.myAdsButton && <MyAdsStatistics isMobile={isMobile} updateClassNamesMobile={updateClassNamesMobile}/>}
+                { activeButtons.schedule && <MySchedule  isMobile={isMobile} updateClassNamesMobile={updateClassNamesMobile}/>}
             </div>
         </>
     )

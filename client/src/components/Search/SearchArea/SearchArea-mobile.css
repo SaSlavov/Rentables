@@ -2,13 +2,13 @@
     position: relative;
 }
 
-.area-search-result {
+.area-search-result-mobile {
     width: 160px;
     min-height: 20px;
     background-color: rgb(222, 248, 248);
     position: absolute;
-    top: 39.7%;
-    left: 35%;
+    top: 50.5%;
+    left: 27%;
     border-bottom-left-radius: 11px;
     border-bottom-right-radius: 11px;
     border-top-right-radius: 11px;
@@ -17,7 +17,7 @@
     cursor: pointer;
 }
 
-.suggested-area {
+.suggested-area-mobile {
     margin: 0 auto;
     width: 135px;
     border-bottom: solid 1px grey;

@@ -16,17 +16,19 @@ const Homepage = () => {
     const isMobile = width <= 700 ? true : false
 
     const updateClassNames = (className) => {
-        return isMobile? className += '-mobile' : className
+        return isMobile ? className += '-mobile' : className
     }
 
     return (
         <>
             {/* <div className="background" ></div> */}
             <div className={updateClassNames("homepage-container")}>
-                <Search />
+                {/* <div className="search-container">
+                </div> */}
+                    <Search />
                 {/* <div className="recommended">
                 </div> */}
-                    <Recommended />
+                <Recommended />
                 {!isLoggedIn && <div className={updateClassNames("make-them-register")}>
                     <div className="reasons">
                         <h1>Why you should consider making an account:</h1>

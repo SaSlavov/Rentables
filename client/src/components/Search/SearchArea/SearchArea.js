@@ -33,9 +33,9 @@ const SearchArea = ({ isMobile, suggestedArea, setSuggestedArea, selectedAreas, 
             }
         </div>
         {suggestedArea &&
-            <div tabIndex="0" className="area-search-result" onBlur={(e) => !(e.relatedTarget && e.relatedTarget.className === "area-search-result") && setSuggestedArea(null)}>
+            <div tabIndex="0" className={updateClassNames("area-search-result")} onBlur={(e) => !(e.relatedTarget && e.relatedTarget.className === "area-search-result") && setSuggestedArea(null)}>
                 {suggestedArea.map(area => {
-                    return <p className="suggested-area" onClick={() => !selectedAreas.includes(area) && setSelectedAreas([...selectedAreas, area]) }>{area}</p>
+                    return <p className={updateClassNames("suggested-area")} onClick={() => !selectedAreas.includes(area) && setSelectedAreas([...selectedAreas, area]) }>{area}</p>
                 })}
             </div>
         }

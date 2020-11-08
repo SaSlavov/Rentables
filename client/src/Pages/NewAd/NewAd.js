@@ -35,6 +35,7 @@ const NewAd = () => {
     const constructionType = useRef()
     const parking = useRef()
     const areaInput = useRef()
+    const [blobImage, setBlobImage] = useState(null)
 
     const updateClassNames = (className) => {
         return isMobile? className += '-mobile' : className
@@ -90,6 +91,28 @@ const NewAd = () => {
         </div>
     }
 
+    const createBlob = (file) => {
+        let blob = new Blob(file);
+        let url = URL.createObjectURL(blob)
+        setBlobImage(blob)
+        console.log('blob',blob)
+        console.log('url',url)
+    }
+
+    const saveBlobInBase = () => {
+        fetch(`${BASE_URL}/apartments/imageBlob/`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
+            },
+            body: blobImage,
+        })
+            .then(r => r.json())
+            .then(res => {
+                console.log(res)
+            })
+    }
+
     return (
         <>
             <div className="background" ></div>
@@ -105,13 +128,13 @@ const NewAd = () => {
                         <input ref={areaInput}
                             className={updateClassNames("area-input")}
                             type="text"
-                            value={selectedArea ? selectedArea : areaInput.current.value}
+                            value={selectedArea.length > 0 ? selectedArea : areaInput.current && areaInput.current.value}
                             placeholder="Area"
                             onBlur={(e) => !(e.relatedTarget && e.relatedTarget.className === "area-suggest-result") && setSuggestedArea(null)}
                             onChange={(e) => e.target.value === '' ? setSuggestedArea(null) : setSuggestedArea(suggestArea(e.target.value))}>
 
                         </input>
-                        {isDeleteButtonForAreasVisible && <span className="area-input-delete-btn" onClick={() => { setSelectedArea(null); areaInput.current.value = ''; setIsDeleteButtonForAreasVisible(false) }}>X</span>}
+                        {isDeleteButtonForAreasVisible && <span className="area-input-delete-btn" onClick={() => { setSelectedArea([]); areaInput.current.value = ''; setIsDeleteButtonForAreasVisible(false) }}>X</span>}
                     </div>
                     <select className={updateClassNames("rooms-input")} placeholder="Rooms" onChange={(e) => updateApartmentInfo('rooms', e.target.value)}>
                         <option value="not selected" defaultValue >Rooms</option>
@@ -128,9 +151,9 @@ const NewAd = () => {
                     <input className={updateClassNames("size-input")} type="text" placeholder="Size" onChange={(e) => updateApartmentInfo('size', e.target.value)}></input>
                     <input className={updateClassNames("floor-input")} type="text" placeholder="Floor" onChange={(e) => updateApartmentInfo('floor', e.target.value)}></input>
                     <textarea className={updateClassNames("description-input")} type="text" placeholder="Description" onChange={(e) => updateApartmentInfo('description', e.target.value)}></textarea>
-                    <input className={updateClassNames("images-input")} type="file" multiple onChange={(e) => { addImages(e, imagesForPreview, setImagesForPreview); (setImages([...images, ...e.target.files])) }}></input>
+                    <input className={updateClassNames("images-input")} type="file" multiple onChange={(e) => { addImages(e, imagesForPreview, setImagesForPreview); (setImages([...images, ...e.target.files])); createBlob(e.target.files) }}></input>
                     {suggestedArea &&
-                        <div tabIndex="1" className="area-suggest-result" onBlur={(e) => !(e.relatedTarget && e.relatedTarget.className === "area-suggest-result") && setSuggestedArea(null)}>
+                        <div tabIndex="1" className={updateClassNames("area-suggest-result")} onBlur={(e) => !(e.relatedTarget && e.relatedTarget.className === "area-suggest-result") && setSuggestedArea(null)}>
                             {suggestedArea.map(area => {
                                 return <p className="suggested-area" onClick={() => selectedArea !== area && (setSelectedArea(area), updateApartmentInfo('area', area))}>{area}</p>
                             })}

@@ -52,6 +52,14 @@ export class ApartmentsController {
     return await this.apartmentsService.addToFavorites(data);
   };
 
+  // @Post('imageBlob')
+  // async addImageAsBlob(
+  //   @Body() data: any,
+  //   // @Req() request: any,
+  // ) {
+  //   return await this.apartmentsService.addImageAsBlob(data);
+  // };
+
   @Post('favorite/info')
   async addInfoToFavoriteApartment(
     @Body() data: any,

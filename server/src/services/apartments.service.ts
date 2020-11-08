@@ -7,6 +7,7 @@ import { Any, Equal, In, LessThan, MoreThan, Not, Repository } from 'typeorm';
 import { query } from 'express';
 import { Images } from 'src/models/entities/images.entity';
 import { FavoriteApartmentInfo } from 'src/models/entities/favoriteApartmentInfo.entity';
+import { ApartmentImagesAsBLOB } from 'src/models/entities/apartmentImagesAsBLOB.entity';
 
 @Injectable()
 export class ApartmentsService {
@@ -16,6 +17,7 @@ export class ApartmentsService {
         @InjectRepository(Images) private readonly imagesRepository: Repository<Images>,
         @InjectRepository(User) private readonly usersRepository: Repository<User>,
         @InjectRepository(FavoriteApartmentInfo) private readonly favoriteApartmentInfoRepository: Repository<FavoriteApartmentInfo>,
+        @InjectRepository(ApartmentImagesAsBLOB) private readonly apartmentImagesAsBLOBRepository: Repository<ApartmentImagesAsBLOB>,
     ) { }
     async createApartment(userId, files, CreateApartmentDTO: CreateApartmentDTO): Promise<Apartment> {
         // console.log(files)
@@ -165,6 +167,31 @@ export class ApartmentsService {
         return foundApartment;
         
     }
+    // async addImageAsBlob(body: any): Promise<any> {
+    //     console.log(body)
+
+    //     const apartmentId = body.apartmentId;
+    //     // const userId = body.userId;
+
+    //     const foundApartment = await this.apartmentRepository.findOne({
+    //         where: {
+    //             id: apartmentId
+    //         },
+    //         relations: ['images', 'favoriteOf', 'imageBlob']
+    //     })
+
+    //     const image = new ApartmentImagesAsBLOB;
+    //     image.image = body.blob
+    //     const savedImage = await this.apartmentImagesAsBLOBRepository.save(image)
+       
+    //     foundApartment.imageBlob.push(savedImage)
+    //     // console.log(foundApartment.favoriteOf, foundUser)
+        
+    //     await this.apartmentRepository.save(foundApartment)
+
+    //     return foundApartment;
+        
+    // }
     async addInfoToFavoriteApartment(body: any): Promise<any> {
         const apartmentId = body.apartmentId;
         const userId = body.userId;

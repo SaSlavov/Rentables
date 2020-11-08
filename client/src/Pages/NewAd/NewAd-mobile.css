@@ -36,8 +36,22 @@
     min-height: 20px;
     background-color: rgb(222, 248, 248);
     position: absolute;
-    top: 34%;
+    top: 32%;
     left: 6.5%;
+    border-bottom-left-radius: 11px;
+    border-bottom-right-radius: 11px;
+    border-top-right-radius: 11px;
+    border-top-left-radius: 11px;
+    cursor: pointer;
+}
+
+.area-suggest-result-mobile {
+    width: 250px;
+    min-height: 20px;
+    background-color: rgb(222, 248, 248);
+    position: absolute;
+    top: 19.5%;
+    left: 16.5%;
     border-bottom-left-radius: 11px;
     border-bottom-right-radius: 11px;
     border-top-right-radius: 11px;

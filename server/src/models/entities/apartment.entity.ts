@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, OneToMany, OneToOne, JoinColumn, JoinTable } from "typeorm";
+import { ApartmentImagesAsBLOB } from "./apartmentImagesAsBLOB.entity";
 import { Images } from "./images.entity";
 import { User } from "./user.entity";
 
@@ -35,6 +36,15 @@ export class Apartment {
 
     @Column({default: 0})
     size: number;
+
+    @ManyToMany(
+        () => ApartmentImagesAsBLOB,
+        image => image.image,
+        
+    )
+    @JoinTable()
+    
+    imageBlob: any[];
     
 
     @OneToOne(

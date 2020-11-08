@@ -2,8 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import { BASE_URL } from '../../common/constants';
 import AuthContext from '../../providers/AuthContext';
 import './MyAdsStatistics.css'
+import './MyAdsStatistics-mobile.css'
 
-const MyAdsStatistics = () => {
+const MyAdsStatistics = ({isMobile, updateClassNamesMobile}) => {
     const { user } = useContext(AuthContext)
     const [apartments, setApartments] = useState(null)
     useEffect(() => {
@@ -27,8 +28,8 @@ const MyAdsStatistics = () => {
 
 
     return (
-        <div className="my-ads-statistics">
-            <div id="titles">
+        <div className={updateClassNamesMobile("my-ads-statistics")}>
+            <div id={updateClassNamesMobile("titles")}>
                 <p> Title</p>
                 <p >Price €</p>
                 <p >Area</p>
@@ -36,7 +37,7 @@ const MyAdsStatistics = () => {
                 <p >Favorites</p>
             </div>
             { apartments && apartments.map(apartment => {
-                return <div className="my-apartments-stats-container" key={apartment.id}>
+                return <div className={updateClassNamesMobile("my-apartments-stats-container")} key={apartment.id}>
                     <p id="apartment-title">{apartment.title}</p>
                     <p id="apartment-price">{apartment.price} €</p>
                     <p id="apartment-area">{apartment.area}</p>

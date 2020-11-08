@@ -1,0 +1,109 @@
+.profile-container-mobile {
+    position: absolute;
+    z-index: 2;
+    background-color: rgba(252, 240, 217, 0.897);
+    width: 360px;
+    height: 500px;
+    margin: 0 auto;
+    top: 20%;
+    left:2%;
+    border-radius: 8px;
+    display: grid;
+    grid-template-rows: 180px auto;
+}
+
+.menu-select-container-mobile {
+    padding-top: 50px;
+    /* border: 2px solid black; */
+    background-color: rgba(255, 227, 175, 0.671);
+
+}
+
+.info-container-mobile {
+    position: absolute;
+    /* border: 2px solid black; */
+    width: 250px;
+    height: 300px;
+    left: 20%;
+    top: 40%;
+    display: grid;
+    grid-template: 50px 50px 50px 50px / 100px auto;
+}
+
+.favorites, .info, .myAdsButton, .newAd,.schedule {
+    display: block;
+    border: 1px solid rgb(112, 110, 110);
+    height: 30px;
+    /* box-shadow: 0px 6px 4px 1px rgba(175, 175, 175, 0.61); */
+    position: relative;
+    z-index: 1
+}
+
+.shadow-mobile {
+    box-shadow: 0px 3px 6px 3px rgba(122, 122, 122, 0.575);
+    /* height: 0.1px; */
+    width: 330px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.favorites-active, .info-active, .myAdsButton-active, .newAd-active, .schedule-active {
+    display: block;
+    border: 1px solid rgb(139, 137, 137);
+    background-color: rgb(248, 206, 128);
+    height: 30px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+
+    
+}
+
+
+
+
+.info-container label {
+    display: block;
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.info-container p {
+    display: inline;
+    margin: 0;
+    padding-left: 10px;
+    font-size: 18px;
+    text-align: left;
+}
+
+.edit-btn {
+    width: 80px;
+    height: 30px;
+    padding-top: 4px;
+    border-radius: 4px;
+    background-color: rgb(222, 248, 248);
+    box-shadow: 1.5px 1.5px 2px 2px rgb(89, 172, 172);
+    cursor: default;
+    margin: 0 auto;
+    margin-top: 25px;
+}
+
+.edit-btn:hover {
+    background-color: rgb(206, 247, 247);
+
+}
+
+.edit-btn:active {
+    background-color: rgb(178, 240, 240);
+    box-shadow: -0.5px -0.6px 2px 2px rgb(89, 172, 172);
+
+}
+
+.profile-username-input, .profile-firstName-input, .profile-lastName-input, .profile-phone-input {
+    /* border: 2px solid black; */
+    display: inline;
+    width: 120px;
+    height: 25px;
+    border-radius: 5px;
+}

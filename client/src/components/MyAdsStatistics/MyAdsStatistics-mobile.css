@@ -1,0 +1,14 @@
+.my-ads-statistics-mobile {
+    width: 340px;
+    overflow: auto;
+}
+
+.my-apartments-stats-container-mobile, #titles-mobile {
+    width: 505px;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    border: 1px solid black;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+}

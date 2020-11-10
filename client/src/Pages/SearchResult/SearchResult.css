@@ -1,13 +1,39 @@
-.search-result-container {
+.search-result-container-mobile {
     padding-top: 80px;
-    /* z-index: 1; */
+    background-color: rgb(240, 240, 240);
+    height: 800px;
+    box-shadow: 0px -20px 80px 80px white;
+    position: absolute;
+    top: 29%;
+    width: 100%;
+    height: auto;
+    z-index: 2;
+    background: rgb(1,51,79);
+    background: linear-gradient(0deg, rgba(1,51,79,1) 29%, rgba(255,255,255,1) 100%);
+    border-bottom-left-radius: 100px;
+    border-bottom-right-radius: 100px;
 }
 
-
+.search-result-container {
+    background-color: rgb(240, 240, 240);
+    height: 800px;
+    box-shadow: 0px -20px 80px 80px white;
+    position: absolute;
+    top: 58%;
+    width: 100%;
+    height: auto;
+    min-height: 300px;
+    z-index: 2;
+    background: rgb(1,51,79);
+    background: linear-gradient(0deg, rgba(1,51,79,1) 29%, rgba(255,255,255,1) 100%);
+    border-bottom-left-radius: 100px;
+    border-bottom-right-radius: 100px;
+}
 
 .search-result {
     z-index: 2;
     position: relative;
+    
 }
 
 .apartment {
@@ -38,20 +64,30 @@
     height: 50px;
     margin-left: 35px;
     margin-right: 35px;
+    fill: wheat;
 }
 
 .pagination-container {
     display:inline-block;
     position: relative;
-    border: 2px solid black;;
+    /* border: 2px solid black;; */
 }
 
 .page {
     display:inline-block;
     position: absolute;
     z-index: 1;
+    color: wheat;
     font-size: 28px;
     margin: 0;
     top: 20%;
     left: 38%;
+}
+
+.no-apartments-found {
+    background-color: wheat;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 10px;
+    /* color: wheat; */
 }

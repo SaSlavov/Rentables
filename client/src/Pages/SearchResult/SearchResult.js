@@ -3,6 +3,7 @@ import { BASE_URL } from '../../common/constants';
 import AuthContext from '../../providers/AuthContext';
 import SearchResultContext from '../../providers/SearchResultContext';
 import SingleApartmentContext from '../../providers/SingleApartmentContext';
+import { useViewport } from '../../providers/ViewPortContext';
 import SingleApartment from '../SingleApartment/SingleApartment';
 import './SearchResult.css'
 
@@ -15,7 +16,13 @@ const SearchResult = (props) => {
     const [favoriteApartments, setFavoriteApartments] = useState(null)
     const [heartClicked, setHeartClicked] = useState(false)
     const [page, setPage] = useState(1)
+    const { width, height } = useViewport();
+    const isMobile = width <= 700 ? true : false
     const history = props.history
+
+    const updateClassNames = (className) => {
+        return isMobile ? className += '-mobile' : className
+    }
 
     useEffect(() => {
         user && fetch(`${BASE_URL}/apartments/favorite/${user.id}`, {
@@ -54,6 +61,12 @@ const SearchResult = (props) => {
     }
 
     const displayResultByPage = (page) => {
+        if(searchResult.length <= 0) {
+            return <div className="no-apartments-found">
+                <h2>Nothing found!</h2>
+            </div>
+        }
+
         return searchResult.map((apartment, index) => {
             let count = page * 10
             if (index >= count - 10 && index < count) {
@@ -77,17 +90,16 @@ const SearchResult = (props) => {
     }
 
     return (
-        <div className="search-result-container">
+        <div className={updateClassNames("search-result-container")}>
 
-            <div className="background" ></div>
-            <div className="search-result">
+            <div className={updateClassNames("search-result")}>
                 {displayResultByPage(page)}
             </div>
-            <div className="pagination-container">
+            {searchResult.length > 0 && <div className="pagination-container">
                 <span onClick={() => page - 1 !== 0 && setPage(page - 1)}><svg className="page-back-btn" height="35" width="35" xmlns="http://www.w3.org/2000/svg" viewBox="0 -100 512 512"><path d="M239.081 245.333L466.217 18.219a10.643 10.643 0 002.304-11.627C466.857 2.603 462.974 0 458.665 0h-192a10.744 10.744 0 00-7.552 3.115L24.446 237.781c-4.16 4.16-4.16 10.923 0 15.083l234.667 234.667a10.675 10.675 0 007.552 3.136h192c4.309 0 8.213-2.603 9.856-6.592a10.721 10.721 0 00-2.304-11.627L239.081 245.333z" /></svg></span>
                 <p className="page">{page} / {Math.ceil(searchResult.length / 10)}</p>
                 <span onClick={() => page !== Math.ceil(searchResult.length / 10) && setPage(page + 1)}><svg className="page-forward-btn" height="35" width="35" xmlns="http://www.w3.org/2000/svg" viewBox="0 -100 512 512"><path d="M466.201 237.781L231.534 3.115A10.656 10.656 0 00224.003 0h-192c-4.309 0-8.213 2.603-9.856 6.592s-.725 8.555 2.304 11.627l227.136 227.115L24.451 472.448a10.643 10.643 0 00-2.304 11.627c1.664 3.989 5.547 6.592 9.856 6.592h192c2.837 0 5.547-1.131 7.552-3.115l234.667-234.667a10.68 10.68 0 00-.021-15.104z" /></svg></span>
-            </div>
+            </div>}
         </div>
     )
 }

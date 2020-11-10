@@ -1,0 +1,92 @@
+.single-apartment-container-mobile {
+    position: absolute;
+    z-index: 2;
+    background-color: rgba(252, 240, 217, 0.897);
+    width: 360px;
+    height: auto;
+    margin: 0 auto;
+    top: 20%;
+    left: 2%;
+    border-radius: 8px;
+}
+
+.title-and-price-mobile {
+    /* background-color: rgb(214, 178, 100); */
+    display: grid;
+    grid-template-columns: auto 100px;
+}
+
+.background-mobile {
+    background-color: rgb(240, 240, 240);
+  height: 800px;
+  box-shadow: 0px -20px 80px 80px white;
+  position: absolute;
+  top: 30%;
+  width: 100%;
+  height: 1300px;
+  z-index: 2;
+  background: rgb(1,51,79);
+  background: linear-gradient(0deg, rgba(1,51,79,1) 29%, rgba(255,255,255,1) 100%);
+  border-bottom-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+}
+
+.apartment-title {
+    font-size: 30px;
+    float: left;
+    max-width: 450px;
+    margin-left: 40px;
+    /* border: 2px solid black; */
+
+}
+
+.apartment-price {
+    font-size: 30px;
+    float: right;
+    margin-right: 35px;
+}
+
+.apartment-headImg-mobile {
+    height: 200px;
+    width: 340px;
+    display: block;
+    margin: 0 auto;
+    border: 3px solid white;
+    padding: 6px;
+    margin-bottom: 8px;
+    margin-top: 80px;
+}
+
+.apartment-secondaryImgs {
+    height: 100px;
+    width: 140px;
+    border: 2px solid white;
+    padding: 4px;
+    margin: 4px;
+}
+
+.apartment-info-container-mobile {
+    display: grid;
+    grid-template-rows: auto auto;
+}
+
+.description-container {
+    width: 300px;
+    margin: 0 auto;
+}
+.description {
+    text-align: justify;
+}
+
+.details-container {
+    width: 350px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-rows: auto auto auto;
+}
+
+.details-info {
+    display: grid;
+    grid-template: auto auto auto / 130px 130px;
+    margin: 0 auto;
+}

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { BASE_URL } from '../../common/constants'
 import AuthContext from '../../providers/AuthContext'
 import SingleApartmentContext from '../../providers/SingleApartmentContext'
+import { useViewport } from '../../providers/ViewPortContext'
 import './MyAds.css'
 
 const MyAds = (props) => {
@@ -9,7 +10,13 @@ const MyAds = (props) => {
     const { user } = useContext(AuthContext)
     const { setApartmentId } = useContext(SingleApartmentContext)
     const [apartments, setApartments] = useState(null)
+    const { width, height } = useViewport();
+    const isMobile = width <= 700 ? true : false
     const history = props.history
+
+    const updateClassNames = (className) => {
+        return isMobile ? className += '-mobile' : className
+    }
 
     const clickApartment = (apartmentId) => {
         setApartmentId({apartmentId});
@@ -39,8 +46,8 @@ const MyAds = (props) => {
 console.log(apartments)
     return (
         <>
-            <div className="background" ></div>
-            <div className="my-ads-container">
+            {/* <div className="background" ></div> */}
+            <div className={updateClassNames("my-ads-container")}>
             {apartments && apartments.map(apartment => {
                         return <div
                             className="apartment"

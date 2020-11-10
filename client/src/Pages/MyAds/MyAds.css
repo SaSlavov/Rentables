@@ -1,11 +1,29 @@
 .my-ads-container {
-    padding-top: 80px;
-    background-color: rgba(245, 222, 179, 0.829);
+    background-color: rgb(240, 240, 240);
+    height: 800px;
+    box-shadow: 0px -20px 80px 80px white;
     position: absolute;
-    width: 900px;
-    min-height: 300px;
-    top: 20%;
-    left: 15%;
+    top: 58%;
+    width: 100%;
+    height: auto;
     z-index: 2;
-    border-radius: 6px;
+    background: rgb(1,51,79);
+    background: linear-gradient(0deg, rgba(1,51,79,1) 29%, rgba(255,255,255,1) 100%);
+    border-bottom-left-radius: 100px;
+    border-bottom-right-radius: 100px;
+}
+
+.my-ads-container-mobile {
+    background-color: rgb(240, 240, 240);
+    height: 800px;
+    box-shadow: 0px -20px 80px 80px white;
+    position: absolute;
+    top: 30%;
+    width: 100%;
+    height: auto;
+    z-index: 2;
+    background: rgb(1,51,79);
+    background: linear-gradient(0deg, rgba(1,51,79,1) 29%, rgba(255,255,255,1) 100%);
+    border-bottom-left-radius: 100px;
+    border-bottom-right-radius: 100px;
 }

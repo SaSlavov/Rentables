@@ -31,3 +31,27 @@
 .single-apartment-info-container {
     cursor: pointer;
 }
+
+.page-back-btn, .page-forward-btn {
+    position: relative;
+    z-index: 1;
+    height: 50px;
+    margin-left: 35px;
+    margin-right: 35px;
+}
+
+.pagination-container {
+    display:inline-block;
+    position: relative;
+    border: 2px solid black;;
+}
+
+.page {
+    display:inline-block;
+    position: absolute;
+    z-index: 1;
+    font-size: 28px;
+    margin: 0;
+    top: 20%;
+    left: 38%;
+}

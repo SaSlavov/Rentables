@@ -42,7 +42,7 @@
     z-index: 1;
 }
 
-.rents-btn-mobile, .home-btn-mobile, .login-btn-mobile, .logout-btn-mobile, .my-ads-btn-mobile, .signup-btn-mobile, .favorite-btn-mobile, .new-ad-btn-mobile, .profile-btn-mobile {
+ .home-btn-mobile, .login-btn-mobile, .logout-btn-mobile, .my-ads-btn-mobile, .signup-btn-mobile, .favorite-btn-mobile, .new-ad-btn-mobile, .profile-btn-mobile {
     /* float: right; */
     display:block;
     font-size: 24px;

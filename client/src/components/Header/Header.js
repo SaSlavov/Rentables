@@ -14,7 +14,7 @@ const Header = (props) => {
     const isMobile = width <= 700 ? true : false
     const [isBurgerBtnClicked, setIsBurgerBtnClicked] = useState(false)
     const [location, setLocation] = useState(null)
-    
+
     const history = props.history;
 
     useEffect(() => {
@@ -64,9 +64,6 @@ const Header = (props) => {
                                 <NavLink className="profile-btn-mobile" to="/profile">
                                     <div>Profile</div>
                                 </NavLink>
-                                <NavLink className="rents-btn-mobile" to="/search">
-                                    <div>Search</div>
-                                </NavLink>
                                 <NavLink className="home-btn-mobile" to="/homepage">
                                     <div>Home</div>
                                 </NavLink>
@@ -84,9 +81,7 @@ const Header = (props) => {
                                 </NavLink>
                             </>
                             : <>
-                                <NavLink className="rents-btn-mobile" to="/search">
-                                    <div>Search</div>
-                                </NavLink>
+
                                 <NavLink className="home-btn-mobile" to="/homepage">
                                     <div>Home</div>
                                 </NavLink>
@@ -101,9 +96,6 @@ const Header = (props) => {
                         ? <>
                             <NavLink className="profile-btn" to="/profile">
                                 <div>Profile</div>
-                            </NavLink>
-                            <NavLink className="rents-btn" to="/search">
-                                <div>Search</div>
                             </NavLink>
                             <NavLink className="home-btn" to="/homepage">
                                 <div>Home</div>
@@ -122,9 +114,6 @@ const Header = (props) => {
                             </NavLink>
                         </>
                         : <>
-                            <NavLink className="rents-btn" to="/search">
-                                <div>Search</div>
-                            </NavLink>
                             <NavLink className="home-btn" to="/homepage">
                                 <div>Home</div>
                             </NavLink>

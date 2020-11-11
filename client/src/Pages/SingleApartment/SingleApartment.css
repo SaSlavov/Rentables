@@ -3,7 +3,7 @@
     z-index: 2;
     background-color: rgba(252, 240, 217, 0.897);
     width: 900px;
-    height: 1050px;
+    height: 1140px;
     margin: 0 auto;
     top: 20%;
     left: 14%;
@@ -72,4 +72,32 @@
     display: grid;
     grid-template: auto auto auto / 130px 130px;
     margin: 0 auto;
+}
+
+.admin-recommend-apartment-btn-recommend {
+    display: inline;
+    border: 2px solid blue;
+    width: 100px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    height: 30px;
+    padding-top: 8px;
+    border-radius: 5px;
+    font-size: 17px;
+    color: blue;
+    cursor: pointer;
+}
+
+.admin-recommend-apartment-btn-NotRecommend {
+    display: inline;
+    border: 2px solid rgb(211, 67, 67);
+    width: 120px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    height: 60px;
+    padding-top: 8px;
+    border-radius: 5px;
+    font-size: 17px;
+    color: rgb(211, 67, 67);
+    cursor: pointer;
 }

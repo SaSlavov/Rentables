@@ -10,6 +10,7 @@ const SingleApartment = () => {
     const [apartment, setApartment] = useState(null)
     const [images, setImages] = useState(null)
     const [headImage, setHeadImg] = useState(null)
+    const [isRecommended, setIsRecommended] = useState(null)
     const { apartmentId } = useContext(SingleApartmentContext)
     const { width, height } = useViewport();
     const isMobile = width <= 700 ? true : false
@@ -33,6 +34,7 @@ const SingleApartment = () => {
             .then(res => {
                 console.log(res)
                 setApartment(res);
+                setIsRecommended(res.isRecommended)
                 setImages(res.images.images.split(' '))
                 setHeadImg(res.images.images.split(' ')[0])
                 // setHeadImg(res.images)
@@ -55,6 +57,7 @@ const SingleApartment = () => {
     }, [apartmentId])
 
     const recommendApartment = () => {
+        setIsRecommended(!isRecommended)
         fetch(`${BASE_URL}/apartments/recommend/${apartmentId}`, {
             method: 'PUT',
             headers: {
@@ -73,7 +76,6 @@ const SingleApartment = () => {
         <>
             <div className={updateClassNames("background")} ></div>
             {apartment && <div className={updateClassNames("single-apartment-container")}>
-                {user.role === 'admin' && <span className="admin-recommend-apartment-btn" onClick={() => recommendApartment()}>Recommend</span>}
                 <div className={updateClassNames("title-and-price")}>
                     <p className="apartment-title">{apartment.title}</p>
                     <p className="apartment-price">{apartment.price} €</p>
@@ -104,6 +106,7 @@ const SingleApartment = () => {
                             <p className="owner-info"><b>Owner: </b>{apartment.author.firstName} {apartment.author.lastName}</p>
                             <p className="owner-phone"><b>Phone: </b> {apartment.author.phone}</p>
                         </div>
+                        {user.role === 'admin' && <span className={isRecommended ? "admin-recommend-apartment-btn-NotRecommend" : "admin-recommend-apartment-btn-recommend"} onClick={() => recommendApartment()}>{isRecommended ? "Not recommended" : 'Recommend'}</span>}
                     </div>
                 </div>
             </div>

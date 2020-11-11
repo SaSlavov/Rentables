@@ -13,6 +13,7 @@ import { Token } from 'src/models/entities/token.entity';
 import { FavoriteApartmentInfo } from 'src/models/entities/favoriteApartmentInfo.entity';
 import { FavoriteInfoService } from './favorite-info.service';
 import { ApartmentImagesAsBLOB } from 'src/models/entities/apartmentImagesAsBLOB.entity';
+import { JwtStrategy } from './strategy/jwt-strategy';
 
 @Module({
     imports: [
@@ -25,7 +26,7 @@ import { ApartmentImagesAsBLOB } from 'src/models/entities/apartmentImagesAsBLOB
           }
         }),
       ],
-      providers: [ApartmentsService, UsersService, AuthService, FavoriteInfoService],
+      providers: [ApartmentsService, UsersService, AuthService, FavoriteInfoService, JwtStrategy],
       exports: [ApartmentsService, UsersService, AuthService, FavoriteInfoService]
     
 })

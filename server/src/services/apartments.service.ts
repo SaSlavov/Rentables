@@ -167,6 +167,34 @@ export class ApartmentsService {
         return foundApartment;
         
     }
+    async addToRecommended(apartmentId: number): Promise<any> {
+
+        const foundApartment = await this.apartmentRepository.findOne({
+            where: {
+                id: apartmentId
+            },
+        })
+        // console.log(foundApartment.favoriteOf, foundUser)
+       
+        foundApartment.isRecommended = !foundApartment.isRecommended
+
+        await this.apartmentRepository.save(foundApartment)
+
+        return foundApartment;
+        
+    }
+
+    async getRecommended(): Promise<any> {
+        const foundApartment = await this.apartmentRepository.find({
+            where: {
+                isRecommended: true
+            },
+        })
+       
+       return foundApartment ? foundApartment : 'Didn\'t find any recommended apartments!'
+        
+    }
+
     // async addImageAsBlob(body: any): Promise<any> {
     //     console.log(body)
 

@@ -3,8 +3,10 @@ import { AnyFilesInterceptor, FileInterceptor, FilesInterceptor } from '@nestjs/
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { BlacklistGuard } from 'src/auth/blacklist.guard';
+import { RolesGuard } from 'src/auth/roles-guard';
 import { CreateApartmentDTO } from 'src/models/dtos/apartmentDTOs/create-apartment.dto';
 import { Apartment } from 'src/models/entities/apartment.entity';
+import { UserRole } from 'src/models/enums/user-role';
 import { ApartmentsService } from 'src/services/apartments.service';
 
 @Controller('apartments')
@@ -50,6 +52,24 @@ export class ApartmentsController {
     // @Req() request: any,
   ) {
     return await this.apartmentsService.addToFavorites(data);
+  };
+
+
+  @Put('recommend/:id')
+  @UseGuards(BlacklistGuard, new RolesGuard(UserRole.admin))
+  async addToRecommended(
+    @Param('id') apartmentId: string
+    // @Req() request: any,
+  ) {
+    return await this.apartmentsService.addToRecommended(+apartmentId);
+  };
+
+  @Get('recommend')
+  @UseGuards(BlacklistGuard, new RolesGuard(UserRole.admin))
+  async getRecommended(
+    // @Req() request: any,
+  ) {
+    return await this.apartmentsService.getRecommended();
   };
 
   // @Post('imageBlob')

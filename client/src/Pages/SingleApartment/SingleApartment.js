@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { BASE_URL } from '../../common/constants';
 import SingleApartmentContext from '../../providers/SingleApartmentContext';
+import AuthContext from '../../providers/AuthContext.js'
 import './SingleApartment.css'
 import './SingleApartment-mobile.css'
 import { useViewport } from '../../providers/ViewPortContext';
@@ -12,12 +13,12 @@ const SingleApartment = () => {
     const { apartmentId } = useContext(SingleApartmentContext)
     const { width, height } = useViewport();
     const isMobile = width <= 700 ? true : false
-
+    const {user } = useContext(AuthContext)
+    console.log(user)
+ 
     const updateClassNames = (className) => {
         return isMobile ? className += '-mobile' : className
     }
-
-    console.log(apartment)
 
     useEffect(() => {
         fetch(`${BASE_URL}/apartments/filter/${apartmentId}`, {
@@ -53,13 +54,26 @@ const SingleApartment = () => {
             })
     }, [apartmentId])
 
+    const recommendApartment = () => {
+        fetch(`${BASE_URL}/apartments/recommend/${apartmentId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
+            },
 
-
+        })
+            .then(r => r.json())
+            .then(res => {
+                console.log(res)
+            })
+    }
 
     return (
         <>
             <div className={updateClassNames("background")} ></div>
             {apartment && <div className={updateClassNames("single-apartment-container")}>
+                {user.role === 'admin' && <span className="admin-recommend-apartment-btn" onClick={() => recommendApartment()}>Recommend</span>}
                 <div className={updateClassNames("title-and-price")}>
                     <p className="apartment-title">{apartment.title}</p>
                     <p className="apartment-price">{apartment.price} €</p>

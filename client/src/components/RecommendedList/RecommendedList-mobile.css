@@ -1,0 +1,22 @@
+.recommended-apartment-info-container-mobile, #grid-recommended-titles-mobile {
+    width: 340px;
+    display: grid;
+    grid-template-columns: auto 100px 100px ;
+    border: 1px solid black;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.recommended-container-mobile {
+    width: 340px;
+    overflow: auto;
+    margin: 0 auto;
+}
+
+.recommended-apartment-title-mobile, .recommended-apartment-date-mobile, .recommended-apartment-time-mobile {
+    /* display: block; */
+    margin: 0;
+    /* width: 150px; */
+    margin: 0 auto;
+}

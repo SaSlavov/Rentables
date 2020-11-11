@@ -3,6 +3,7 @@ import { BASE_URL } from '../../common/constants';
 import MyAdsStatistics from '../../components/MyAdsStatistics/MyAdsStatistics';
 import MySchedule from '../../components/MySchedule/MyScehdule';
 import AuthContext from '../../providers/AuthContext';
+import RecommendedList from '../../components/RecommendedList/RecommendedList'
 import { useViewport } from '../../providers/ViewPortContext';
 import './Profile.css'
 import './Profile-mobile.css'
@@ -16,8 +17,7 @@ const Profile = () => {
         info: true,
         myAdsButton: false,
         schedule: false,
-        favorites: false,
-        newAd: false,
+        recommended: false,
     })
 
     const [accountInfo, setAccountInfo] = useState({
@@ -115,10 +115,9 @@ const Profile = () => {
                     <span className={updateClassNames("myAdsButton")} onClick={() => updateActiveButtons("myAdsButton")}>My ads</span>
                     {activeButtons.schedule && <div className={updateClassNamesMobile("shadow")}></div>}
                     <span className={updateClassNames("schedule")} onClick={() => updateActiveButtons("schedule")}>My schedule</span>
-                    {activeButtons.favorites && <div className={updateClassNamesMobile("shadow")}></div>}
-                    {/* <span className={updateClassNames("favorites")} onClick={() => updateActiveButtons("favorites")}>Favorites</span>
-                    {activeButtons.newAd && <div className="shadow"></div>}
-                    <span className={updateClassNames("newAd")} onClick={() => updateActiveButtons("newAd")}>New ad</span> */}
+                    {activeButtons.recommended && <div className={updateClassNamesMobile("shadow")}></div>}
+                    {user.role === 'admin' && <span className={updateClassNames("recommended")} onClick={() => updateActiveButtons("recommended")}>Recommended</span>}
+                    {/* {activeButtons.newAd && <div className="shadow"></div>} */}
                 </div>
 
                 {activeButtons.info && <div className={updateClassNamesMobile("info-container")}>
@@ -142,6 +141,7 @@ const Profile = () => {
                 </div>}
                 { activeButtons.myAdsButton && <MyAdsStatistics isMobile={isMobile} updateClassNamesMobile={updateClassNamesMobile}/>}
                 { activeButtons.schedule && <MySchedule  isMobile={isMobile} updateClassNamesMobile={updateClassNamesMobile}/>}
+                { activeButtons.recommended && <RecommendedList  isMobile={isMobile} updateClassNamesMobile={updateClassNamesMobile}/>}
             </div>
         </>
     )

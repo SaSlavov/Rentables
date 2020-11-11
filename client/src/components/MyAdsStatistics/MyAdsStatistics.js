@@ -3,10 +3,14 @@ import { BASE_URL } from '../../common/constants';
 import AuthContext from '../../providers/AuthContext';
 import './MyAdsStatistics.css'
 import './MyAdsStatistics-mobile.css'
+import { withRouter } from 'react-router-dom';
+import SingleApartmentContext from '../../providers/SingleApartmentContext';
 
-const MyAdsStatistics = ({isMobile, updateClassNamesMobile}) => {
+const MyAdsStatistics = ({isMobile, updateClassNamesMobile, history}) => {
     const { user } = useContext(AuthContext)
     const [apartments, setApartments] = useState(null)
+    const { setApartmentId } = useContext(SingleApartmentContext);
+
     useEffect(() => {
         fetch(`${BASE_URL}/apartments/filter/user/${user.id}`, {
             method: 'GET',
@@ -38,7 +42,7 @@ const MyAdsStatistics = ({isMobile, updateClassNamesMobile}) => {
             </div>
             { apartments && apartments.map(apartment => {
                 return <div className={updateClassNamesMobile("my-apartments-stats-container")} key={apartment.id}>
-                    <p id="apartment-title">{apartment.title}</p>
+                    <p id="apartment-title" onClick={() => { setApartmentId({ apartmentId: apartment.id }); history.push('/apartment') }}>{apartment.title}</p>
                     <p id="apartment-price">{apartment.price} €</p>
                     <p id="apartment-area">{apartment.area}</p>
                     <p id="apartment-views">{apartment.views}</p>
@@ -49,4 +53,4 @@ const MyAdsStatistics = ({isMobile, updateClassNamesMobile}) => {
     )
 }
 
-export default MyAdsStatistics;
+export default withRouter(MyAdsStatistics);

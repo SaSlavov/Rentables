@@ -54,6 +54,16 @@ export class ApartmentsController {
     return await this.apartmentsService.addToFavorites(data);
   };
 
+  @Get('recommend')
+  @UseGuards(BlacklistGuard, new RolesGuard(UserRole.admin))
+  async getRecommended(
+    // @Req() request: any,
+  ) {
+    console.log('in')
+
+    return await this.apartmentsService.getRecommended();
+  };
+
 
   @Put('recommend/:id')
   @UseGuards(BlacklistGuard, new RolesGuard(UserRole.admin))
@@ -64,13 +74,7 @@ export class ApartmentsController {
     return await this.apartmentsService.addToRecommended(+apartmentId);
   };
 
-  @Get('recommend')
-  @UseGuards(BlacklistGuard, new RolesGuard(UserRole.admin))
-  async getRecommended(
-    // @Req() request: any,
-  ) {
-    return await this.apartmentsService.getRecommended();
-  };
+  
 
   // @Post('imageBlob')
   // async addImageAsBlob(

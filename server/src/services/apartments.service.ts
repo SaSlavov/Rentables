@@ -189,6 +189,7 @@ export class ApartmentsService {
             where: {
                 isRecommended: true
             },
+            relations: ['images']
         })
        
        return foundApartment ? foundApartment : 'Didn\'t find any recommended apartments!'

@@ -9,9 +9,5 @@ export class Images {
     @Column({length: 600, type: 'nvarchar'})
     images: string;
 
-    // @OneToOne(
-    //     () => Apartment,
-    //     apartment => apartment.id
-    // )
-    // apartment: Apartment;
+     
 }

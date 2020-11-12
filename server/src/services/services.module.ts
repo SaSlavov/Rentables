@@ -14,6 +14,7 @@ import { FavoriteApartmentInfo } from 'src/models/entities/favoriteApartmentInfo
 import { FavoriteInfoService } from './favorite-info.service';
 import { ApartmentImagesAsBLOB } from 'src/models/entities/apartmentImagesAsBLOB.entity';
 import { JwtStrategy } from './strategy/jwt-strategy';
+import { TransformerService } from './transformer.service';
 
 @Module({
     imports: [
@@ -26,7 +27,7 @@ import { JwtStrategy } from './strategy/jwt-strategy';
           }
         }),
       ],
-      providers: [ApartmentsService, UsersService, AuthService, FavoriteInfoService, JwtStrategy],
+      providers: [ApartmentsService, UsersService, AuthService, FavoriteInfoService, JwtStrategy, TransformerService],
       exports: [ApartmentsService, UsersService, AuthService, FavoriteInfoService]
     
 })

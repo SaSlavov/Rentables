@@ -19,18 +19,6 @@ export class FavoriteApartmentInfo {
     @Column()
     street: string;
 
-    // @ManyToMany(
-    //     () => User,
-    // )
-    // @JoinTable()
-    // author: User[];
-
-    // @ManyToMany(
-    //     () => Apartment,
-    // )
-    // @JoinTable()
-    // apartment: Apartment[];
-
     @ManyToOne(
         () => User,
         user => user.id

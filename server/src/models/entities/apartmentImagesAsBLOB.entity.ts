@@ -6,13 +6,13 @@ export class ApartmentImagesAsBLOB {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToMany(
-        () => Apartment,
-        apartment => apartment.imageBlob
+    // @ManyToMany(
+    //     () => Apartment,
+    //     apartment => apartment.imageBlob
 
-    )
-    @Column({type: 'varbinary'})
-    image: any[]
+    // )
+    // @Column({type: 'varbinary'})
+    // image: any[]
 
 
 }

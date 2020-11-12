@@ -41,7 +41,6 @@ export class UsersService {
 
             const created = await this.usersRepository.save(user);
 
-            // return this.transformService.toReturnUserDTO(created);
             return {
                 id: created.id,
                 username: created.username,
@@ -51,13 +50,12 @@ export class UsersService {
         }
     }
     async update(updateInfo: any): Promise<any> {
-        // console.log( updateInfo)
         const foundUser = await this.usersRepository.findOne({
             where: {
                 id: updateInfo.userId,
             },
         });
-        // console.log(foundUser)
+        
         if (foundUser) {
             foundUser.username = updateInfo.username ? updateInfo.username : foundUser.username
             foundUser.firstName = updateInfo.firstName ? updateInfo.firstName : foundUser.firstName
@@ -66,7 +64,6 @@ export class UsersService {
 
             const updated = await this.usersRepository.save(foundUser);
 
-            // return this.transformService.toReturnUserDTO(created);
             return {
                 userId: updated.id,
                 username: updated.username,

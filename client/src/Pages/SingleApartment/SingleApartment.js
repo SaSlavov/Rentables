@@ -15,13 +15,13 @@ const SingleApartment = () => {
     const { width, height } = useViewport();
     const isMobile = width <= 700 ? true : false
     const {user } = useContext(AuthContext)
-    console.log(user)
  
     const updateClassNames = (className) => {
         return isMobile ? className += '-mobile' : className
     }
 
     useEffect(() => {
+        console.log(apartmentId)
         fetch(`${BASE_URL}/apartments/filter/${apartmentId}`, {
             method: 'GET',
             headers: {

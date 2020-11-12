@@ -3,11 +3,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Apartment } from 'src/models/entities/apartment.entity';
 import { User } from 'src/models/entities/user.entity';
 import { CreateApartmentDTO } from '../models/dtos/apartmentDTOs/create-apartment.dto'
-import { Any, Equal, In, LessThan, MoreThan, Not, Repository } from 'typeorm';
+import { Any, Equal, In, LessThan, MoreThan, Not, Repository, UpdateResult } from 'typeorm';
 import { query } from 'express';
 import { Images } from 'src/models/entities/images.entity';
 import { FavoriteApartmentInfo } from 'src/models/entities/favoriteApartmentInfo.entity';
 import { ApartmentImagesAsBLOB } from 'src/models/entities/apartmentImagesAsBLOB.entity';
+import { TransformerService } from './transformer.service';
+import { ReturnApartmentDTO } from 'src/models/dtos/apartmentDTOs/return-apartment.dto';
 
 @Injectable()
 export class ApartmentsService {
@@ -17,10 +19,11 @@ export class ApartmentsService {
         @InjectRepository(Images) private readonly imagesRepository: Repository<Images>,
         @InjectRepository(User) private readonly usersRepository: Repository<User>,
         @InjectRepository(FavoriteApartmentInfo) private readonly favoriteApartmentInfoRepository: Repository<FavoriteApartmentInfo>,
-        @InjectRepository(ApartmentImagesAsBLOB) private readonly apartmentImagesAsBLOBRepository: Repository<ApartmentImagesAsBLOB>,
+        // @InjectRepository(ApartmentImagesAsBLOB) private readonly apartmentImagesAsBLOBRepository: Repository<ApartmentImagesAsBLOB>,
+
+        private readonly transformerService: TransformerService
     ) { }
-    async createApartment(userId, files, CreateApartmentDTO: CreateApartmentDTO): Promise<Apartment> {
-        // console.log(files)
+    async createApartment(userId, files, CreateApartmentDTO: CreateApartmentDTO): Promise<ReturnApartmentDTO> {
         const images = new Images()
         images.images = files.map(image => image.filename.toString()).join(' ')
         const createdImages = await this.imagesRepository.save(images)
@@ -45,11 +48,18 @@ export class ApartmentsService {
         apartment.author = user;
        
         const createdApartment = await this.apartmentRepository.save(apartment);
-        return createdApartment
+        const foundApartment = await this.apartmentRepository.findOne({
+            where: {
+                id: createdApartment.id
+            },
+            relations: ['images', 'author', 'favoriteOf']
+        })
+
+        return this.transformerService.toReturnApartmentDTO(foundApartment)
 
     };
 
-    async searchApartments(queryData: any): Promise<any> {
+    async searchApartments(queryData: any): Promise<ReturnApartmentDTO[]> {
         const area = queryData.area.split('_')
         const rooms = queryData.rooms.split('_')
         const foundApartment = await this.apartmentRepository.find({
@@ -61,39 +71,36 @@ export class ApartmentsService {
                 constructionType: queryData.construction ? queryData.construction : In(["brick", "panel", "EPK", "Not specified"]),
                 parking: queryData.parking ? queryData.parking : In(["no parking", "dedicated spot", "garage", "Not specified"]),
             },
-            relations: ['images']
+            relations: ['images', 'favoriteOf', 'author']
         })
-
-        // console.log(queryData)
-        // console.log(foundApartment)
-        return foundApartment;
+        return foundApartment.map(apartment => this.transformerService.toReturnApartmentDTO(apartment)) 
         
     }
-    async getApartmentById(apartmentId: number): Promise<Apartment> {
+    async getApartmentById(apartmentId: number): Promise<ReturnApartmentDTO> {
         const foundApartment = await this.apartmentRepository.findOne({
             where: {
                 id: apartmentId
             },
-            relations: ['images', 'author']
+            relations: ['images','favoriteOf', 'author']
         })
 
-        return foundApartment;
+        return this.transformerService.toReturnApartmentDTO(foundApartment);
         
     }
     
-    async getApartmentsByUserId(userId: number): Promise<Apartment[]> {
+    async getApartmentsByUserId(userId: number): Promise<ReturnApartmentDTO[]> {
         const foundApartments = await this.apartmentRepository.find({
             where: {
                 author: userId
             },
-            relations: ['images', 'favoriteOf']
+            relations: ['images', 'author', 'favoriteOf']
         })
 
-        return foundApartments;
+        return foundApartments.map(apartment => this.transformerService.toReturnApartmentDTO(apartment));
         
     }
 
-    async updateApartmentViews(apartmentId: number): Promise<Apartment> {
+    async updateApartmentViews(apartmentId: number): Promise<ReturnApartmentDTO> {
         const foundApartment = await this.apartmentRepository.findOne({
             where: {
                 id: apartmentId
@@ -103,10 +110,10 @@ export class ApartmentsService {
         foundApartment.views = foundApartment.views + 1
         await this.apartmentRepository.save(foundApartment)
 
-        return foundApartment;
+        return this.transformerService.toReturnApartmentDTO(foundApartment);
         
     }
-    async getFavoriteApartmentsOfUser(userId: number): Promise<Apartment[]> {
+    async getFavoriteApartmentsOfUser(userId: number): Promise<ReturnApartmentDTO[]> {
         const foundUser = await this.usersRepository.findOne({
             where: {
                 id: userId
@@ -121,7 +128,7 @@ export class ApartmentsService {
                 where: {
                     id: apartment.id
                 },
-                relations: ['images']
+                relations: ['images', 'author', 'favoriteOf']
             })
             const foundInfo = await this.favoriteApartmentInfoRepository.findOne({
                 where: {
@@ -131,15 +138,14 @@ export class ApartmentsService {
                  relations: ['author', 'apartment']
             })
 
-            // const info = foundInfo.filter(info => info.author.id === foundUser.id && info.apartment.id === apartment.id)
-            favoriteApartments.push({apartmentInfo: foundApartment, userInfo:  foundInfo ? foundInfo : {}})
+            favoriteApartments.push({apartmentInfo: this.transformerService.toReturnApartmentDTO(foundApartment), userInfo:  foundInfo ? foundInfo : {}})
         }
 
         return favoriteApartments;
         
     }
 
-    async addToFavorites(body: any): Promise<any> {
+    async addToFavorites(body: any): Promise<ReturnApartmentDTO> {
 
         const apartmentId = body.apartmentId;
         const userId = body.userId;
@@ -148,14 +154,13 @@ export class ApartmentsService {
             where: {
                 id: apartmentId
             },
-            relations: ['images', 'favoriteOf']
+            relations: ['images', 'favoriteOf', 'author']
         })
         const foundUser = await this.usersRepository.findOne({
             where: {
                 id: userId
             },
         })
-        // console.log(foundApartment.favoriteOf, foundUser)
         const favoriteOf = foundApartment.favoriteOf.map(user => user.id)
         if(favoriteOf.includes(foundUser.id)) {
             foundApartment.favoriteOf = foundApartment.favoriteOf.filter(user => user.id !== foundUser.id)
@@ -164,27 +169,26 @@ export class ApartmentsService {
         }
         await this.apartmentRepository.save(foundApartment)
 
-        return foundApartment;
+        return this.transformerService.toReturnApartmentDTO(foundApartment);
         
     }
-    async addToRecommended(apartmentId: number): Promise<any> {
+    async addToRecommended(apartmentId: number): Promise<ReturnApartmentDTO> {
 
         const foundApartment = await this.apartmentRepository.findOne({
             where: {
                 id: apartmentId
             },
         })
-        // console.log(foundApartment.favoriteOf, foundUser)
        
         foundApartment.isRecommended = !foundApartment.isRecommended
 
         await this.apartmentRepository.save(foundApartment)
 
-        return foundApartment;
+        return this.transformerService.toReturnApartmentDTO(foundApartment);
         
     }
 
-    async getRecommended(): Promise<any> {
+    async getRecommended(): Promise<ReturnApartmentDTO[] | string> {
         const foundApartment = await this.apartmentRepository.find({
             where: {
                 isRecommended: true
@@ -192,36 +196,12 @@ export class ApartmentsService {
             relations: ['images']
         })
        
-       return foundApartment ? foundApartment : 'Didn\'t find any recommended apartments!'
+       return foundApartment ? foundApartment.map(apartment => this.transformerService.toReturnApartmentDTO(apartment)) : 'Didn\'t find any recommended apartments!'
         
     }
 
-    // async addImageAsBlob(body: any): Promise<any> {
-    //     console.log(body)
-
-    //     const apartmentId = body.apartmentId;
-    //     // const userId = body.userId;
-
-    //     const foundApartment = await this.apartmentRepository.findOne({
-    //         where: {
-    //             id: apartmentId
-    //         },
-    //         relations: ['images', 'favoriteOf', 'imageBlob']
-    //     })
-
-    //     const image = new ApartmentImagesAsBLOB;
-    //     image.image = body.blob
-    //     const savedImage = await this.apartmentImagesAsBLOBRepository.save(image)
-       
-    //     foundApartment.imageBlob.push(savedImage)
-    //     // console.log(foundApartment.favoriteOf, foundUser)
-        
-    //     await this.apartmentRepository.save(foundApartment)
-
-    //     return foundApartment;
-        
-    // }
-    async addInfoToFavoriteApartment(body: any): Promise<any> {
+   
+    async addInfoToFavoriteApartment(body: any): Promise<UpdateResult | FavoriteApartmentInfo> {
         const apartmentId = body.apartmentId;
         const userId = body.userId;
         const infoId = body.id
@@ -246,7 +226,7 @@ export class ApartmentsService {
                 street: body.street,
             })
 
-            return updated //  return something else
+            return updated;
         }
 
         const newInfo = new FavoriteApartmentInfo;
@@ -263,4 +243,30 @@ export class ApartmentsService {
         return createdInfo
         
     }
+
+     // async addImageAsBlob(body: any): Promise<any> {
+    //     console.log(body)
+
+    //     const apartmentId = body.apartmentId;
+    //     // const userId = body.userId;
+
+    //     const foundApartment = await this.apartmentRepository.findOne({
+    //         where: {
+    //             id: apartmentId
+    //         },
+    //         relations: ['images', 'favoriteOf', 'imageBlob']
+    //     })
+
+    //     const image = new ApartmentImagesAsBLOB;
+    //     image.image = body.blob
+    //     const savedImage = await this.apartmentImagesAsBLOBRepository.save(image)
+       
+    //     foundApartment.imageBlob.push(savedImage)
+    //     // console.log(foundApartment.favoriteOf, foundUser)
+        
+    //     await this.apartmentRepository.save(foundApartment)
+
+    //     return foundApartment;
+        
+    // }
 }

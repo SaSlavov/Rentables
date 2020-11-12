@@ -55,6 +55,7 @@ const Search = (props) => {
         })
             .then(r => r.json())
             .then(res => {
+                console.log(res)
                 localStorage.setItem('searchResult', JSON.stringify(res))
                 setDataState({ data: JSON.stringify(res) });
                 props.history.push('/apartments');

@@ -37,14 +37,14 @@ export class Apartment {
     @Column({default: 0})
     size: number;
 
-    @ManyToMany(
-        () => ApartmentImagesAsBLOB,
-        image => image.image,
+    // @ManyToMany(
+    //     () => ApartmentImagesAsBLOB,
+    //     image => image.image,
         
-    )
-    @JoinTable()
+    // )
+    // @JoinTable()
     
-    imageBlob: any[];
+    // imageBlob: any[];
     
 
     @OneToOne(

@@ -40,13 +40,4 @@ export class User {
     )
     favoriteApartments: Apartment[];   
     
-    
-
-//     @ManyToMany(
-//         () => Board,
-//         board => board.id
-//     )
-//     @JoinTable()
-//     boardsInvitations: Board[];
-// };
 }

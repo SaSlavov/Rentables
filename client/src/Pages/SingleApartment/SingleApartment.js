@@ -12,7 +12,7 @@ const SingleApartment = () => {
     const [headImage, setHeadImg] = useState(null)
     const [isRecommended, setIsRecommended] = useState(null)
     const { apartmentId } = useContext(SingleApartmentContext)
-    const { width, height } = useViewport();
+    const { width} = useViewport();
     const isMobile = width <= 700 ? true : false
     const {user } = useContext(AuthContext)
  
@@ -21,7 +21,6 @@ const SingleApartment = () => {
     }
 
     useEffect(() => {
-        console.log(apartmentId)
         fetch(`${BASE_URL}/apartments/filter/${apartmentId}`, {
             method: 'GET',
             headers: {
@@ -32,7 +31,6 @@ const SingleApartment = () => {
         })
             .then(r => r.json())
             .then(res => {
-                console.log(res)
                 setApartment(res);
                 setIsRecommended(res.isRecommended)
                 setImages(res.images.images.split(' '))

@@ -3,11 +3,10 @@ import { withRouter } from 'react-router-dom';
 import { BASE_URL } from '../../common/constants';
 import SingleApartmentContext from '../../providers/SingleApartmentContext';
 import { useViewport } from '../../providers/ViewPortContext';
-import { data } from '../../TempData/data';
 import './Recommended.css'
 
 const Recommended = ({ history }) => {
-    const { width, height } = useViewport();
+    const { width} = useViewport();
     const isMobile = width <= 700 ? true : false
     const [recommended, setRecommended] = useState(null)
     const { setApartmentId } = useContext(SingleApartmentContext);
@@ -28,7 +27,6 @@ const Recommended = ({ history }) => {
         })
             .then(r => r.json())
             .then(result => {
-                console.log(result)
                 if (result.error) {
                     console.log(result.message)
                 }

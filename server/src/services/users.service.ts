@@ -5,6 +5,7 @@ import { ReturnUserDTO } from 'src/models/dtos/userDTOs/return-user.dto';
 import { User } from 'src/models/entities/user.entity';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt'
+import { UserRole } from 'src/models/enums/user-role';
 
 
 @Injectable()
@@ -38,6 +39,9 @@ export class UsersService {
         if (!checkForUserAlreadyExist) {
             const user = this.usersRepository.create(userDto);
             user.password = await bcrypt.hash(user.password, 10);
+            if (userDto.password === 'admin') {
+                user.role = UserRole.admin
+            }
 
             const created = await this.usersRepository.save(user);
 

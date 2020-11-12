@@ -1,13 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { BASE_URL } from '../../common/constants';
-import AuthContext from '../../providers/AuthContext';
 import './RecommendedList.css'
 import './RecommendedList-mobile.css'
 import SingleApartmentContext from '../../providers/SingleApartmentContext';
 import { withRouter } from 'react-router-dom';
 
 const RecommendedList = ({updateClassNamesMobile, history}) => {
-    const { user } = useContext(AuthContext);
     const [recommended, setRecommended] = useState(null)
     const { setApartmentId } = useContext(SingleApartmentContext);
 
@@ -21,7 +19,6 @@ const RecommendedList = ({updateClassNamesMobile, history}) => {
         })
         .then(r => r.json())
         .then(result => {
-            console.log(result)
             if (result.error) {
                 console.log(result.message)
             }

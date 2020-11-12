@@ -20,7 +20,7 @@ const Search = (props) => {
     const [showAllAreas, setShowAllAreas] = useState(null)
     const [showAllRooms, setShowAllRooms] = useState(null)
     const { setDataState } = useContext(SearchResultContext)
-    const { width, height } = useViewport();
+    const { width } = useViewport();
     const isMobile = width <= 700 ? true : false
 
     const updateClassNames = (className) => {
@@ -55,7 +55,6 @@ const Search = (props) => {
         })
             .then(r => r.json())
             .then(res => {
-                console.log(res)
                 localStorage.setItem('searchResult', JSON.stringify(res))
                 setDataState({ data: JSON.stringify(res) });
                 props.history.push('/apartments');

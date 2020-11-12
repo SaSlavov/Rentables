@@ -1,17 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { BASE_URL } from '../../common/constants';
 import AuthContext from '../../providers/AuthContext';
-import SingleApartmentContext from '../../providers/SingleApartmentContext';
 import { useViewport } from '../../providers/ViewPortContext';
 import './FavoriteApartments.css'
 import './FavoriteApartments-mobile.css'
 
 const FavoriteApartments = () => {
-    const { user } = useContext(AuthContext)
-    const [apartments, setApartments] = useState(null)
-    const { apartmentId } = useContext(SingleApartmentContext)
-    const { width, height } = useViewport();
-    const isMobile = width <= 700 ? true : false
+    const { user } = useContext(AuthContext);
+    const [apartments, setApartments] = useState(null);
+    const { width,} = useViewport();
+    const isMobile = width <= 700 ? true : false;
 
     const [apartmentInfo, setApartmentInfo] = useState({
         userId: user.id,
@@ -62,9 +60,7 @@ const FavoriteApartments = () => {
             body: JSON.stringify({ ...info, apartmentId: apartmentId, })
         })
             .then(r => r.json())
-            .then(res => {
-                console.log(res)
-            })
+           
     }
 
     useEffect(() => {
@@ -78,7 +74,6 @@ const FavoriteApartments = () => {
         })
             .then(r => r.json())
             .then(res => {
-                console.log(res)
                 setApartments(res);
             })
     }, [user.id])

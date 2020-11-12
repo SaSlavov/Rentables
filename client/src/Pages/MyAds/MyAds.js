@@ -10,7 +10,7 @@ const MyAds = (props) => {
     const { user } = useContext(AuthContext)
     const { setApartmentId } = useContext(SingleApartmentContext)
     const [apartments, setApartments] = useState(null)
-    const { width, height } = useViewport();
+    const { width } = useViewport();
     const isMobile = width <= 700 ? true : false
     const history = props.history
 
@@ -35,18 +35,12 @@ const MyAds = (props) => {
         })
             .then(r => r.json())
             .then(res => {
-                console.log(res)
                 setApartments(res);
-                // setImages(res[0].images.images.split(' '))
-                // setHeadImg(res[0].images.images.split(' ')[0])
-                // setHeadImg(res.images)
             })
     }, [])
 
-console.log(apartments)
     return (
         <>
-            {/* <div className="background" ></div> */}
             <div className={updateClassNames("my-ads-container")}>
             {apartments && apartments.map(apartment => {
                         return <div

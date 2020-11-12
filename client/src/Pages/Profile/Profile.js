@@ -11,7 +11,7 @@ import './Profile-mobile.css'
 const Profile = () => {
     const { user } = useContext(AuthContext)
     const [isEditActive, setIsEditActive] = useState(false)
-    const { width, height } = useViewport();
+    const { width } = useViewport();
     const isMobile = width <= 700 ? true : false;
     const [activeButtons, setActiveButtons] = useState({
         info: true,
@@ -63,7 +63,6 @@ const Profile = () => {
 
         for (let key of buttons) {
             if (key === prop) {
-                console.log('prop');
                 continue;
             }
             temporaryState[key] = false;
@@ -72,7 +71,6 @@ const Profile = () => {
         setActiveButtons(temporaryState);
 
     }
-    // console.log(accountInfo)
 
     const updateClassNames = (className) => {
         const buttons = Object.keys(activeButtons)

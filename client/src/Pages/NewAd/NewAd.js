@@ -14,7 +14,7 @@ const NewAd = () => {
     const [suggestedArea, setSuggestedArea] = useState(null)
     const [selectedArea, setSelectedArea] = useState([])
     const [isDeleteButtonForAreasVisible, setIsDeleteButtonForAreasVisible] = useState(null)
-    const { width, height } = useViewport();
+    const { width } = useViewport();
     const isMobile = width <= 700 ? true : false
     const { user } = useContext(AuthContext)
     const [apartmentInfo, setApartmentInfo] = useState({
@@ -35,7 +35,6 @@ const NewAd = () => {
     const constructionType = useRef()
     const parking = useRef()
     const areaInput = useRef()
-    const [blobImage, setBlobImage] = useState(null)
 
     const updateClassNames = (className) => {
         return isMobile? className += '-mobile' : className
@@ -91,27 +90,27 @@ const NewAd = () => {
         </div>
     }
 
-    const createBlob = (file) => {
-        let blob = new Blob(file);
-        let url = URL.createObjectURL(blob)
-        setBlobImage(blob)
-        console.log('blob',blob)
-        console.log('url',url)
-    }
+    // const createBlob = (file) => {
+    //     let blob = new Blob(file);
+    //     let url = URL.createObjectURL(blob)
+    //     setBlobImage(blob)
+    //     console.log('blob',blob)
+    //     console.log('url',url)
+    // }
 
-    const saveBlobInBase = () => {
-        fetch(`${BASE_URL}/apartments/imageBlob/`, {
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
-            },
-            body: blobImage,
-        })
-            .then(r => r.json())
-            .then(res => {
-                console.log(res)
-            })
-    }
+    // const saveBlobInBase = () => {
+    //     fetch(`${BASE_URL}/apartments/imageBlob/`, {
+    //         method: 'POST',
+    //         headers: {
+    //             Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
+    //         },
+    //         body: blobImage,
+    //     })
+    //         .then(r => r.json())
+    //         .then(res => {
+    //             console.log(res)
+    //         })
+    // }
 
     return (
         <>
@@ -151,7 +150,7 @@ const NewAd = () => {
                     <input className={updateClassNames("size-input")} type="text" placeholder="Size" onChange={(e) => updateApartmentInfo('size', e.target.value)}></input>
                     <input className={updateClassNames("floor-input")} type="text" placeholder="Floor" onChange={(e) => updateApartmentInfo('floor', e.target.value)}></input>
                     <textarea className={updateClassNames("description-input")} type="text" placeholder="Description" onChange={(e) => updateApartmentInfo('description', e.target.value)}></textarea>
-                    <input className={updateClassNames("images-input")} type="file" multiple onChange={(e) => { addImages(e, imagesForPreview, setImagesForPreview); (setImages([...images, ...e.target.files])); createBlob(e.target.files) }}></input>
+                    <input className={updateClassNames("images-input")} type="file" multiple onChange={(e) => { addImages(e, imagesForPreview, setImagesForPreview); (setImages([...images, ...e.target.files])) }}></input>
                     {suggestedArea &&
                         <div tabIndex="1" className={updateClassNames("area-suggest-result")} onBlur={(e) => !(e.relatedTarget && e.relatedTarget.className === "area-suggest-result") && setSuggestedArea(null)}>
                             {suggestedArea.map(area => {

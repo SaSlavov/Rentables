@@ -4,19 +4,17 @@ import AuthContext from '../../providers/AuthContext';
 import SearchResultContext from '../../providers/SearchResultContext';
 import SingleApartmentContext from '../../providers/SingleApartmentContext';
 import { useViewport } from '../../providers/ViewPortContext';
-import SingleApartment from '../SingleApartment/SingleApartment';
 import './SearchResult.css'
 
 const SearchResult = (props) => {
     const { data } = useContext(SearchResultContext);
     const { user } = useContext(AuthContext);
     const { setApartmentId } = useContext(SingleApartmentContext);
-    const [isApartmentVisible, setIsApartmentvisible] = useState(false);
     const searchResult = typeof data === 'string' ? JSON.parse(data) : data;
     const [favoriteApartments, setFavoriteApartments] = useState(null)
     const [heartClicked, setHeartClicked] = useState(false)
     const [page, setPage] = useState(1)
-    const { width, height } = useViewport();
+    const { width } = useViewport();
     const isMobile = width <= 700 ? true : false
     const history = props.history
 
@@ -35,7 +33,6 @@ const SearchResult = (props) => {
         })
             .then(r => r.json())
             .then(res => {
-                // console.log(res)
                 setFavoriteApartments(res.map(apartment => apartment.apartmentInfo.id));
             })
     }, [heartClicked])
@@ -51,7 +48,6 @@ const SearchResult = (props) => {
         })
             .then(r => r.json())
             .then(res => {
-                // console.log(res)
                 setHeartClicked(!heartClicked)
             })
     }

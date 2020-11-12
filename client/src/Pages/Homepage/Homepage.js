@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import Login from '../../components/Login/Login';
-import QuickSearch from '../../components/QuickSearch/QuickSearch';
 import Recommended from '../../components/Recommended/Recommended';
 import Register from '../../components/Register/Register';
 import ActiveRegisterOrLogInContext from '../../providers/ActiveRegisterOrLogInContext';
@@ -12,7 +11,7 @@ import './Homepage.css'
 const Homepage = () => {
     const { active } = useContext(ActiveRegisterOrLogInContext)
     const { isLoggedIn, } = useContext(AuthContext);
-    const { width, height } = useViewport();
+    const { width } = useViewport();
     const isMobile = width <= 700 ? true : false
 
     const updateClassNames = (className) => {
@@ -21,13 +20,8 @@ const Homepage = () => {
 
     return (
         <>
-            {/* <div className="background" ></div> */}
             <div className={updateClassNames("homepage-container")}>
-                {/* <div className="search-container">
-                </div> */}
-                    <Search />
-                {/* <div className="recommended">
-                </div> */}
+                <Search />
                 <Recommended />
                 {!isLoggedIn && <div className={updateClassNames("make-them-register")}>
                     <div className="reasons">

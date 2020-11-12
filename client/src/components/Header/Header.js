@@ -10,7 +10,7 @@ const Header = (props) => {
 
     const { setActiveState } = useContext(ActiveRegisterOrLogInContext);
     const { user, isLoggedIn, setLoginState } = useContext(AuthContext);
-    const { width, height } = useViewport();
+    const { width } = useViewport();
     const isMobile = width <= 700 ? true : false
     const [isBurgerBtnClicked, setIsBurgerBtnClicked] = useState(false)
     const [location, setLocation] = useState(null)
@@ -19,7 +19,6 @@ const Header = (props) => {
 
     useEffect(() => {
         if (location !== props.location.pathname) {
-            console.log('diff')
             setLocation(props.location.pathname);
             setIsBurgerBtnClicked(false);
         }

@@ -22,11 +22,7 @@ const MyAdsStatistics = ({isMobile, updateClassNamesMobile, history}) => {
         })
             .then(r => r.json())
             .then(res => {
-                console.log(res)
                 setApartments(res);
-                // setImages(res[0].images.images.split(' '))
-                // setHeadImg(res[0].images.images.split(' ')[0])
-                // setHeadImg(res.images)
             })
     }, [])
 

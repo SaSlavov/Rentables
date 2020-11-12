@@ -23,3 +23,7 @@
     height: 145px;
     width: 250px;
 }
+
+.single-apartment-title {
+    cursor: pointer;
+}

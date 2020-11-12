@@ -14,12 +14,10 @@ import ActiveRegisterOrLogInContext from './providers/ActiveRegisterOrLogInConte
 import AuthContext, { extractUser, getToken } from './providers/AuthContext';
 import SearchResultContext, { extractData } from './providers/SearchResultContext';
 import SingleApartmentContext, { extractApartmentID } from './providers/SingleApartmentContext';
-import { useViewport, ViewportProvider } from './providers/ViewPortContext';
+import { ViewportProvider } from './providers/ViewPortContext';
 
 function App() {
-  // const { width, height } = useViewport();
   const isMobile = window.innerWidth <= 700 ? true : false
-  // console.log('is mobile')
 
   const [searchResult, setSearchResult] = useState({
     data: extractData()
